@@ -1,6 +1,6 @@
 {
   "name": "hyperons",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Renders JSX components to HTML strings without a framework.",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
@@ -12,7 +12,13 @@
     "lint": "prettier --config .prettierrc.json --list-different src/** test/**",
     "test": "npm run lint && npm run spec"
   },
-  "keywords": ["html", "hyperscript", "jsx", "renderer", "strings"],
+  "keywords": [
+    "html",
+    "hyperscript",
+    "jsx",
+    "renderer",
+    "strings"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/i-like-robots/hyperons.git"
