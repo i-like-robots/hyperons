@@ -2,39 +2,45 @@
 
 [![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://badge.fury.io/js/hyperons.svg)](https://badge.fury.io/js/hyperons)
 
-Renders components written in JSX to HTML without a framework.
+Renders components written in JSX to HTML without a framework, on the server or in the browser.
 
 ## Installation
 
-Hyperons is distributed as a [npm](https://www.npmjs.com/) package and can be installed with the npm CLI:
+This is a [Node.js][node] module available through the [npm][npm] registry. Before installing, download and install Node.js. Node.js 6 or higher is required.
+
+Installation is done using the [npm install][install] command:
 
 ```sh
 $ npm install -S hyperons
 ```
 
+[node]: https://nodejs.org/en/
+[npm]: https://www.npmjs.com/
+[install]: https://docs.npmjs.com/getting-started/installing-npm-packages-locally
+
 ## Usage
 
-This module provides a single function. If you've worked with [React][react] or React-like frameworks before then this function can be considered equivalent to `React.createElement` but it creates and returns strings of HTML markup instead of framework specific descriptions of elements. The function looks like this:
+This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement`, but instead of returning framework specific code it creates and returns strings of HTML markup.
 
 ```
 hyperons(element, [properties], [...children])
 ```
 
-Just like `React.createElement` it is a variadic function\* which supports the following arguments:
+And just like `React.createElement` it supports the following arguments:
 
-* `element`, This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
-* `properties`, An optional object of HTML element attributes. See the [properties documentation][#properties] for more information.
-* `...children`, An optional number of child elements. See the [children documentation](#children) for more information.
+* `element` This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
+* `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
+* `...children`\* An optional number of child elements. See the [children documentation](#children) for more information.
 
-\* Variadic means that the function accepts a variable number of arguments. The `...` before the last arguments name is a rest parameter, this means it will collect "the rest" of the arguments.
+\* The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments up in an array.
 
 [react]: https://reactjs.org/
 [hoc]: https://reactjs.org/docs/higher-order-components.html
-[hs]: https://github.com/hyperhype/hyperscript
+[rest]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
-### Writing components with vanilla JS
+### Vanilla JS
 
-Example:
+You can use Hyperons as-is without any complex build pipelines or compilation, but I'd recommend using [JSX](#jsx) to more clearly describe your markup.
 
 ```js
 import h from 'hyperons'
@@ -44,7 +50,7 @@ const html = h('div', { className: 'welcome' },
   h('p', null, 'This text was rendered with Hyperons'))
 ```
 
-### Writing components with JSX
+### JSX
 
 _Not familiar with JSX? Check out [WTF is JSX][wtf] and [JSX in Depth][in-depth] first._
 
@@ -53,9 +59,7 @@ If you're authoring your components with JSX syntax you will need to first trans
 * [Babel](https://babeljs.io/) (with [the JSX plugin](https://babeljs.io/docs/plugins/transform-react-jsx/))
 * [Bublé](https://github.com/Rich-Harris/buble) (with [JSX enabled](https://buble.surge.sh/guide/#jsx))
 
-Whichever tool you use you will need to specify the JSX _pragma_ to use. The pragma is the name of the variable you assign Hyperons to. In the following example the pragma is `h`:
-
-Input:
+Whichever tool you use you will need to specify the JSX _pragma_ for the transpiler to use. The pragma is the name of the variable you assign Hyperons to. In the following example the pragma is `h`:
 
 ```jsx
 import h from 'hyperons'
@@ -69,7 +73,7 @@ const html = <div className="welcome">
 [wtf]: https://jasonformat.com/wtf-is-jsx/
 [in-depth]: https://reactjs.org/docs/jsx-in-depth.html
 
-## Syntax
+## Overview
 
 ### Properties
 
@@ -134,7 +138,7 @@ Please note that child elements will not be rendered for [void elements][void].
 
 ```jsx
 const Container = ({ children }) => <p>{children}</p>
-const html = h(Container, null, 'Hello') // will output <p>Hello</p>
+const html = <Container>{'Hello'}</Container> // will output <p>Hello</p>
 ```
 
 [void]: https://www.w3.org/TR/html/syntax.html#void-elements
@@ -154,11 +158,13 @@ const html = { __html: '<i>Mac &amp; Cheese</i>' }
 
 > In particle physics, a hyperon is any baryon containing one or more strange quarks, but no charm
 
-In keeping with React and the wider ecosystem I wanted to use a physics-sounding name but something small and light. Given the number of packages on the npm repository this is all I could find.
+— [Wikipedia](https://simple.wikipedia.org/wiki/Hyperon)
+
+In keeping with React and the wider ecosystem we wanted to give this project a science-related name but also something that implies being small and light. Thus, Hyperons.
 
 ### Prior art
 
-This module was inspired by the [vhtml][vhtml] package and also borrows from other JSX to string implementations:
+This module was inspired by the [vhtml][vhtml] package and also borrows from a few other JSX to string implementations:
 
 * [Hyperapp Render][hyperapp] (style stringification)
 * [React DOM][react-dom] (boolean attributes)
