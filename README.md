@@ -17,7 +17,7 @@ $ npm install -S hyperons
 This module provides a single function. If you've worked with [React][react] or React-like frameworks before then this function can be considered equivalent to `React.createElement` but it creates and returns strings of HTML markup instead of framework specific descriptions of elements. The function looks like this:
 
 ```
-hyperons(element[, properties[, ...children])
+hyperons(element, [properties], [...children])
 ```
 
 Just like `React.createElement` it is a variadic function\* which supports the following arguments:

@@ -27,20 +27,26 @@ function fragment(node) {
   return /^</.test(node) && />$/.test(node)
 }
 
-function hyperons(element, attributes, ...children) {
-  if (element === null) {
+/**
+ * Hyperons
+ * @param {String|Function} element
+ * @param {Object|null} props
+ * @param {...String|String[]} children
+ */
+function hyperons(element, props, ...children) {
+  if (element == null) {
     return ''
   }
 
   // support for higher-order components
   if (typeof element === 'function') {
-    return element({ ...attributes, children })
+    return element({ ...props, children })
   }
 
   let out = `<${element}`
 
-  if (attributes) {
-    out += stringifyAttributes(attributes)
+  if (props) {
+    out += stringifyAttributes(props)
   }
 
   // if a self-closing void element has children then
@@ -49,8 +55,8 @@ function hyperons(element, attributes, ...children) {
   } else {
     out += '>'
 
-    if (attributes && attributes[INNER_HTML] && attributes[INNER_HTML].__html) {
-      out += attributes[INNER_HTML].__html
+    if (props && props[INNER_HTML] && props[INNER_HTML].__html) {
+      out += props[INNER_HTML].__html
     } else {
       out += childElements(children)
     }
