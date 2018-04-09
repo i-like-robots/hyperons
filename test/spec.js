@@ -15,6 +15,12 @@ describe('vhtml', () => {
       const result = subject('br')
       expect(result).html.to.equal('<br />')
     })
+
+    it('invokes higher-order components', () => {
+      const hoc = (attrs) => subject('span', attrs)
+      const result = subject(hoc, { className: 'hoc' })
+      expect(result).html.to.equal('<span class="hoc"></span>')
+    })
   })
 
   describe('attributes', () => {
@@ -135,6 +141,12 @@ describe('vhtml', () => {
       ])
 
       expect(result).html.to.equal('<div><i>Hello</i> <i>World</i>!</div>')
+    })
+
+    it('passes children to higher-order components', () => {
+      const hoc = (props) => subject('ul', null, props.children)
+      const result = subject(hoc, null, subject('li', null, 'one'), subject('li', null, 'two'))
+      expect(result).html.to.equal('<ul><li>one</li><li>two</li></ul>')
     })
 
     it('allows setting inner HTML', () => {
