@@ -1,0 +1,4 @@
+test/
+.editorconfig
+.prettierrc.json
+rollup.config.js
