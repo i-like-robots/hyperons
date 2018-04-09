@@ -36,22 +36,24 @@ function hyphenate(property) {
 
 function stringifyStyles(styles) {
   let out = ''
-  const keys = Object.keys(styles)
 
-  for (let i = 0; i < keys.length; i++) {
-    const name = keys[i]
-    let value = styles[name]
+  for (const prop in styles) {
+    const value = styles[prop]
 
-    if (typeof value === 'number' && value !== 0 && !UNITLESS.has(name)) {
-      value += 'px'
+    if (value == null) {
+      continue
     }
 
-    if (value !== null && value !== undefined) {
-      out += `${hyphenate(name)}:${value};`
+    out += `${hyphenate(prop)}:${value}`
+
+    if (typeof value === 'number' && value !== 0 && !UNITLESS.has(prop)) {
+      out += 'px'
     }
+
+    out += ';'
   }
 
-  return out || null
+  return out
 }
 
 export default stringifyStyles

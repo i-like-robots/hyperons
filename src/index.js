@@ -27,7 +27,7 @@ function fragment(node) {
   return /^</.test(node) && />$/.test(node)
 }
 
-function vhtml(element, attributes = {}, ...children) {
+function hyperons(element, attributes, ...children) {
   if (element === null) {
     return ''
   }
@@ -61,4 +61,4 @@ function vhtml(element, attributes = {}, ...children) {
   return out
 }
 
-export default vhtml
+export default hyperons

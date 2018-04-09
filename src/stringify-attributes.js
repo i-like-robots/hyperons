@@ -27,17 +27,9 @@ const BOOLEAN = new Set([
   'selected'
 ])
 
-const ALIASES = new Map([
-  ['htmlFor', 'for'],
-  ['className', 'class']
-])
+const ALIASES = new Map([['htmlFor', 'for'], ['className', 'class']])
 
-const IGNORE = new Set([
-  'key',
-  'ref',
-  'children',
-  'dangerouslySetInnerHTML'
-])
+const IGNORE = new Set(['key', 'ref', 'children', 'dangerouslySetInnerHTML'])
 
 const PAD = ' '
 
