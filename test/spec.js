@@ -4,7 +4,7 @@ const subject = require('../')
 
 use(html)
 
-describe('vhtml', () => {
+describe('Hyperons', () => {
   describe('elements', () => {
     it('renders simple elements', () => {
       const result = subject('div')

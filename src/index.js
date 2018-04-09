@@ -1,4 +1,5 @@
 import escapeString from './escape-string'
+import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
 
 // https://www.w3.org/TR/html/syntax.html#void-elements
@@ -51,19 +52,7 @@ function vhtml(element, attributes = {}, ...children) {
     if (attributes && attributes[INNER_HTML] && attributes[INNER_HTML].__html) {
       out += attributes[INNER_HTML].__html
     } else {
-      while (children.length) {
-        const child = children.shift()
-
-        if (child) {
-          // handle nested arrays of children
-          if (Array.isArray(child)) {
-            children = child.concat(children)
-          } else {
-            // don't double escape any markup output by this element
-            out += fragment(child) ? child : escapeString(child)
-          }
-        }
-      }
+      out += childElements(children)
     }
 
     out += `</${element}>`

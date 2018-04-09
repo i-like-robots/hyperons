@@ -29,12 +29,14 @@ const BOOLEAN = new Set([
 
 const ALIASES = new Map([
   ['htmlFor', 'for'],
-  ['className', 'class'],
-  // ignored arbitrary framework attributes
-  ['key', null],
-  ['ref', null],
-  ['children', null],
-  ['dangerouslySetInnerHTML', null]
+  ['className', 'class']
+])
+
+const IGNORE = new Set([
+  'key',
+  'ref',
+  'children',
+  'dangerouslySetInnerHTML'
 ])
 
 const PAD = ' '
@@ -55,11 +57,16 @@ function stringifyAttributes(attributes) {
   let out = ''
 
   for (const item in attributes) {
-    const name = ALIASES.has(item) ? ALIASES.get(item) : item.toLowerCase()
+    // ignore arbitrary framework properties
+    if (IGNORE.has(item)) {
+      continue
+    }
+
+    const name = ALIASES.get(item) || item.toLowerCase()
     const value = attributes[item]
 
-    // don't attempt to stringify ignored props, event listeners, or empty values
-    if (name == null || value == null || typeof value === 'function') {
+    // don't attempt to stringify empty values or event listeners
+    if (value == null || typeof value === 'function') {
       continue
     }
 
