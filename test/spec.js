@@ -44,14 +44,19 @@ describe('vhtml', () => {
     })
 
     context('boolean attributes', () => {
-      it('does not append attributes with a value of false', () => {
-        const result = subject('div', { hidden: false })
-        expect(result).html.to.equal('<div></div>')
+      it('does not append boolean attributes with a falsy value', () => {
+        const result = subject('details', { hidden: false, open: 0 })
+        expect(result).html.to.equal('<details></details>')
       })
 
-      it('does appends attributes with a value of true', () => {
-        const result = subject('div', { hidden: true })
-        expect(result).html.to.equal('<div hidden></div>')
+      it('does appends boolean attributes with a truthy value', () => {
+        const result = subject('details', { hidden: true, open: 1 })
+        expect(result).html.to.equal('<details hidden open></details>')
+      })
+
+      it('renders values for enumerable attributes with boolean values', () => {
+        const result = subject('div', { contenteditable: true, spellcheck: false })
+        expect(result).html.to.equal('<div contenteditable="true" spellcheck="false"></div>')
       })
     })
 
