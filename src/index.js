@@ -1,3 +1,4 @@
+import extend from './extend'
 import escapeString from './escape-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
@@ -35,7 +36,7 @@ function hyperons(element, props, ...children) {
 
   // support for higher-order components
   if (typeof element === 'function') {
-    return element({ ...props, children })
+    return element(extend(props, { children }))
   }
 
   let out = `<${element}`
