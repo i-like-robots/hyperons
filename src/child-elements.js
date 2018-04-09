@@ -1,12 +1,8 @@
 import escapeString from './escape-string'
 
-const START = /^</
-
-const END = />$/
-
-// without being able to define props on strings this is a best guess heuristic
+// without being able to define props on strings this is a risky heuristic
 function isFragment(node) {
-  return START.test(node) && END.test(node)
+  return node.startsWith('<') && node.endsWith('>')
 }
 
 function childElements(children) {

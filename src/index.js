@@ -22,11 +22,6 @@ const VOID_ELEMENTS = new Set([
 
 const INNER_HTML = 'dangerouslySetInnerHTML'
 
-// best guess if a child element was rendered by this module
-function fragment(node) {
-  return /^</.test(node) && />$/.test(node)
-}
-
 /**
  * Hyperons
  * @param {String|Function} element
@@ -55,8 +50,8 @@ function hyperons(element, props, ...children) {
   } else {
     out += '>'
 
-    if (props && props[INNER_HTML] && props[INNER_HTML].__html) {
-      out += props[INNER_HTML].__html
+    if (props && props[INNER_HTML]) {
+      out += props[INNER_HTML].__html || ''
     } else {
       out += childElements(children)
     }

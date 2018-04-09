@@ -9,7 +9,7 @@ const ESCAPE_MAP = new Map([
   ['>', '&gt;']
 ])
 
-function swap(char) {
+function escapeChar(char) {
   return ESCAPE_MAP.get(char)
 }
 
@@ -19,7 +19,7 @@ function escapeString(value) {
     return '' + value
   }
 
-  return ('' + value).replace(ESCAPE, swap)
+  return ('' + value).replace(ESCAPE, escapeChar)
 }
 
 export default escapeString
