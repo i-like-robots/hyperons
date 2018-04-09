@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://badge.fury.io/js/hyperons.svg)](https://badge.fury.io/js/hyperons)
 
-> Renders JSX components to HTML strings without a framework.
+Renders components written in JSX to HTML without a framework.
 
 ## Installation
 
@@ -73,13 +73,11 @@ const html = <div className="welcome">
 
 ### Properties
 
-[HTML attributes][attrs] may be written in camelCase or in lowercase. For example, the HTML attribute `tabindex` may be written as `tabIndex` or `tabindex`.
-
-Attributes written in camelCase will be converted to lowercase but not hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should therefore be written in lowercase with hyphens.
+Properties are a map of [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
 
 Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
 
-Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a truthy value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
+Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a truthy value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered along with their value.
 
 Any framework specific properties such as `key` and `ref` will not be rendered.
 
@@ -88,11 +86,11 @@ Any framework specific properties such as `key` and `ref` will not be rendered.
 
 ### Styles
 
-CSS styles may be declared in an object which Hyperons will stringify. Style properties may be declared in camelCase, in which case they will be lowercased and hyphenated.
+Styles may be declared as a map of CSS properties and values which will be rendered to a string. CSS properties may be declared in camelCase, in which case they will be lowercased and hyphenated. For example, the property `white-space` may be written as `whiteSpace`.
 
-Properties may be assigned a number value to which a pixel unit will be automatically added, except for properties which expect a unitless value.
+Pixel units will be automatically added to numbers except for certain properties which expect a unitless value.
 
-Input:
+Example styles input:
 
 ```js
 const style = {
@@ -105,7 +103,7 @@ const style = {
 <div style={style}></div>
 ```
 
-Output:
+Example styles output:
 
 ```html
 <div style="display:flex;flex-shrink:1;margin-bottom:20px;-webkit-hyphens:auto;>
@@ -113,7 +111,7 @@ Output:
 
 ### HTML entities
 
-Hyperons will escape all strings, so if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work-around this issue. The easiest one is to write the unicode character directly in Javascript (you will need to save your source file with UTF-8 encoding) or you can find the [unicode number][charcode] for the required character:
+Hyperons will escape all strings, so if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work-around this issue, the easiest of which is to write the unicode character directly in your code (you will need to save your source file with UTF-8 encoding) or you can find the [unicode number][charcode] for the required character:
 
 ```jsx
 // incorrect, double escapes ambersand: <h1>Mac &amp;amp; Cheese</h1>
@@ -128,22 +126,22 @@ Hyperons will escape all strings, so if you need to display a HTML entity, you w
 
 ### Children
 
-Components may render any number of child elements. CHildren can be a text string, other components, or a combination of both.
+Components may render any number of child elements. Children can be strings, other components, or a combination of both.
 
 Functions provided to the first argument of Hyperons will have any children appended as an extra `children` property. This functionality allows you to re-use and compose components in useful ways.
+
+Please note that child elements will not be rendered for [void elements][void].
 
 ```jsx
 const Container = ({ children }) => <p>{children}</p>
 const html = h(Container, null, 'Hello') // will output <p>Hello</p>
 ```
 
-Please note that child elements will not be rendered for [void elements][void].
-
 [void]: https://www.w3.org/TR/html/syntax.html#void-elements
 
 ### Inner HTML
 
-Hyperons supports the `dangerouslySetInnerHTML` property to directly inject unescaped HTML code. This is potentially dangerous and should never be used for any user input, but it can be useful as a last resort.
+Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTML code. This is potentially dangerous and should never be used around any user input, but it can be useful as a last resort.
 
 ```jsx
 const html = { __html: '<i>Mac &amp; Cheese</i>' }

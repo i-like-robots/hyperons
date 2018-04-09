@@ -1,7 +1,7 @@
 {
   "name": "hyperons",
   "version": "0.1.1",
-  "description": "Renders JSX components to HTML strings without a framework.",
+  "description": "Renders components written in JSX to HTML without a framework.",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
   "scripts": {
@@ -37,5 +37,8 @@
     "prettier": "^1.11.1",
     "rollup": "^0.57.1",
     "rollup-plugin-buble": "^0.19.2"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   }
 }
