@@ -23,28 +23,28 @@ describe('Hyperons', () => {
     })
   })
 
-  describe('attributes', () => {
-    it('renders attribute names and values', () => {
+  describe('properties', () => {
+    it('renders HTML attribute names and values', () => {
       const result = subject('form', { action: '/submit', method: 'post' })
       expect(result).html.to.equal('<form action="/submit" method="post"></form>')
     })
 
-    it('does not render null or undefined attributes', () => {
+    it('does not render null or undefined HTML attributes', () => {
       const result = subject('div', { itemtype: null, itemprop: undefined })
       expect(result).html.to.equal('<div></div>')
     })
 
-    it('ignores framework specific attributes', () => {
+    it('ignores framework specific properties', () => {
       const result = subject('div', { key: 'item', children: [] })
       expect(result).html.to.equal('<div></div>')
     })
 
-    it('aliases no-conflict keyword attributes', () => {
+    it('aliases conflicting JS keywords', () => {
       const result = subject('label', { className: 'label', htmlFor: 'id' })
       expect(result).html.to.equal('<label class="label" for="id"></label>')
     })
 
-    it('escapes attribute values', () => {
+    it('escapes HTML attribute values', () => {
       const result = subject('img', { alt: '"Mac & Cheese"' })
       expect(result).html.to.equal('<img alt="&quot;Mac &amp; Cheese&quot;" />')
     })
@@ -55,18 +55,18 @@ describe('Hyperons', () => {
         expect(result).html.to.equal('<details></details>')
       })
 
-      it('does appends boolean attributes with a truthy value', () => {
+      it('appends boolean attributes with a truthy value', () => {
         const result = subject('details', { hidden: true, open: 1 })
         expect(result).html.to.equal('<details hidden open></details>')
       })
 
-      it('renders values for enumerable attributes with boolean values', () => {
+      it('renders boolean values for enumerable attributes', () => {
         const result = subject('div', { contenteditable: true, spellcheck: false })
         expect(result).html.to.equal('<div contenteditable="true" spellcheck="false"></div>')
       })
     })
 
-    context('style attribute', () => {
+    context('styles', () => {
       it('stringifies style attributes', () => {
         const result = subject('div', { style: { padding: '0.5em 1em', margin: '1em 0' } })
         expect(result).html.to.equal('<div style="padding:0.5em 1em;margin:1em 0;"></div>')

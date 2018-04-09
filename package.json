@@ -1,7 +1,7 @@
 {
   "name": "hyperons",
   "version": "0.0.1",
-  "description": "Renders JSX to HTML strings.",
+  "description": "Renders JSX components to HTML strings without a framework.",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
   "scripts": {
