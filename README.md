@@ -20,13 +20,13 @@ $ npm install -S hyperons
 
 ## Usage
 
-This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement`, but instead of returning framework specific code it creates and returns strings of HTML markup.
+This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement` but instead of returning framework specific code it creates and returns strings of HTML markup.
 
 ```
 hyperons(element, [properties], [...children])
 ```
 
-And just like `React.createElement` it supports the following arguments:
+Just like `React.createElement` it accepts the following arguments:
 
 * `element` This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
 * `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
@@ -40,7 +40,7 @@ And just like `React.createElement` it supports the following arguments:
 
 ### Vanilla JS
 
-You can use Hyperons as-is without any complex build pipelines or compilation, but I'd recommend using [JSX](#jsx) to more clearly describe your markup.
+You can use Hyperons as-is without any complex build pipelines or compilation steps, but I'd recommend using [JSX](#jsx) to more clearly describe your markup.
 
 ```js
 import h from 'hyperons'
@@ -54,12 +54,9 @@ const html = h('div', { className: 'welcome' },
 
 _Not familiar with JSX? Check out [WTF is JSX][wtf] and [JSX in Depth][in-depth] first._
 
-If you're authoring your components with JSX syntax you will need to first transpile your code into plain JavaScript in order to run them. Depending on the toolchain you are using there will be different plugins available to do this, some popular tools to transpile JavaScript are:-
+If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you are using there will be different plugins available to do this, some popular tools to transpile JavaScript are [Babel][babel] (with [the JSX plugin][babel-jsx]) and [Bublé][buble] (with [JSX enabled][buble-jsx]).
 
-* [Babel](https://babeljs.io/) (with [the JSX plugin](https://babeljs.io/docs/plugins/transform-react-jsx/))
-* [Bublé](https://github.com/Rich-Harris/buble) (with [JSX enabled](https://buble.surge.sh/guide/#jsx))
-
-Whichever tool you use you will need to specify the JSX _pragma_ for the transpiler to use. The pragma is the name of the variable you assign Hyperons to. In the following example the pragma is `h`:
+Whichever tool you use you will need to specify the JSX _pragma_ for the transpiler to target. The pragma is the name of the variable you assign Hyperons to. For example, in the code below the pragma is `h`:
 
 ```jsx
 import h from 'hyperons'
@@ -72,16 +69,20 @@ const html = <div className="welcome">
 
 [wtf]: https://jasonformat.com/wtf-is-jsx/
 [in-depth]: https://reactjs.org/docs/jsx-in-depth.html
+[babel]: https://babeljs.io/
+[babel-jsx]: https://babeljs.io/docs/plugins/transform-react-jsx/
+[buble]: https://github.com/Rich-Harris/buble
+[buble-jsx]: https://buble.surge.sh/guide/#jsx
 
 ## Overview
 
 ### Properties
 
-Properties are a map of [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
+Properties are an object containing [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
 
 Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
 
-Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a truthy value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered along with their value.
+Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a truthy value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
 
 Any framework specific properties such as `key` and `ref` will not be rendered.
 
@@ -90,9 +91,9 @@ Any framework specific properties such as `key` and `ref` will not be rendered.
 
 ### Styles
 
-Styles may be declared as a map of CSS properties and values which will be rendered to a string. CSS properties may be declared in camelCase, in which case they will be lowercased and hyphenated. For example, the property `white-space` may be written as `whiteSpace`.
+Styles may be declared as an object with CSS properties and values. Any CSS properties written in camelCase will be converted to lowercase and hyphenated. For example, the property `white-space` may be written as `whiteSpace`.
 
-Pixel units will be automatically added to numbers except for certain properties which expect a unitless value.
+Pixel units will be automatically added to numbers unless the property expects a unitless value.
 
 Example styles input:
 
@@ -151,6 +152,15 @@ Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTM
 const html = { __html: '<i>Mac &amp; Cheese</i>' }
 <div dangerouslySetInnerHTML={html}></div>
 ```
+
+## Development
+
+The source code for this module is written in ES6 code and bundled into single files for distribution using [Rollup][rollup]. Tests are written using [Mocha][mocha] as the test runner and [Chai][chai] for assertions. Tests are run in both a Node.js environment and in a browser using [Puppeteer][puppeteer].
+
+[rollup]: https://rollupjs.org/guide/en
+[mocha]: https://mochajs.org/
+[chai]: http://www.chaijs.com/
+[puppeteer]: https://github.com/GoogleChrome/puppeteer
 
 ## Background
 
