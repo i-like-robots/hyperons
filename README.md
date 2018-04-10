@@ -18,6 +18,14 @@ $ npm install -S hyperons
 [npm]: https://www.npmjs.com/
 [install]: https://docs.npmjs.com/getting-started/installing-npm-packages-locally
 
+## Features
+
+* Share code between your React single-page apps and plain HTML pages
+* Balances speed, code complexity, and correctness of output
+* Render your components on the server and in the browser
+* Very small code size (1.25kb gzipped)
+* Support for CSS stringification, boolean attributes, void elements and more
+
 ## Usage
 
 This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement` but instead of returning framework specific code it creates and returns strings of HTML markup.
@@ -91,27 +99,27 @@ Any framework specific properties such as `key` and `ref` will not be rendered.
 
 ### Styles
 
-Styles may be declared as an object with CSS properties and values. Any CSS properties written in camelCase will be converted to lowercase and hyphenated. For example, the property `white-space` may be written as `whiteSpace`.
+The `style` attribute accepts a JavaScript object containing CSS properties and values.
 
-Pixel units will be automatically added to numbers unless the property expects a unitless value.
+Style properties may be camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. `element.style.marginBottom`). Vendor prefixes other than "ms" should begin with a capital letter. This is why `WebkitHyphens` has an uppercase "W".
 
-Example styles input:
+Hyperons will automatically append a `px` suffix to numbers, but certain properties will remain unitless (e.g. `z-index` or `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
 
-```js
-const style = {
+```jsx
+// Input:
+const styles = {
+  position: 'absolute',
   display: 'flex',
-  flexShrink: 1,
+  order: 2,
+  width: '50%',
   marginBottom: 20,
   WebkitHyphens: 'auto',
 }
 
-<div style={style}></div>
-```
+<div style={styles}></div>
 
-Example styles output:
-
-```html
-<div style="display:flex;flex-shrink:1;margin-bottom:20px;-webkit-hyphens:auto;>
+// Output:
+<div style="display:flex;order:2;width:50%;margin-bottom:20px;-webkit-hyphens:auto;></div>
 ```
 
 ### HTML entities
@@ -153,7 +161,9 @@ const html = { __html: '<i>Mac &amp; Cheese</i>' }
 <div dangerouslySetInnerHTML={html}></div>
 ```
 
-## Development
+## Project information
+
+### Development
 
 The source code for this module is written in ES6 code and bundled into single files for distribution using [Rollup][rollup]. Tests are written using [Mocha][mocha] as the test runner and [Chai][chai] for assertions. Tests are run in both a Node.js environment and in a browser using [Puppeteer][puppeteer].
 
@@ -161,8 +171,6 @@ The source code for this module is written in ES6 code and bundled into single f
 [mocha]: https://mochajs.org/
 [chai]: http://www.chaijs.com/
 [puppeteer]: https://github.com/GoogleChrome/puppeteer
-
-## Background
 
 ### Name
 
@@ -183,6 +191,6 @@ This module was inspired by the [vhtml][vhtml] package and also borrows from a f
 [hyperapp]: https://github.com/hyperapp/render
 [react-dom]: https://github.com/facebook/react/tree/master/packages/react-dom
 
-## License
+### License
 
 Hyperons is MIT licensed.
