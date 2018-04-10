@@ -12,6 +12,7 @@
     "test:browser": "mocha-headless-chrome -f test/runner.html -r dot",
     "test:build": "rollup -c test/rollup.config.js",
     "test:lint": "prettier --config .prettierrc.json --list-different **/*.js",
+    "test:coverage": "nyc --reporter=lcov npm run test:node",
     "test": "npm run test:lint && npm run test:node && npm run test:browser"
   },
   "keywords": [
@@ -34,8 +35,10 @@
   "devDependencies": {
     "buble": "^0.19.3",
     "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
     "mocha": "^5.0.5",
     "mocha-headless-chrome": "^1.8.3",
+    "nyc": "^11.6.0",
     "prettier": "^1.11.1",
     "rollup": "^0.57.1",
     "rollup-plugin-commonjs": "^9.1.0"
