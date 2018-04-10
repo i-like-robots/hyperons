@@ -24,7 +24,7 @@ $ npm install -S hyperons
 * Balances speed, code complexity, and correctness of output
 * Render your components on the server and in the browser
 * Very small code size (1.25kb gzipped)
-* Support for CSS stringification, boolean attributes, void elements and more
+* Support for CSS stringification, boolean attributes, void elements, and more
 
 ## Usage
 
@@ -38,9 +38,9 @@ Just like `React.createElement` it accepts the following arguments:
 
 * `element` This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
 * `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
-* `...children`\* An optional number of child elements. See the [children documentation](#children) for more information.
+* `...children` An optional number of child elements<sup>\*</sup>. See the [children documentation](#children) for more information.
 
-\* The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments up in an array.
+<sup>\*</sup> The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments up in an array.
 
 [react]: https://reactjs.org/
 [hoc]: https://reactjs.org/docs/higher-order-components.html

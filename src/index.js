@@ -52,7 +52,7 @@ function hyperons(element, props, ...children) {
     out += '>'
 
     if (props && props[INNER_HTML]) {
-      out += props[INNER_HTML].__html || ''
+      out += props[INNER_HTML].__html
     } else {
       out += childElements(children)
     }

@@ -13,6 +13,11 @@ describe('Hyperons', () => {
       expect(result).to.equal('<br/>')
     })
 
+    it('does not render null elements', () => {
+      const result = subject(null)
+      expect(result).to.equal('')
+    })
+
     it('invokes higher-order components', () => {
       const hoc = (attrs) => subject('span', attrs)
       const result = subject(hoc, { className: 'hoc' })
@@ -107,6 +112,11 @@ describe('Hyperons', () => {
       expect(result).to.equal('<div>Hello World</div>')
     })
 
+    it('renders numeric children', () => {
+      const result = subject('div', null, 123)
+      expect(result).to.equal('<div>123</div>')
+    })
+
     it('escapes text children', () => {
       const result = subject('div', null, '"Mac & Cheese"')
       expect(result).to.equal('<div>&quot;Mac &amp; Cheese&quot;</div>')
@@ -133,8 +143,7 @@ describe('Hyperons', () => {
     it('renders nested children', () => {
       const result = subject('div', null, [
         subject('i', null, 'Hello'),
-        ' ',
-        [subject('i', null, 'World'), '!']
+        [' ', [subject('i', null, 'World'), '!']]
       ])
 
       expect(result).to.equal('<div><i>Hello</i> <i>World</i>!</div>')
