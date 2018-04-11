@@ -28,7 +28,7 @@ $ npm install -S hyperons
 
 ## Usage
 
-This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement` but instead of returning framework specific code it creates and returns strings of HTML markup.
+This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement` but instead of returning a virtual DOM it creates and returns [safe strings](#safe-strings) of HTML.
 
 ```
 hyperons(element, [properties], [...children])
@@ -38,9 +38,7 @@ Just like `React.createElement` it accepts the following arguments:
 
 * `element` This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
 * `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
-* `...children` An optional number of child elements<sup>\*</sup>. See the [children documentation](#children) for more information.
-
-<sup>\*</sup> The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments up in an array.
+* `...children` An optional number of child elements. See the [children documentation](#children) for more information. The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments.
 
 [react]: https://reactjs.org/
 [hoc]: https://reactjs.org/docs/higher-order-components.html
@@ -159,6 +157,22 @@ Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTM
 ```jsx
 const html = { __html: '<i>Mac &amp; Cheese</i>' }
 <div dangerouslySetInnerHTML={html}></div>
+```
+
+### Safe strings
+
+Hyperons escapes all strings but because JavaScript will process the innermost elements first, Hyperons needs a way to recognise what it has already output so that it doesn't escape it again. To do this the `hyperons` function returns an object called a `SafeString`.
+
+The `SafeString` object extends the global `String` object, so you can call all of the string methods upon it, concatenate it to other strings etc.
+
+The drawback of returning an object rather is that the Hyperons output cannot be compared to a plain string (a string declared in single or double-quotes). To do so you must first convert it to a plain string:
+
+```js
+import h from 'hyperons'
+
+h('div', null, 'No') === '<div>No</div>' // false
+
+h('div', null, 'Yes').toString() === '<div>Yes</div>' // true
 ```
 
 ## Project information
