@@ -1,4 +1,5 @@
 import extend from './extend'
+import SafeString from './safe-string'
 import escapeString from './escape-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
@@ -60,7 +61,7 @@ function hyperons(element, props, ...children) {
     out += `</${element}>`
   }
 
-  return out
+  return new SafeString(out)
 }
 
 export default hyperons
