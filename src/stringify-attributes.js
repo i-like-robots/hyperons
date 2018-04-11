@@ -31,18 +31,16 @@ const ALIASES = new Map([['htmlFor', 'for'], ['className', 'class'], ['defaultVa
 
 const IGNORE = new Set(['key', 'ref', 'children', 'dangerouslySetInnerHTML'])
 
-const PAD = ' '
-
 function boolean(name, value) {
-  return value ? `${PAD}${name}` : ''
+  return value ? ` ${name}` : ''
 }
 
 function enumerable(name, value) {
-  return `${PAD}${name}="${escapeString(value)}"`
+  return ` ${name}="${escapeString(value)}"`
 }
 
 function styles(name, value) {
-  return `${PAD}${name}="${stringifyStyles(value)}"`
+  return ` ${name}="${stringifyStyles(value)}"`
 }
 
 function stringifyAttributes(attributes) {
