@@ -3,6 +3,7 @@ const UPPERCASE = /([A-Z])/g
 const MS = /^ms-/
 
 const UNITLESS = new Set([
+  'animationIterationCount',
   'columns',
   'columnCount',
   'flex',
@@ -11,17 +12,15 @@ const UNITLESS = new Set([
   'fontWeight',
   'gridColumn',
   'gridColumnEnd',
-  'gridColumnGap',
   'gridColumnStart',
   'gridRow',
   'gridRowEnd',
-  'gridRowGap',
   'gridRowStart',
-  'lineClamp',
   'lineHeight',
   'opacity',
   'order',
   'orphans',
+  'tabSize',
   'widows',
   'zIndex',
   'zoom'
