@@ -27,7 +27,7 @@ const BOOLEAN = new Set([
   'selected'
 ])
 
-const ALIASES = new Map([['htmlFor', 'for'], ['className', 'class']])
+const ALIASES = new Map([['htmlFor', 'for'], ['className', 'class'], ['defaultValue', 'value']])
 
 const IGNORE = new Set(['key', 'ref', 'children', 'dangerouslySetInnerHTML'])
 
