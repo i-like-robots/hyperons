@@ -2,7 +2,12 @@ import escapeString from './escape-string'
 
 // without being able to define props on strings this is a risky heuristic
 function isFragment(node) {
-  return typeof node === 'string' && node.startsWith('<') && node.endsWith('>')
+  if (typeof node !== 'string') {
+    return false
+  }
+
+  // <https://jsperf.com/string-beginning-and-ending>
+  return node.charCodeAt(0) === 60 && node.charCodeAt(node.length - 1) === 62
 }
 
 function childElements(children) {
