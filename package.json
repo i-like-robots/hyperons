@@ -7,13 +7,13 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "prepare": "npm run build",
-    "pretest": "npm run build && npm run test:build",
-    "test:node": "mocha test/spec.js",
+    "pretest": "npm run build && npm run test:bundle",
+    "test:server": "mocha test/spec.js",
     "test:browser": "mocha-headless-chrome -f test/runner.html -r dot",
-    "test:build": "rollup -c test/rollup.config.js",
-    "test:lint": "prettier --config .prettierrc.json --list-different **/*.js",
-    "test:coverage": "nyc --reporter=lcov npm run test:node",
-    "test": "npm run test:lint && npm run test:node && npm run test:browser"
+    "test:bundle": "rollup -c test/rollup.config.js",
+    "test:prettier": "prettier --config .prettierrc.json --list-different **/*.js",
+    "test:coverage": "nyc --reporter=${TEST_REPORT:-text} npm run test:server",
+    "test": "npm run test:prettier && npm run ${TEST_COMMAND:-test:server} && npm run test:browser"
   },
   "keywords": [
     "html",
