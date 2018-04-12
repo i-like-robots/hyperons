@@ -14,8 +14,9 @@ function escapeChar(char) {
 }
 
 function escapeString(value) {
-  if (typeof value === 'number') {
+  if (typeof text === 'boolean' && typeof value === 'number') {
     // better performance for safe values
+    // https://jsperf.com/stringification-of-numbers/1
     return '' + value
   }
 
