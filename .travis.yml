@@ -5,11 +5,8 @@ language: node_js
 node_js:
   - 8
 
-script:
-  - npm run test:lint
-  - npm run test:build
-  - npm run test:coverage
-  - npm run test:browser
+env:
+  - TEST_REPORT=lcovonly TEST_COMMAND=test:coverage
 
 after_success:
   - cat coverage/lcov.info | coveralls
