@@ -33,6 +33,8 @@ This module provides two functions; `h` and `render`. If you've worked with [Rea
 The major difference between Hyperon's `h` function and React's `createElement` is that instead of returning a framework specific representation of the element (the [virtual DOM][vdom]) it creates and returns a string object (_[what is this?](#string-safety)_).
 
 ```js
+import { h } from 'hyperons'
+
 h(element, [properties], [...children])
 ```
 
@@ -43,6 +45,8 @@ Just like `React.createElement` it accepts the following arguments:
 * `...children` An optional number of child elements. See the [children documentation](#children) for more information. The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments.
 
 ```js
+import { render } from 'hyperons'
+
 render(string)
 ```
 
@@ -53,20 +57,20 @@ This method converts a string object returned by Hyperon's `h` method into a reg
 [hoc]: https://reactjs.org/docs/higher-order-components.html
 [rest]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
-```
-const html = render()
-```
-
 ### Vanilla JS
 
 You can use Hyperons as-is without any complex build pipelines or compilation steps, but I'd recommend using [JSX](#jsx) to more clearly describe your markup.
 
 ```js
-import h from 'hyperons'
+import { h, render } from 'hyperons'
 
-const html = h('div', { className: 'welcome' },
-  h('h1', null, 'Hello World!'),
-  h('p', null, 'This text was rendered with Hyperons'))
+function welcome () {
+  return h('div', { className: 'welcome' },
+    h('h1', null, 'Hello World!'),
+    h('p', null, 'This component was rendered with Hyperons'))
+}
+
+render(welcome())
 ```
 
 ### JSX
@@ -78,12 +82,18 @@ If you're authoring your components with JSX syntax you will need to transpile y
 Whichever tool you use you will need to specify the JSX _pragma_ for the transpiler to target. The pragma is the name of the variable you assign Hyperons to. For example, in the code below the pragma is `h`:
 
 ```jsx
-import h from 'hyperons'
+import { h, render } from 'hyperons'
 
-const html = <div className="welcome">
-  <h1>Hello World!</h1>
-  <p>This text was rendered with Hyperons</p>
-</div>
+function welcome () {
+  return (
+    <div className="welcome">
+      <h1>Hello World!</h1>
+      <p>This component was rendered with Hyperons</p>
+    </div>
+  )
+}
+
+render(welcome())
 ```
 
 [wtf]: https://jasonformat.com/wtf-is-jsx/
