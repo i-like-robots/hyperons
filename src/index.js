@@ -28,7 +28,8 @@ const INNER_HTML = 'dangerouslySetInnerHTML'
  * Hyperons
  * @param {String|Function} element
  * @param {Object|null} props
- * @param {...String|String[]} children
+ * @param {...String} children
+ * @returns {String|SafeString}
  */
 function hyperons(element, props, ...children) {
   if (element == null) {
@@ -64,4 +65,26 @@ function hyperons(element, props, ...children) {
   return new SafeString(out)
 }
 
-export default hyperons
+/**
+ * To primitive string
+ * @param {String} str
+ * @returns {String}
+ */
+function toPrimitiveString(str) {
+  if (str instanceof String) {
+    // <https://jsperf.com/string-literal-casting/1>
+    return str.toString()
+  }
+
+  if (typeof str === 'string') {
+    return str
+  }
+
+  return String(str)
+}
+
+export const h = hyperons
+export const createElement = hyperons
+
+export const render = toPrimitiveString
+export const renderToString = toPrimitiveString

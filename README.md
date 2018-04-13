@@ -28,10 +28,12 @@ $ npm install -S hyperons
 
 ## Usage
 
-This module provides a single function. If you've worked with [React][react] before then this function can be considered equivalent to `React.createElement` but instead of returning a virtual DOM it creates and returns [safe strings](#safe-strings) of HTML.
+This module provides two functions; `h` and `render`. If you've worked with [React][react] before then `h` can be considered equivalent to `React.createElement` and `render` equivalent to `ReactDOM.render` (in the browser) or `ReactDOM.renderToString` (on the server).
 
-```
-hyperons(element, [properties], [...children])
+The major difference between Hyperon's `h` function and React's `createElement` is that instead of returning a framework specific representation of the element (the [virtual DOM][vdom]) it creates and returns a string object (_[what is this?](#string-safety)_).
+
+```js
+h(element, [properties], [...children])
 ```
 
 Just like `React.createElement` it accepts the following arguments:
@@ -40,9 +42,20 @@ Just like `React.createElement` it accepts the following arguments:
 * `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
 * `...children` An optional number of child elements. See the [children documentation](#children) for more information. The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments.
 
+```js
+render(string)
+```
+
+This method converts a string object returned by Hyperon's `h` method into a regular string primitive. If you're not sure what this means, there is an [explanation below](#string-safety).
+
 [react]: https://reactjs.org/
+[vdom]: https://evilmartians.com/chronicles/optimizing-react-virtual-dom-explained
 [hoc]: https://reactjs.org/docs/higher-order-components.html
 [rest]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+
+```
+const html = render()
+```
 
 ### Vanilla JS
 
@@ -159,20 +172,27 @@ const html = { __html: '<i>Mac &amp; Cheese</i>' }
 <div dangerouslySetInnerHTML={html}></div>
 ```
 
-### Safe strings
+### String safety
 
-Hyperons escapes all strings but because JavaScript will process the innermost elements first, Hyperons needs a way to recognise what it has already output so that it doesn't escape it again. To do this the `hyperons` function returns an object called a `SafeString`.
+Hyperons escapes all strings passed to it but because JavaScript will process the deepest child elements _first_, the module needs a way to recognise what it has already output so that it doesn't escape it again. To do this the `h` method returns a string object (`new String()`) flagged as safe rather than a string primitive (`''` or `""`) which cannot have extra information added to it.
 
-The `SafeString` object extends the global `String` object, so you can call all of the string methods upon it, concatenate it to other strings etc.
-
-The drawback of returning an object rather is that the Hyperons output cannot be compared to a plain string (a string declared in single or double-quotes). To do so you must first convert it to a plain string:
+String objects can be used just like a string primitive, but there is one important difference which can affect decisions made in your code:
 
 ```js
-import h from 'hyperons'
+typeof new String() // "object"
+typeof ''           // "string"
+```
 
-h('div', null, 'No') === '<div>No</div>' // false
+There are many ways to change a string object into a string primitive, but the fastest ways are to use the `.toString()` method or the `render` function provided by Hyperons:
 
-h('div', null, 'Yes').toString() === '<div>Yes</div>' // true
+```js
+import { h, render } from 'hyperons'
+
+typeof h('div') // "object"
+typeof '' + h('div') // "string"
+typeof String(h('div')) // "string
+typeof h('div').toString() // "string" <- the fastest!
+typeof render(h('div')) // "string" <- also the fastest!
 ```
 
 ## Project information
