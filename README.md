@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://badge.fury.io/js/hyperons.svg)](https://badge.fury.io/js/hyperons)
 
-Renders components written in JSX to HTML without a framework, on the server or in the browser.
+### Write code in JSX. Render it to HTML. 
+On the server or in the browser. Framework free.
 
 ## Installation
 
@@ -40,9 +41,9 @@ h(element, [properties], [...children])
 
 Just like `React.createElement` it accepts the following arguments:
 
-* `element` This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
+* `element` This can be the name of a HTML element or a function which renders another string of HTML. (Useful if you'd like to use [higher-order components][hoc].)
 * `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
-* `...children` An optional number of child elements. See the [children documentation](#children) for more information. The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments.
+* `...children` An optional number of child elements. See the [children documentation](#children) for more information. The `...` before the argument name makes this a [rest parameter][rest]. This means it will collect "the rest" of the arguments.
 
 ```js
 import { render } from 'hyperons'
@@ -57,10 +58,12 @@ This method converts a string object returned by Hyperon's `h` method into a reg
 [hoc]: https://reactjs.org/docs/higher-order-components.html
 [rest]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
-### Vanilla JS
+### Vanilla JavaScript
 
-You can use Hyperons as-is without any complex build pipelines or compilation steps, but I'd recommend using [JSX](#jsx) to more clearly describe your markup.
+You can use Hyperons as-is without any complex build pipelines or compilation steps, but [I'd][author] recommend using [JSX](#jsx) to more clearly describe your markup.
 
+[author]: https://twitter.com/i_like_robots
+ 
 ```js
 import { h, render } from 'hyperons'
 
@@ -77,9 +80,9 @@ render(welcome())
 
 _Not familiar with JSX? Check out [WTF is JSX][wtf] and [JSX in Depth][in-depth] first._
 
-If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you are using there will be different plugins available to do this, some popular tools to transpile JavaScript are [Babel][babel] (with [the JSX plugin][babel-jsx]) and [Bublé][buble] (with [JSX enabled][buble-jsx]).
+If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you're using, different transpiler plugins are available. Some popular tools to transpile JavaScript are [Babel][babel] (with [the JSX plugin][babel-jsx]) and [Bublé][buble] (with [JSX enabled][buble-jsx]).
 
-Whichever tool you use you will need to specify the JSX _pragma_ for the transpiler to target. The pragma is the name of the variable you assign Hyperons to. For example, in the code below the pragma is `h`:
+Whichever tool you use, you will need to specify the JSX _pragma_ for the transpiler to target. The pragma is the name of the variable you assign Hyperons to. For example, in the code below the pragma is `h`:
 
 ```jsx
 import { h, render } from 'hyperons'
@@ -103,20 +106,26 @@ render(welcome())
 [buble]: https://github.com/Rich-Harris/buble
 [buble-jsx]: https://buble.surge.sh/guide/#jsx
 
-## Overview
+## Specifications
 
 ### Properties
 
-Properties are an object containing [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
+Properties are expressed in an object containing [HTML attributes][attrs] and values. 
 
-Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
+HTML attribute names may be written in camelCase or in lowercase. For example: The attribute `tabindex` may be written as `tabIndex`. 
 
-Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a truthy value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
+- Any HTML attributes written in camelCase will be converted to lowercase. They will not be hyphenated. 
+- Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens; not in camelCase.
 
-Any framework specific properties such as `key` and `ref` will not be rendered.
+Since `class` and `for` are [reserved words][words] in JavaScript, you may use the aliases `className` and `htmlFor` instead.
+
+Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a [truthy] value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
+
+Any framework-specific properties such as `key` and `ref` will not be rendered.
 
 [attrs]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 [words]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords
+[truthy]: https://developer.mozilla.org/en-US/docs/Glossary/Truthy
 
 ### Styles
 
@@ -145,15 +154,14 @@ const styles = {
 
 ### HTML entities
 
-Hyperons will escape all strings, so if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work-around this issue, the easiest of which is to write the unicode character directly in your code (you will need to save your source file with UTF-8 encoding) or you can find the [unicode number][charcode] for the required character:
+Hyperons will escape all strings. This means that if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work around this issue; the easiest of which is to write the unicode character directly in your code (if your source file has UTF-8 encoding). Otherwise you can find the [unicode number][charcode] for the required character. For example:
 
 ```jsx
-// incorrect, double escapes ambersand: <h1>Mac &amp;amp; Cheese</h1>
-<h1>Mac &amp; Cheese</h1>
-// correct, outputs: <h1>Mac &amp; Cheese</h1>
-<h1>Mac & Cheese</h1>
-// correct, outputs: <h1>Mac &amp; Cheese</h1>
-<h1>{`Mac ${String.fromCharCode(38)} Cheese`}</h1>
+<h1>Mac &amp; Cheese</h1> // Incorrect. Double-escaped ampersand: <h1>Mac &amp;amp; Cheese</h1>
+
+<h1>Mac & Cheese</h1> // Correct. Outputs: <h1>Mac &amp; Cheese</h1>
+
+<h1>{`Mac ${String.fromCharCode(38)} Cheese`}</h1> // Correct. Outputs: <h1>Mac &amp; Cheese</h1>
 ```
 
 [charcode]: https://www.fileformat.info/info/charset/UTF-8/list.htm
@@ -168,7 +176,7 @@ Please note that child elements will not be rendered for [void elements][void].
 
 ```jsx
 const Container = ({ children }) => <p>{children}</p>
-const html = <Container>{'Hello'}</Container> // will output <p>Hello</p>
+const html = <Container>{'Hello'}</Container> // Outputs: <p>Hello</p>
 ```
 
 [void]: https://www.w3.org/TR/html/syntax.html#void-elements
@@ -179,14 +187,16 @@ Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTM
 
 ```jsx
 const html = { __html: '<i>Mac &amp; Cheese</i>' }
-<div dangerouslySetInnerHTML={html}></div>
+<div dangerouslySetInnerHTML={html}></div> // Outputs: <i>Mac &amp; Cheese</i>
 ```
 
 ### String safety
 
-Hyperons escapes all strings passed to it but because JavaScript will process the deepest child elements _first_, the module needs a way to recognise what it has already output so that it doesn't escape it again. To do this the `h` method returns a string object (`new String()`) flagged as safe rather than a string primitive (`''` or `""`) which cannot have extra information added to it.
+All strings passed to Hyperons are escaped. But because JavaScript will process the deepest child elements first, the module needs a way to recognise what it has already output so that it doesn't escape the same element multiple times. 
 
-String objects can be used just like a string primitive, but there is one important difference which can affect decisions made in your code:
+To do this, the `h` method returns a string _object_ (`new String()`), which is flagged as "safe" — rather than a string _primitive_ (`''` or `""`), which cannot have extra information added to it.
+
+String objects can be used just like string primitives, but there is one important difference, which can affect decisions made in your code:
 
 ```js
 typeof new String() // "object"
