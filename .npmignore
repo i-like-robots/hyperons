@@ -1,4 +1,5 @@
 test/
+assets/
 .editorconfig
 .prettierrc.json
 rollup.config.js
