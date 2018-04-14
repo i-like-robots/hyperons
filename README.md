@@ -1,6 +1,9 @@
-# Hyperons
+<p align="center">
+  <img alt="Hyperons" src="https://cdn.rawgit.com/i-like-robots/hyperons/4b788429/assets/hyperons.svg" width="600">
+</p>
 
-[![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://badge.fury.io/js/hyperons.svg)](https://badge.fury.io/js/hyperons)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/i-like-robots/hyperons/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://img.shields.io/npm/v/hyperons.svg?style=flat)](https://www.npmjs.com/package/hyperons)
 
 Renders components written in JSX to HTML without a framework, on the server or in the browser.
 
@@ -84,14 +87,12 @@ Whichever tool you use you will need to specify the JSX _pragma_ for the transpi
 ```jsx
 import { h, render } from 'hyperons'
 
-function welcome () {
-  return (
+const welcome = () => (
     <div className="welcome">
-      <h1>Hello World!</h1>
+    <h1>Hyperons</h1>
       <p>This component was rendered with Hyperons</p>
     </div>
   )
-}
 
 render(welcome())
 ```
