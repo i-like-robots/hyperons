@@ -4,6 +4,7 @@
   "description": "Renders components written in JSX to HTML without a framework.",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
+  "browser": "dist/es5.js",
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "prepare": "npm run build",
@@ -41,7 +42,9 @@
     "nyc": "^11.6.0",
     "prettier": "^1.11.1",
     "rollup": "^0.57.1",
-    "rollup-plugin-commonjs": "^9.1.0"
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.3.0"
   },
   "engines": {
     "node": ">=6.0.0"

@@ -1,4 +1,5 @@
 import commonjs from 'rollup-plugin-commonjs'
+import nodeResolve from 'rollup-plugin-node-resolve'
 
 const chai = 'chai'
 
@@ -13,5 +14,5 @@ export default {
     format: 'iife'
   },
   external: [chai],
-  plugins: [commonjs()]
+  plugins: [nodeResolve({ browser: true }), commonjs()]
 }
