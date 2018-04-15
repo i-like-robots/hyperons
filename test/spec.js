@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { h, render } = require('../dist/cjs')
+const { h, render } = require('../')
 
 describe('Hyperons', () => {
   describe('elements', () => {

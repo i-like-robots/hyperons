@@ -1,5 +1,5 @@
 import extend from './extend'
-import SafeString from './safe-string'
+import safeString, { FLAG } from './safe-string'
 import escapeString from './escape-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
@@ -29,7 +29,7 @@ const INNER_HTML = 'dangerouslySetInnerHTML'
  * @param {String|Function} element
  * @param {Object|null} props
  * @param {...String} children
- * @returns {String|SafeString}
+ * @returns {String}
  */
 function hyperons(element, props, ...children) {
   if (element == null) {
@@ -62,7 +62,7 @@ function hyperons(element, props, ...children) {
     out += `</${element}>`
   }
 
-  return new SafeString(out)
+  return safeString(out)
 }
 
 /**
@@ -71,13 +71,9 @@ function hyperons(element, props, ...children) {
  * @returns {String}
  */
 function toPrimitiveString(str) {
-  if (str instanceof String) {
+  if (str.hasOwnProperty(FLAG)) {
     // <https://jsperf.com/string-literal-casting/1>
     return str.toString()
-  }
-
-  if (typeof str === 'string') {
-    return str
   }
 
   return String(str)
