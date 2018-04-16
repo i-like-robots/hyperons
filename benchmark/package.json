@@ -8,10 +8,13 @@
   "author": "Matt Hinchliffe <matt.hinchliffe@ft.com>",
   "license": "ISC",
   "scripts": {
+    "prepare": "npm run build",
+    "build": "rollup -c rollup.config.js",
     "start": "NODE_ENV=production node app.js"
   },
-  "dependencies": {
+  "devDependencies": {
     "@hyperapp/render": "^2.0.0",
+    "buble": "^0.19.3",
     "fastify": "^1.2.0",
     "hyperapp": "^1.2.5",
     "inferno": "^5.0.1",
@@ -25,10 +28,7 @@
     "rax-server-renderer": "^0.5.4",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "rollup": "^0.57.1"
-  },
-  "devDependencies": {
-    "buble": "^0.19.3",
+    "rollup": "^0.57.1",
     "rollup-plugin-buble": "^0.19.2"
   }
 }
