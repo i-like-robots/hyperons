@@ -1,8 +1,8 @@
-/dist
-/temp
-/coverage
-/node_modules
-/.nyc_output
+dist/
+temp/
+coverage/
+node_modules/
+.nyc_output/
 
 package-lock.json
 npm-debug.log

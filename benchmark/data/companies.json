@@ -1,0 +1,107 @@
+[
+  {
+    "id": "a21e4aae-2264-4bb5-9871-e11794f218f3",
+    "name": "Zaggles",
+    "phone": "+1 (992) 531-3739",
+    "address": "228 Amity Street, Longoria, New Jersey, 382",
+    "latitude": "-83.066166",
+    "longitude": "34.186516",
+    "description": "Dolor nisi pariatur proident irure ex.",
+    "tags": ["elit", "officia", "tempor", "esse"]
+  },
+  {
+    "id": "bae4ec23-7c8b-44a1-8031-a84708b06440",
+    "name": "Besto",
+    "phone": "+1 (845) 555-2936",
+    "address": "308 Fane Court, Walton, Arizona, 9319",
+    "latitude": "-49.623419",
+    "longitude": "-25.717461",
+    "description":
+      "Ad exercitation culpa sint id cupidatat adipisicing exercitation veniam officia ut anim.",
+    "tags": ["ullamco"]
+  },
+  {
+    "id": "b3a6638c-5b3e-46ec-b711-8a7b1e0ef1f4",
+    "name": "Dancity",
+    "phone": "+1 (882) 581-3413",
+    "address": "659 Bushwick Court, Martinez, Palau, 9995",
+    "latitude": "-43.601087",
+    "longitude": "169.805408",
+    "description":
+      "Proident adipisicing sint nisi deserunt dolore veniam adipisicing aliqua ullamco voluptate.",
+    "tags": ["enim"]
+  },
+  {
+    "id": "5451a4cb-8841-405b-a2f6-48d37332a475",
+    "name": "Chillium",
+    "phone": "+1 (977) 434-2601",
+    "address": "173 Delevan Street, Martell, Tennessee, 3144",
+    "latitude": "89.004702",
+    "longitude": "55.623008",
+    "description": "Excepteur irure elit exercitation ullamco tempor incididunt adipisicing Lorem.",
+    "tags": ["labore", "aliqua", "dolor", "aute"]
+  },
+  {
+    "id": "69da62e7-20c6-4e99-b91e-26fdbcb96f9b",
+    "name": "Quarx",
+    "phone": "+1 (959) 546-2710",
+    "address": "373 Sunnyside Avenue, Inkerman, Georgia, 4361",
+    "latitude": "-11.084727",
+    "longitude": "-77.394978",
+    "description": "Nulla deserunt cupidatat ad ullamco laboris consequat eu enim magna.",
+    "tags": ["laborum"]
+  },
+  {
+    "id": "e4c1bc8d-bdc7-4859-b750-9e48091ccc12",
+    "name": "Geekol",
+    "phone": "+1 (857) 583-3123",
+    "address": "182 Harman Street, Marshall, Oklahoma, 4495",
+    "latitude": "-45.22889",
+    "longitude": "-76.066739",
+    "description":
+      "Est cupidatat aute nostrud exercitation adipisicing aliquip ullamco minim laboris cupidatat anim.",
+    "tags": ["do", "sunt", "labore"]
+  },
+  {
+    "id": "c87b691a-b872-49d4-8d8f-6ca3bbd9d7f5",
+    "name": "Visalia",
+    "phone": "+1 (997) 533-3395",
+    "address": "140 Roebling Street, Shaft, Virginia, 3427",
+    "latitude": "-39.560481",
+    "longitude": "-109.087169",
+    "description":
+      "Velit dolore non occaecat dolore sit ipsum reprehenderit nulla esse non est incididunt elit.",
+    "tags": ["officia", "irure"]
+  },
+  {
+    "id": "dd01ed3f-a40a-44a2-9c1e-02c7fd6ad097",
+    "name": "Anarco",
+    "phone": "+1 (839) 565-2665",
+    "address": "105 Lorimer Street, Alleghenyville, Federated States Of Micronesia, 7385",
+    "latitude": "-84.529815",
+    "longitude": "-160.024486",
+    "description": "Reprehenderit id in et Lorem aute enim non minim.",
+    "tags": ["irure", "aliqua"]
+  },
+  {
+    "id": "45bc7260-0740-479d-a756-121b7c1d68cf",
+    "name": "Organica",
+    "phone": "+1 (878) 593-3236",
+    "address": "199 Madeline Court, Emison, Rhode Island, 4567",
+    "latitude": "10.779837",
+    "longitude": "-30.256885",
+    "description": "Consectetur ut cillum incididunt voluptate irure elit.",
+    "tags": ["laboris", "fugiat"]
+  },
+  {
+    "id": "f0aacbfb-f665-443c-9ba6-3a2b30836edf",
+    "name": "Zeam",
+    "phone": "+1 (960) 587-2470",
+    "address": "838 Village Road, Montura, Louisiana, 3624",
+    "latitude": "75.648538",
+    "longitude": "-49.393962",
+    "description":
+      "Esse ad duis ad incididunt elit mollit cillum reprehenderit ea fugiat eiusmod ad.",
+    "tags": ["et", "occaecat"]
+  }
+]

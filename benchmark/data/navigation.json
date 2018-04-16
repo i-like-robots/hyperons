@@ -1,0 +1,27 @@
+[
+  {
+    "url": "/",
+    "label": "Home",
+    "selected": false
+  },
+  {
+    "url": "/companies",
+    "label": "Companies",
+    "selected": true
+  },
+  {
+    "url": "/search",
+    "label": "Search",
+    "selected": false
+  },
+  {
+    "url": "/about",
+    "label": "About",
+    "selected": false
+  },
+  {
+    "url": "/contact",
+    "label": "Contact us",
+    "selected": false
+  }
+]
