@@ -1,3 +1,13 @@
-export const FLAG = '__safe__'
+class SafeString {
+  constructor(str) {
+    this.str = str
+  }
+  valueOf() {
+    return this.str
+  }
+  toString() {
+    return this.str
+  }
+}
 
-export default (str) => Object.defineProperty(new String(str), FLAG, { value: true })
+export default SafeString

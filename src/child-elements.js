@@ -1,4 +1,4 @@
-import { FLAG } from './safe-string'
+import SafeString from './safe-string'
 import escapeString from './escape-string'
 
 function childElements(children) {
@@ -12,7 +12,7 @@ function childElements(children) {
         out += childElements(child)
       } else {
         // don't double escape any markup output by this element
-        out += child.hasOwnProperty(FLAG) ? child : escapeString(child)
+        out += child instanceof SafeString ? child : escapeString(child)
       }
     }
   }
