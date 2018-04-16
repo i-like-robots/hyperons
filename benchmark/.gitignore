@@ -1,1 +1,3 @@
 app.pid
+isolate-*
+flamegraph.html
