@@ -12,9 +12,9 @@ sleep 5;
 # Create an empty file
 echo "Benchmark run on $(date) with Node $(node -v)" > results.txt;
 
-for endpoint in "hyperapp" "hyperons" "inferno" "nerv" "preact" "rax" "react"; do
-  echo "\n${endpoint}" >> results.txt;
-  ab -k -n "$count" -c "$concurrency" $server/$endpoint | grep "Requests per second:" >> results.txt;
+for module in "hyperapp" "hyperons" "inferno" "nerv" "preact" "rax" "react"; do
+  echo "\n${module}@$(npm info $module version)" >> results.txt;
+  ab -k -n "$count" -c "$concurrency" $server/$module | grep "Requests per second:" >> results.txt;
   sleep 5;
 done
 
