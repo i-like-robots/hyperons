@@ -1,6 +1,6 @@
 # Server-side rendering benchmark
 
-This is an application used to benchmark various JSX compatible rendering engines. It comprises of a Node.js Web server based upon [Fastify][1] and a script using [Apache Bench][2] to load test and record results.
+This is an application used to benchmark various JSX compatible rendering engines. It comprises of a Node.js Web server based upon [Fastify][1] and a script using [Apache Bench][2] to load test and record results. There is also a script to quickly profile and view a flame graph for Hyperons.
 
 [1]: https://github.com/fastify/fastify
 [2]: https://httpd.apache.org/docs/2.4/programs/ab.html
@@ -23,7 +23,7 @@ $ npm install -g flamebearer
 
 ## Usage
 
-To run the benchmark, run the bash script. Please ensure that any changes made to the Hyperons source code have been bundled.
+To run the benchmark execute the bash script. Before running the benchmark please ensure that any changes made to the Hyperons source code have been bundled.
 
 ```sh
 $ sh scripts/benchmark.sh
@@ -37,10 +37,8 @@ $ kill $(cat benchmark.pid)
 
 ## Diagnosing performance issues
 
-With Flamebearer installed you can run the benchmark with profiling enabled. This will load test only the Hyperons endpoint and output a flamechart:
+With Flamebearer installed you can run load test Hyperons alone with Node profiling enabled. This will generate an interactive flame chart:
 
 ```js
 $ sh scripts/profile.sh
 ```
-
-

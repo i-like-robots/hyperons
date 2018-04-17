@@ -10,10 +10,10 @@ npm start & echo $! > benchmark.pid;
 sleep 5;
 
 # Create an empty file
-date > results.txt;
+echo "Benchmark run on $(date) with Node $(node -v)" > results.txt;
 
-for endpoint in "hyperapp" "hyperons" "nerv" "preact" "rax" "react"; do
-  echo "${endpoint}" >> results.txt;
+for endpoint in "hyperapp" "hyperons" "inferno" "nerv" "preact" "rax" "react"; do
+  echo "\n${endpoint}" >> results.txt;
   ab -k -n "$count" -c "$concurrency" $server/$endpoint | grep "Requests per second:" >> results.txt;
   sleep 5;
 done
