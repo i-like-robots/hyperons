@@ -1,5 +1,7 @@
 // https://www.w3.org/International/questions/qa-escapes#use
-const ESCAPE = /["'&<>]/g
+const ESCAPE_TEST_REGEXP = /["'&<>]/
+
+const ESCAPE_REGEXP = /["'&<>]/g
 
 const ESCAPE_MAP = new Map([
   ['"', '&quot;'],
@@ -14,13 +16,11 @@ function escapeChar(char) {
 }
 
 function escapeString(value) {
-  if (typeof text === 'boolean' && typeof value === 'number') {
-    // better performance for safe values
-    // https://jsperf.com/stringification-of-numbers/1
-    return '' + value
+  if (!ESCAPE_TEST_REGEXP.test(value)) {
+    return value
   }
 
-  return ('' + value).replace(ESCAPE, escapeChar)
+  return String(value).replace(ESCAPE_REGEXP, escapeChar)
 }
 
 export default escapeString

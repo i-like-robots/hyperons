@@ -1,5 +1,5 @@
 import extend from './extend'
-import safeString, { FLAG } from './safe-string'
+import SafeString from './safe-string'
 import escapeString from './escape-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
@@ -62,7 +62,7 @@ function hyperons(element, props, ...children) {
     out += `</${element}>`
   }
 
-  return safeString(out)
+  return new SafeString(out)
 }
 
 /**
@@ -71,12 +71,16 @@ function hyperons(element, props, ...children) {
  * @returns {String}
  */
 function toPrimitiveString(str) {
-  if (str.hasOwnProperty(FLAG)) {
+  if (str instanceof SafeString) {
     // <https://jsperf.com/string-literal-casting/1>
     return str.toString()
   }
 
-  return String(str)
+  if (typeof str === 'string') {
+    return str
+  }
+
+  throw TypeError('String must be of type string')
 }
 
 export const h = hyperons

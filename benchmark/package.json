@@ -1,11 +1,10 @@
 {
   "name": "hyperons-benchmark",
   "private": true,
-  "version": "1.0.0-1",
+  "version": "0.0.0",
   "description": "",
   "main": "app.js",
   "keywords": [],
-  "author": "Matt Hinchliffe <matt.hinchliffe@ft.com>",
   "license": "ISC",
   "scripts": {
     "prepare": "npm run build",
