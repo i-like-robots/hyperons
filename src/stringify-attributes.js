@@ -50,6 +50,7 @@ function styles(name, value) {
 
 function stringifyAttributes(attributes) {
   let out = ''
+
   for (const item in attributes) {
     // ignore arbitrary framework properties
     if (IGNORE.has(item)) {
