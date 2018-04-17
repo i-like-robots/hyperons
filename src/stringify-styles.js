@@ -26,11 +26,14 @@ const UNITLESS = new Set([
   'zoom'
 ])
 
-function hyphenate(property) {
-  return property
-    .replace(UPPERCASE, '-$1')
-    .replace(MS, '-ms-')
-    .toLowerCase()
+const cache = {}
+
+function hyphenateChar(char) {
+  return '-' + char.toLowerCase()
+}
+
+function hyphenateString(prop) {
+  return cache[prop] || (cache[prop] = prop.replace(UPPERCASE, hyphenateChar).replace(MS, '-ms-'))
 }
 
 function stringifyStyles(styles) {
@@ -43,7 +46,7 @@ function stringifyStyles(styles) {
       continue
     }
 
-    out += `${hyphenate(prop)}:${value}`
+    out += `${hyphenateString(prop)}:${value}`
 
     if (typeof value === 'number' && value !== 0 && !UNITLESS.has(prop)) {
       out += 'px'
