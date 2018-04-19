@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { h, render } = require('../')
+const { h, render, Fragment } = require('../')
 
 describe('Hyperons', () => {
   describe('elements', () => {
@@ -13,8 +13,8 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<br/>')
     })
 
-    it('does not render null elements', () => {
-      const result = h(null)
+    it('does not render fragments', () => {
+      const result = h(Fragment)
       expect(render(result)).to.equal('')
     })
 
@@ -122,7 +122,7 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<div>&quot;Mac &amp; Cheese&quot;</div>')
     })
 
-    it('does not escape HTML children', () => {
+    it('does not escape previous output', () => {
       const result = h('div', null, h('i', null, 'Hello World'))
       expect(render(result)).to.equal('<div><i>Hello World</i></div>')
     })
@@ -143,9 +143,14 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<ul><li>one</li><li>two</li></ul>')
     })
 
-    it('allows setting inner HTML', () => {
+    it('supports setting inner HTML', () => {
       const result = h('div', { dangerouslySetInnerHTML: { __html: '<i>Hello</i>' } })
       expect(render(result)).to.equal('<div><i>Hello</i></div>')
+    })
+
+    it('renders the children of fragments', () => {
+      const result = h('dl', {}, h(Fragment, {}, h('dt', {}, 'Title'), h('dd', {}, 'Description')))
+      expect(render(result)).to.equal('<dl><dt>Title</dt><dd>Description</dd></dl>')
     })
   })
 })
