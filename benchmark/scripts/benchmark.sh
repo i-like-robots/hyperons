@@ -1,8 +1,8 @@
 #!/bin/sh
 
-count=10000
-concurrency=20
-server=http://127.0.0.1:3000
+count=10000;
+concurrency=20;
+server=http://127.0.0.1:3000;
 
 export NODE_ENV=production;
 
@@ -21,3 +21,5 @@ done
 kill $(cat benchmark.pid) && rm benchmark.pid;
 
 unset NODE_ENV;
+
+cat results.txt;
