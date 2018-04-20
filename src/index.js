@@ -26,40 +26,35 @@ const INNER_HTML = 'dangerouslySetInnerHTML'
 
 /**
  * Hyperons
- * @param {String|Function} element
+ * @param {String|Function|null} element
  * @param {Object|null} props
  * @param {...String} children
  * @returns {String}
  */
 function hyperons(element, props, ...children) {
-  if (element == null) {
-    return ''
-  }
+  let out = ''
 
   // support for higher-order components
   if (typeof element === 'function') {
     return element(extend(props, { children }))
   }
 
-  let out = `<${element}`
+  const voidElement = VOID_ELEMENTS.has(element)
 
-  if (props) {
-    out += stringifyAttributes(props)
+  if (element) {
+    out += `<${element}${props ? stringifyAttributes(props) : ''}${voidElement ? '/' : ''}>`
   }
 
-  // if a self-closing void element has children then
-  if (VOID_ELEMENTS.has(element)) {
-    out += '/>'
-  } else {
-    out += '>'
-
+  if (!voidElement) {
     if (props && props[INNER_HTML]) {
       out += props[INNER_HTML].__html
     } else {
       out += childElements(children)
     }
 
-    out += `</${element}>`
+    if (element) {
+      out += `</${element}>`
+    }
   }
 
   return new SafeString(out)
@@ -88,3 +83,5 @@ export const createElement = hyperons
 
 export const render = toPrimitiveString
 export const renderToString = toPrimitiveString
+
+export const Fragment = null

@@ -174,6 +174,51 @@ const html = <Container>{'Hello'}</Container> // will output <p>Hello</p>
 
 [void]: https://www.w3.org/TR/html/syntax.html#void-elements
 
+## Fragments
+
+In React and React-like frameworks components must always return a single enclosing element. But sometimes it is convenient or required to return a list of elements, either because you don't need the extra elements or the extra elements would create invalid HTML output. For example, when rendering a description list the title and detail (`<dt>` and `<dd>`) elements are usually grouped in pairs:
+
+```jsx
+import { h } from 'hyperons'
+
+function DescriptionList(props) {
+  return (
+    <dl>
+      {props.definitions.map((item) => (
+        <dt>{item.title}</dt>
+        <dd>{item.description}</dd>
+      ))}
+    </dl>
+  )
+}
+```
+
+However, most tools will throw an error when evaluating the above code. The description title and detail elements should be wrapped in an enclosing element, but that would result in invalid HTML.
+
+To solve this [React 16.2][react-16] introduced the concept of [fragments][fragments]. Fragments allow you to wrap a list of elements without adding extra elements to the DOM:
+
+```jsx
+import { h, Fragment } from 'hyperons'
+
+function DescriptionList(props) {
+  return (
+    <dl>
+      {props.definitions.map((item) => (
+        <Fragment>
+          <dt>{item.title}</dt>
+          <dd>{item.description}</dd>
+        </Fragment>
+      ))}
+    </dl>
+  )
+}
+```
+
+To use fragments in your JSX code Hyperons includes a `Fragment` component that is compatible with the React implementation.
+
+[react-16]:  https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html
+[fragments]: https://reactjs.org/docs/fragments.html
+
 ### Inner HTML
 
 Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTML code. This is potentially dangerous and should never be used around any user input, but it can be useful as a last resort.
@@ -198,7 +243,7 @@ The source code for this module is written in ES6 code and bundled into single f
 [chai]: http://www.chaijs.com/
 [puppeteer]: https://github.com/GoogleChrome/puppeteer
 
-### Benchmarking
+### Benchmarks
 
 This repository contains benchmarking and profiling tools in the `/benchmark` directory. The current results for server-side rendering are below:
 
