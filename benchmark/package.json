@@ -12,8 +12,12 @@
     "start": "NODE_ENV=production node app.js"
   },
   "devDependencies": {
-    "@hyperapp/render": "^2.0.0",
     "buble": "^0.19.3",
+    "rollup": "^0.57.1",
+    "rollup-plugin-buble": "^0.19.2"
+  },
+  "dependencies": {
+    "@hyperapp/render": "^2.0.0",
     "fastify": "^1.2.0",
     "hyperapp": "^1.2.5",
     "inferno": "^5.0.1",
@@ -27,7 +31,6 @@
     "rax-server-renderer": "^0.5.4",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "rollup": "^0.57.1",
-    "rollup-plugin-buble": "^0.19.2"
+    "vdo": "^4.2.0"
   }
 }
