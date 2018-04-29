@@ -1,6 +1,6 @@
 # Server-side rendering benchmark
 
-This is an application used to benchmark various JSX compatible rendering engines. It comprises of a Node.js Web server based upon [Fastify][1] and a script using [Apache Bench][2] to load test and record results. There is also a script to quickly profile and view a flame graph for Hyperons.
+This is an application used to benchmark compatible JSX rendering engines. It comprises of a Node.js Web server based upon [Fastify][1] and a script using [Apache Bench][2] to load test and record the results. There is also a script to quickly profile and view a flame graph for Hyperons.
 
 [1]: https://github.com/fastify/fastify
 [2]: https://httpd.apache.org/docs/2.4/programs/ab.html
@@ -23,22 +23,44 @@ $ npm install -g flamebearer
 
 ## Usage
 
-To run the benchmark execute the bash script. Before running the benchmark please ensure that any changes made to the Hyperons source code have been bundled.
+### Running the benchmark
+
+Before running the benchmark please ensure that any changes made to the Hyperons source code have been bundled. To run the benchmark, execute the benchmark commands in the scripts folder:
 
 ```sh
 $ sh scripts/benchmark.sh
 ```
 
-If the benchmark gets stuck or errors for any reason the server can be stopped by finding the process ID. This is usually stored as `benchmark.pid`:
+### Diagnosing performance issues
 
-```sh
-$ kill $(cat benchmark.pid)
-```
-
-## Diagnosing performance issues
-
-With Flamebearer installed you can run load test Hyperons alone with Node profiling enabled. This will generate an interactive flame chart:
+With Flamebearer installed you can run a load test for a module with Node profiling enabled. This will automatically generate an interactive flame chart once complete. To profile Hyperons you can run the profile commands in the scripts folder:
 
 ```js
-$ sh scripts/profile.sh
+$ sh scripts/profile.sh hyperons
 ```
+
+## Modules
+
+### Currently tested modules
+
+- hyperapp<sup>\*</sup>
+- hyperons
+- inferno
+- nerv
+- preact
+- rax
+- react
+- vdo
+
+\* Children are passed to higher-order components as a second argument and not appended to props as with the other modules.
+
+### Incompatible or non-operable modules
+
+The following modules have been investigated but are incomptible or are unable to render the test components correctly without requiring significant changes.
+
+- `anujs`, errors
+- `domvm`, does not support higher-order components
+- `hyperdom`, does not support higher-order components
+- `hyperscript`, does not support higher-order components
+- `qreact`, errors
+- `vhtml`, does not support mapping of attributes or setting of inner HTML
