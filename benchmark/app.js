@@ -11,5 +11,5 @@ fastify.get('/vdo', require('./controllers/vdo'))
 
 fastify.listen(3000, '127.0.0.1', (err) => {
   if (err) throw err
-  console.log(`server listening on ${fastify.server.address().port}`)
+  console.log(`server listening at http://localhost:${fastify.server.address().port}`)
 })

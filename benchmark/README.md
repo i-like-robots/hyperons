@@ -52,11 +52,11 @@ $ sh scripts/profile.sh hyperons
 - react
 - vdo
 
-\* Children are passed to higher-order components as a second argument and not appended to props as with the other modules.
+\* Usage of Hyperapp depends on a small modification to higher-order components to accept children as a second argument rather than receiving them appended to props.
 
 ### Incompatible or non-operable modules
 
-The following modules have been investigated but are incomptible or are unable to render the test components correctly without requiring significant changes.
+The following modules have been investigated but are incomptible or are unable to render the test components correctly without requiring significant changes:
 
 - `anujs`, errors
 - `domvm`, does not support higher-order components
