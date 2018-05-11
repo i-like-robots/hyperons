@@ -143,6 +143,16 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<ul><li>one</li><li>two</li></ul>')
     })
 
+    it('passes children to higher-order components when appended as props', () => {
+      const hoc = (props) => h('ul', null, props.children)
+      const result = h(
+        hoc,
+        { children: [h('li', null, 'one'), h('li', null, 'two')] },
+        h('li', null, 'three')
+      )
+      expect(render(result)).to.equal('<ul><li>three</li><li>one</li><li>two</li></ul>')
+    })
+
     it('supports setting inner HTML', () => {
       const result = h('div', { dangerouslySetInnerHTML: { __html: '<i>Hello</i>' } })
       expect(render(result)).to.equal('<div><i>Hello</i></div>')

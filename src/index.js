@@ -36,6 +36,10 @@ function hyperons(element, props, ...children) {
 
   // support for higher-order components
   if (typeof element === 'function') {
+    if (props && Array.isArray(props.children)) {
+      children.push(props.children)
+    }
+
     return element(extend(props, { children }))
   }
 
