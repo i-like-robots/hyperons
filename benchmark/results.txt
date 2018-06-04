@@ -1,0 +1,25 @@
+Benchmark run on Mon  4 Jun 2018 22:01:01 BST with Node v8.11.2
+
+hyperapp@1.2.6
+Requests per second:    2776.21 [#/sec] (mean)
+
+hyperons@0.3.1
+Requests per second:    3303.49 [#/sec] (mean)
+
+inferno@5.0.6
+Requests per second:    2911.76 [#/sec] (mean)
+
+nerv@0.3.0
+Requests per second:    2412.60 [#/sec] (mean)
+
+preact@8.2.9
+Requests per second:    2496.92 [#/sec] (mean)
+
+rax@0.6.3
+Requests per second:    3395.09 [#/sec] (mean)
+
+react@16.4.0
+Requests per second:    2285.31 [#/sec] (mean)
+
+vdo@4.2.0
+Requests per second:    3226.26 [#/sec] (mean)
