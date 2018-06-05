@@ -7,13 +7,15 @@ function childElements(children) {
   for (let i = 0, len = children.length; i < len; i++) {
     const child = children[i]
 
-    if (child) {
-      if (Array.isArray(child)) {
-        out += childElements(child)
-      } else {
-        // don't double escape any markup output by this element
-        out += child instanceof SafeString ? child : escapeString(child)
-      }
+    if (child == null || typeof child === 'boolean') {
+      continue
+    }
+
+    if (Array.isArray(child)) {
+      out += childElements(child)
+    } else {
+      // don't double escape any markup output by this element
+      out += child instanceof SafeString ? child : escapeString(child)
     }
   }
 

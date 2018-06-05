@@ -117,6 +117,19 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<div>123</div>')
     })
 
+    it('renders numeric children even if they are zero', () => {
+      const result = h('div', null, 0)
+      expect(render(result)).to.equal('<div>0</div>')
+    })
+
+    it('does not render boolean children', () => {
+      const a = h('div', null, true)
+      expect(render(a)).to.equal('<div></div>')
+
+      const b = h('div', null, false)
+      expect(render(b)).to.equal('<div></div>')
+    })
+
     it('escapes text children', () => {
       const result = h('div', null, '"Mac & Cheese"')
       expect(render(result)).to.equal('<div>&quot;Mac &amp; Cheese&quot;</div>')
