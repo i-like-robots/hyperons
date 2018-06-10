@@ -18,10 +18,24 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('')
     })
 
-    it('invokes higher-order components', () => {
-      const hoc = (attrs) => h('span', attrs)
-      const result = h(hoc, { className: 'hoc' })
-      expect(render(result)).to.equal('<span class="hoc"></span>')
+    it('invokes functional components', () => {
+      const component = (props) => h('span', { className: 'hoc' }, props.text)
+      const result = h(component, { text: 'Hello World' })
+      expect(render(result)).to.equal('<span class="hoc">Hello World</span>')
+    })
+
+    it('creates new instances of class-based components', () => {
+      class Component {
+        constructor(props) {
+          this.props = props
+        }
+        render() {
+          return h('span', null, this.props.text)
+        }
+      }
+
+      const result = h(Component, { text: 'Hello World' })
+      expect(render(result)).to.equal('<span>Hello World</span>')
     })
   })
 

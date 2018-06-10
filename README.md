@@ -248,31 +248,31 @@ The source code for this module is written in ES6 code and bundled into single f
 This repository contains benchmarking and profiling tools in the `/benchmark` directory. The current results for server-side rendering are below:
 
 ```
-Benchmark run on Mon  4 Jun 2018 22:01:01 BST with Node v8.11.2
+Benchmark run on Sun 10 Jun 2018 11:33:00 BST with Node v8.11.2
 
 hyperapp@1.2.6
-Requests per second:    2776.21 [#/sec] (mean)
+Requests per second:    2839.32 [#/sec] (mean)
 
-hyperons@0.3.1
-Requests per second:    3303.49 [#/sec] (mean)
+hyperons@0.3.2
+Requests per second:    3366.05 [#/sec] (mean)
 
 inferno@5.0.6
-Requests per second:    2911.76 [#/sec] (mean)
+Requests per second:    2975.04 [#/sec] (mean)
 
 nerv@0.3.0
-Requests per second:    2412.60 [#/sec] (mean)
+Requests per second:    2424.52 [#/sec] (mean)
 
 preact@8.2.9
-Requests per second:    2496.92 [#/sec] (mean)
+Requests per second:    2506.16 [#/sec] (mean)
 
-rax@0.6.3
-Requests per second:    3395.09 [#/sec] (mean)
+rax@0.6.4
+Requests per second:    3467.86 [#/sec] (mean)
 
 react@16.4.0
-Requests per second:    2285.31 [#/sec] (mean)
+Requests per second:    2322.80 [#/sec] (mean)
 
 vdo@4.2.0
-Requests per second:    3226.26 [#/sec] (mean)
+Requests per second:    3244.58 [#/sec] (mean)
 ```
 
 ### Name

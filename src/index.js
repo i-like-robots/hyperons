@@ -40,7 +40,14 @@ function hyperons(element, props, ...children) {
       children.push(props.children)
     }
 
-    return element(extend(props, { children }))
+    props = extend(props, { children })
+
+    if (element.prototype && typeof element.prototype.render === 'function') {
+      const instance = new element(props)
+      return instance.render()
+    }
+
+    return element(props)
   }
 
   const voidElement = VOID_ELEMENTS.has(element)
