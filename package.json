@@ -1,6 +1,6 @@
 {
   "name": "hyperons",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Renders JSX components to HTML on the server and in the browser.",
   "main": "dist/cjs.js",
   "module": "dist/esm.js",
