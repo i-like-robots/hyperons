@@ -1,11 +1,13 @@
 <p align="center">
-  <img alt="Hyperons" src="https://cdn.rawgit.com/i-like-robots/hyperons/4b788429/assets/hyperons.svg" width="600">
+  <img alt="Hyperons" src="https://cdn.rawgit.com/i-like-robots/hyperons/4b788429/assets/hyperons.svg" width="400">
 </p>
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/i-like-robots/hyperons/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://img.shields.io/npm/v/hyperons.svg?style=flat)](https://www.npmjs.com/package/hyperons)
+<div align="center">
 
-Renders components written in JSX to HTML without a framework, on the server or in the browser.
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/i-like-robots/hyperons/blob/master/LICENSE) [![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://img.shields.io/npm/v/hyperons.svg?style=flat)](https://www.npmjs.com/package/hyperons)
+</div>
+
+Renders JSX components to HTML on the server and in the browser.
 
 ## Installation
 
@@ -24,113 +26,88 @@ $ npm install -S hyperons
 ## Features
 
 * Share code between your React single-page apps and plain HTML pages
-* Balances speed, code complexity, and correctness of output
 * Render your components on the server and in the browser
 * Very small code size (1.25kb gzipped)
 * Support for CSS stringification, boolean attributes, void elements, and more
 
 ## Usage
 
-This module provides two functions; `h` and `render`. If you've worked with [React][react] before then `h` can be considered equivalent to `React.createElement` and `render` equivalent to `ReactDOM.render` (in the browser) or `ReactDOM.renderToString` (on the server).
+This module provides two functions; `h()` and `render()`. If you've worked with [React][react] before then `h()` can be considered equivalent to `React.createElement()` and `render()` equivalent to `ReactDOM.render()` in the browser or `ReactDOM.renderToString()` on the server.
 
-```js
-import { h } from 'hyperons'
-
-const safe = h(element, [properties], [...children])
-```
-
-Just like `React.createElement` it accepts the following arguments:
-
-* `element` This can be the name of a HTML element or a function which renders another string of HTML (this is useful if you'd like to use [higher-order components][hoc].)
-* `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
-* `...children` An optional number of child elements. See the [children documentation](#children) for more information. The `...` before the argument name makes this a [rest parameter][rest], this means it will collect "the rest" of the arguments.
-
-This method returns a ["safe string" object](#string-safety).
-
-```js
-import { render } from 'hyperons'
-
-const html = render(safe)
-```
-
-This method converts a "safe string" object returned by the `h` method into a regular string primitive. If you're not sure what this means, there is an [explanation below](#string-safety).
+The example below shows how to render a simple component using Hyperons with vanilla JS syntax:
 
 [react]: https://reactjs.org/
-[vdom]: https://evilmartians.com/chronicles/optimizing-react-virtual-dom-explained
-[hoc]: https://reactjs.org/docs/higher-order-components.html
-[rest]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
-
-### Vanilla JS
-
-You can use Hyperons as-is without any complex build pipelines or compilation steps, but I'd recommend using [JSX](#jsx) to more clearly describe your markup.
 
 ```js
 import { h, render } from 'hyperons'
 
-function welcome () {
-  return h('div', { className: 'welcome' },
+const welcome = () => (
+  h('div', { class: 'welcome' },
     h('h1', null, 'Hello World!'),
     h('p', null, 'This component was rendered with Hyperons'))
-}
+)
 
 render(welcome())
 ```
 
-### JSX
-
-_Not familiar with JSX? Check out [WTF is JSX][wtf] and [JSX in Depth][in-depth] first._
-
-If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you are using there will be different plugins available to do this, some popular tools to transpile JavaScript are [Babel][babel] (with [the JSX plugin][babel-jsx]) and [Bublé][buble] (with [JSX enabled][buble-jsx]).
-
-Whichever tool you use you will need to specify the JSX _pragma_ for the transpiler to target. The pragma is the name of the variable you assign Hyperons to. For example, in the code below the pragma is `h`:
+Although you can use Hyperons without any complex build pipelines or compilation steps, I'd recommend using [JSX](#jsx) to more succinctly describe your markup. Here is the same component as before but rewritten to use JSX syntax:
 
 ```jsx
 import { h, render } from 'hyperons'
 
 const welcome = () => (
-    <div className="welcome">
+  <div class="welcome">
     <h1>Hyperons</h1>
-      <p>This component was rendered with Hyperons</p>
-    </div>
-  )
+    <p>This component was rendered with Hyperons</p>
+  </div>
+)
 
 render(welcome())
 ```
 
-[wtf]: https://jasonformat.com/wtf-is-jsx/
-[in-depth]: https://reactjs.org/docs/jsx-in-depth.html
-[babel]: https://babeljs.io/
-[babel-jsx]: https://babeljs.io/docs/plugins/transform-react-jsx/
-[buble]: https://github.com/Rich-Harris/buble
-[buble-jsx]: https://buble.surge.sh/guide/#jsx
+## API
 
-## Overview
+### `h(element[, properties][, ...children])`
+
+The `h()` function accepts the following arguments:
+
+* `element` This can be the name of a HTML element, or a function or a class
+* `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
+* `...children` An optional number of child elements. See the [children documentation](#children) for more information.
+
+This method returns the HTML output wrapped in an object marking it as as safe.
+
+### `render(safeString)`
+
+The `render()` function coverts the safe string output of the `h()` method into a regular string.
+
+## Syntax
 
 ### Properties
 
-Properties are an object containing [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
+Properties are declared as an object containing [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
 
 Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
 
-Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a truthy value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
+Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a [truthy][truthy] value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
 
-Any framework specific properties such as `key` and `ref` will not be rendered.
+Any framework specific properties such as `key` and `ref` will not be rendered. Any attributes with a function value will be ignored.
 
 [attrs]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 [words]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords
+[truthy]: https://developer.mozilla.org/en-US/docs/Glossary/Truthy
 
 ### Styles
 
 The `style` attribute accepts a JavaScript object containing CSS properties and values.
 
-Style properties may be camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. `element.style.marginBottom`). Vendor prefixes other than "ms" should begin with a capital letter. This is why `WebkitHyphens` has an uppercase "W".
+Style properties may be written in camelCase in order to be consistent with accessing the properties on DOM nodes from JS (e.g. `element.style.marginBottom`). Vendor prefixes other than "ms" should begin with a capital letter. This is why `WebkitHyphens` has an uppercase "W".
 
 Hyperons will automatically append a `px` suffix to numbers, but certain properties will remain unitless (e.g. `z-index` or `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
 
 ```jsx
 // Input:
 const styles = {
-  position: 'absolute',
   display: 'flex',
   order: 2,
   width: '50%',
@@ -146,14 +123,14 @@ const styles = {
 
 ### HTML entities
 
-Hyperons will escape all strings, so if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work-around this issue, the easiest of which is to write the unicode character directly in your code (you will need to save your source file with UTF-8 encoding) or you can find the [unicode number][charcode] for the required character:
+Hyperons will escape all strings. This means that if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work-around this issue; the easiest of which is to write the unicode character directly in your code (and your source file uses UTF-8 encoding). Otherwise, you can find the [unicode number][charcode] for the required character. For example:
 
 ```jsx
-// incorrect, double escapes ambersand: <h1>Mac &amp;amp; Cheese</h1>
+// Incorrect. Outputs: <h1>Mac &amp;amp; Cheese</h1>
 <h1>Mac &amp; Cheese</h1>
-// correct, outputs: <h1>Mac &amp; Cheese</h1>
+// Correct. Outputs: <h1>Mac &amp; Cheese</h1>
 <h1>Mac & Cheese</h1>
-// correct, outputs: <h1>Mac &amp; Cheese</h1>
+// Correct. Outputs: <h1>Mac &amp; Cheese</h1>
 <h1>{`Mac ${String.fromCharCode(38)} Cheese`}</h1>
 ```
 
@@ -169,12 +146,12 @@ Please note that child elements will not be rendered for [void elements][void].
 
 ```jsx
 const Container = ({ children }) => <p>{children}</p>
-const html = <Container>{'Hello'}</Container> // will output <p>Hello</p>
+const html = <Container>{'Hello'}</Container> // Outputs: <p>Hello</p>
 ```
 
 [void]: https://www.w3.org/TR/html/syntax.html#void-elements
 
-## Fragments
+### Fragments
 
 In React and React-like frameworks components must always return a single enclosing element. But sometimes it is convenient or required to return a list of elements, either because you don't need the extra elements or the extra elements would create invalid HTML output. For example, when rendering a description list the title and detail (`<dt>` and `<dd>`) elements are usually grouped in pairs:
 
@@ -195,7 +172,7 @@ function DescriptionList(props) {
 
 However, most tools will throw an error when evaluating the above code. The description title and detail elements should be wrapped in an enclosing element, but that would result in invalid HTML.
 
-To solve this [React 16.2][react-16] introduced the concept of [fragments][fragments]. Fragments allow you to wrap a list of elements without adding extra elements to the DOM:
+To solve this [React 16.2][react-16] introduced the concept of [fragments][fragments]. Fragments allow you to wrap a list of elements without adding extra elements to the DOM. To use fragments in your JSX code Hyperons includes a `Fragment` component:
 
 ```jsx
 import { h, Fragment } from 'hyperons'
@@ -214,8 +191,6 @@ function DescriptionList(props) {
 }
 ```
 
-To use fragments in your JSX code Hyperons includes a `Fragment` component that is compatible with the React implementation.
-
 [react-16]:  https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html
 [fragments]: https://reactjs.org/docs/fragments.html
 
@@ -225,12 +200,23 @@ Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTM
 
 ```jsx
 const html = { __html: '<i>Mac &amp; Cheese</i>' }
-<div dangerouslySetInnerHTML={html}></div>
+<div dangerouslySetInnerHTML={html}></div> // Outputs: <div><i>Mac &amp; Cheese</i></div>
 ```
 
-### String safety
+### JSX
 
-Hyperons escapes all strings passed to it but because JavaScript will process the deepest child elements _first_, the module needs a way to recognise what it has already output so that it doesn't escape it again. String primitives (`''` or `""`) cannot have extra properties added to them, so to flag the output as safe the `h` method returns a "safe string" object. The safe string object wraps the output making it easily detectable.
+_Not familiar with JSX? Check out [WTF is JSX][wtf] and [JSX in Depth][in-depth] first._
+
+If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you're using there will be different plugins available. Some popular tools to transpile JavaScript are [Babel][babel] (with [the JSX plugin][babel-jsx]) and [Bublé][buble] (with [JSX enabled][buble-jsx]).
+
+Whichever tool you use, you will need to specify the JSX _pragma_ for the transpiler to target. The pragma is the name of the variable you assign Hyperons to. For example, in the code below the pragma is `h`:
+
+[wtf]: https://jasonformat.com/wtf-is-jsx/
+[in-depth]: https://reactjs.org/docs/jsx-in-depth.html
+[babel]: https://babeljs.io/
+[babel-jsx]: https://babeljs.io/docs/plugins/transform-react-jsx/
+[buble]: https://github.com/Rich-Harris/buble
+[buble-jsx]: https://buble.surge.sh/guide/#jsx
 
 ## Project information
 
