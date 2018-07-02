@@ -42,7 +42,7 @@ The example below shows how to render a simple component using Hyperons with van
 import { h, render } from 'hyperons'
 
 const welcome = () => (
-  h('div', { class: 'welcome' },
+  h('div', { class: 'welcome-banner' },
     h('h1', null, 'Hello World!'),
     h('p', null, 'This component was rendered with Hyperons'))
 )
@@ -55,14 +55,14 @@ Although you can use Hyperons without any complex build pipelines or compilation
 ```jsx
 import { h, render } from 'hyperons'
 
-const welcome = () => (
-  <div class="welcome">
+const Welcome = () => (
+  <div class="welcome-banner">
     <h1>Hyperons</h1>
     <p>This component was rendered with Hyperons</p>
   </div>
 )
 
-render(welcome())
+render(<Welcome />)
 ```
 
 ## API
@@ -79,7 +79,7 @@ This method returns the HTML output wrapped in an object marking it as as safe.
 
 ### `render(safeString)`
 
-The `render()` function coverts the safe string output of the `h()` method into a regular string.
+The `render()` function converts the wrapped output of the `h()` method into a regular string.
 
 ## Syntax
 
