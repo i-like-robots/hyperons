@@ -96,3 +96,4 @@ export const render = toPrimitiveString
 export const renderToString = toPrimitiveString
 
 export const Fragment = null
+export const Component = class {}
