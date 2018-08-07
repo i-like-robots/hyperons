@@ -1,6 +1,6 @@
 import extend from './extend'
+import Component from './component'
 import SafeString from './safe-string'
-import escapeString from './escape-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
 
@@ -96,4 +96,4 @@ export const render = toPrimitiveString
 export const renderToString = toPrimitiveString
 
 export const Fragment = null
-export const Component = class {}
+export { Component }
