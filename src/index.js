@@ -89,11 +89,13 @@ function toPrimitiveString(str) {
   throw TypeError('String must be of type string')
 }
 
-export const h = hyperons
-export const createElement = hyperons
+const Fragment = null
 
-export const render = toPrimitiveString
-export const renderToString = toPrimitiveString
-
-export const Fragment = null
-export { Component }
+export {
+  Fragment,
+  Component,
+  hyperons as h,
+  hyperons as createElement,
+  toPrimitiveString as render,
+  toPrimitiveString as renderToString
+}
