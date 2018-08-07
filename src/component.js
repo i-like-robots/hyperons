@@ -7,6 +7,4 @@ function Component(props) {
   this.state = this.state || {}
 }
 
-Component.prototype.render = function() {}
-
 export default Component
