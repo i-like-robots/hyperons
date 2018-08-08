@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { h, render, Fragment } = require('../')
+const { h, render, Fragment, Component } = require('../')
 
 describe('Hyperons', () => {
   describe('elements', () => {
@@ -25,16 +25,13 @@ describe('Hyperons', () => {
     })
 
     it('creates new instances of class-based components', () => {
-      class Component {
-        constructor(props) {
-          this.props = props
-        }
+      class TestComponent extends Component {
         render() {
           return h('span', null, this.props.text)
         }
       }
 
-      const result = h(Component, { text: 'Hello World' })
+      const result = h(TestComponent, { text: 'Hello World' })
       expect(render(result)).to.equal('<span>Hello World</span>')
     })
   })

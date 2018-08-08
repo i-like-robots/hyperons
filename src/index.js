@@ -1,6 +1,6 @@
 import extend from './extend'
+import Component from './component'
 import SafeString from './safe-string'
-import escapeString from './escape-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
 
@@ -89,11 +89,13 @@ function toPrimitiveString(str) {
   throw TypeError('String must be of type string')
 }
 
-export const h = hyperons
-export const createElement = hyperons
+const Fragment = null
 
-export const render = toPrimitiveString
-export const renderToString = toPrimitiveString
-
-export const Fragment = null
-export const Component = class {}
+export {
+  Fragment,
+  Component,
+  hyperons as h,
+  hyperons as createElement,
+  toPrimitiveString as render,
+  toPrimitiveString as renderToString
+}

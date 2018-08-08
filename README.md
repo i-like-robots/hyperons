@@ -151,6 +151,20 @@ const html = <Container>{'Hello'}</Container> // Outputs: <p>Hello</p>
 
 [void]: https://www.w3.org/TR/html/syntax.html#void-elements
 
+### Class components
+
+When using other frameworks such as React, class components may be used to create components which maintain state or add extra functionality using methods. Hyperons renders static HTML so there is no state and there are no component lifecycle methods. But if you need to author or render a class component Hyperons does provide a base `Component` which may be extended.
+
+```jsx
+import { h, Component } from 'hyperons'
+
+class MyComponent extends Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+
 ### Fragments
 
 In React and React-like frameworks components must always return a single enclosing element. But sometimes it is convenient or required to return a list of elements, either because you don't need the extra elements or the extra elements would create invalid HTML output. For example, when rendering a description list the title and detail (`<dt>` and `<dd>`) elements are usually grouped in pairs:
