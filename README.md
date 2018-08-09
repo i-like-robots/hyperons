@@ -28,7 +28,8 @@ $ npm install -S hyperons
 * Share code between your React single-page apps and plain HTML pages
 * Render your components on the server and in the browser
 * Very small code size (1.25kb gzipped)
-* Support for CSS stringification, boolean attributes, void elements, and more
+* Support for CSS stringification, boolean attributes, void elements, fragments, and more
+* Render class components or stateless functional components
 
 ## Usage
 
