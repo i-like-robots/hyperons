@@ -24,6 +24,10 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<span class="hoc">Hello World</span>')
     })
 
+    it('does not render null', () => {
+      expect(render(null)).to.equal('')
+    })
+
     it('creates new instances of class-based components', () => {
       class TestComponent extends Component {
         render() {
