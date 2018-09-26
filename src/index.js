@@ -77,6 +77,10 @@ function hyperons(element, props, ...children) {
  * @returns {String}
  */
 function toPrimitiveString(str) {
+  if (str === null) {
+    return ''
+  }
+  
   if (str instanceof SafeString) {
     // <https://jsperf.com/string-literal-casting/1>
     return str.toString()
