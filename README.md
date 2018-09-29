@@ -7,7 +7,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/i-like-robots/hyperons/blob/master/LICENSE) [![Build Status](https://travis-ci.org/i-like-robots/hyperons.svg?branch=master)](https://travis-ci.org/i-like-robots/hyperons) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/hyperons/badge.svg?branch=master)](https://coveralls.io/github/i-like-robots/hyperons) [![npm version](https://img.shields.io/npm/v/hyperons.svg?style=flat)](https://www.npmjs.com/package/hyperons)
 </div>
 
-Renders JSX components to HTML on the server and in the browser.
+Renders JSX components to static HTML on the server and in the browser.
 
 ## Installation
 
@@ -27,7 +27,7 @@ $ npm install -S hyperons
 
 * Share code between your React single-page apps and plain HTML pages
 * Render your components on the server and in the browser
-* Very small code size (1.25kb gzipped)
+* Blazing fast and tiny code size (1.25kb gzipped)
 * Support for CSS stringification, boolean attributes, void elements, fragments, and more
 * Render class components or stateless functional components
 
