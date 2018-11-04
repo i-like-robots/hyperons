@@ -4,6 +4,7 @@ sudo: required
 language: node_js
 node_js:
   - 8
+  - 10
 
 env:
   - TEST_REPORT=lcovonly TEST_COMMAND=test:coverage
