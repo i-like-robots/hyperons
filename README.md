@@ -66,6 +66,10 @@ const Welcome = () => (
 render(<Welcome />)
 ```
 
+_Please Note_ that the JSX syntax will need transpiling to vanilla JS. If you do not wish to implement a build step for your server-side code I recommend checking out [Sucrase] which includes functionality to enable on-the-fly `require()` calls for `.jsx` files.
+
+[Sucrase]: https://github.com/alangpierce/sucrase
+
 ## API
 
 ### `h(element[, properties][, ...children])`
@@ -143,7 +147,7 @@ Components may render any number of child elements. Children can be strings, oth
 
 Functions provided to the first argument of Hyperons will have any children appended as an extra `children` property. This functionality allows you to re-use and compose components in useful ways.
 
-Please note that child elements will not be rendered for [void elements][void].
+_Please note_ that child elements will not be rendered for [void elements][void].
 
 ```jsx
 const Container = ({ children }) => <p>{children}</p>
