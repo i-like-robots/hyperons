@@ -1,24 +1,19 @@
 #!/bin/sh
 
-count=10000;
-concurrency=20;
-server=http://127.0.0.1:3000;
-
 export NODE_ENV=production;
-
-npm start & echo $! > benchmark.pid;
-sleep 5;
 
 # Create an empty file
 echo "Benchmark run on $(date) with Node $(node -v)" > results.txt;
 
+echo "\nUsing:" >> results.txt
+
 for module in "hyperapp" "hyperons" "inferno" "nervjs" "preact" "rax" "react" "vdo"; do
-  echo "\n${module}@$(npm info $module version)" >> results.txt;
-  ab -k -n "$count" -c "$concurrency" $server/$module | grep "Requests per second:" >> results.txt;
-  sleep 5;
+  echo " - ${module}@$(npm info $module version)" >> results.txt;
 done
 
-kill $(cat benchmark.pid) && rm benchmark.pid;
+echo "\nResults:" >> results.txt
+
+node benchmark.js >> results.txt
 
 unset NODE_ENV;
 
