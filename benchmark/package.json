@@ -18,8 +18,9 @@
   },
   "dependencies": {
     "@hyperapp/render": "^2.1.0",
-    "fastify": "^1.13.0",
+    "benchmark": "^2.1.4",
     "hyperapp": "^1.2.9",
+    "hyperons": "^0.5.1",
     "inferno": "^7.0.0",
     "inferno-create-element": "^7.0.0",
     "inferno-server": "^7.0.0",
