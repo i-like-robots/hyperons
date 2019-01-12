@@ -1,4 +1,4 @@
-Benchmark run on Sat 12 Jan 2019 13:20:23 GMT with Node v8.12.0
+Benchmark run on Sat 12 Jan 2019 13:33:09 GMT with Node v10.13.0
 
 Using:
  - hyperapp@1.2.9
@@ -11,12 +11,12 @@ Using:
  - vdo@4.2.0
 
 Results:
-Hyperapp x 7,607 ops/sec ±1.34% (89 runs sampled)
-Hyperons x 8,713 ops/sec ±0.81% (95 runs sampled)
-Inferno x 8,308 ops/sec ±0.50% (96 runs sampled)
-Nerv x 4,741 ops/sec ±0.57% (97 runs sampled)
-Preact x 2,042 ops/sec ±0.19% (95 runs sampled)
-Rax x 8,886 ops/sec ±0.60% (93 runs sampled)
-React x 4,458 ops/sec ±0.59% (94 runs sampled)
-vdo x 5,932 ops/sec ±0.77% (96 runs sampled)
-Fastest is Rax
+ - Hyperapp x 7,729 ops/sec ±1.41% (89 runs sampled)
+ - Hyperons x 9,393 ops/sec ±0.60% (95 runs sampled)
+ - Inferno x 9,558 ops/sec ±0.31% (95 runs sampled)
+ - Nerv x 4,880 ops/sec ±0.84% (94 runs sampled)
+ - Preact x 4,418 ops/sec ±0.15% (96 runs sampled)
+ - Rax x 9,731 ops/sec ±0.59% (93 runs sampled)
+ - React x 5,020 ops/sec ±1.12% (93 runs sampled)
+ - vdo x 6,234 ops/sec ±0.22% (96 runs sampled)
+The fastest is Rax
