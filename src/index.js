@@ -1,8 +1,9 @@
-import extend from './extend'
 import Component from './component'
 import SafeString from './safe-string'
 import childElements from './child-elements'
 import stringifyAttributes from './stringify-attributes'
+
+const EMPTY_OBJECT = {}
 
 // https://www.w3.org/TR/html/syntax.html#void-elements
 const VOID_ELEMENTS = new Set([
@@ -34,13 +35,15 @@ const INNER_HTML = 'dangerouslySetInnerHTML'
 function hyperons(element, props, ...children) {
   let out = ''
 
-  // support for higher-order components
-  if (typeof element === 'function') {
-    if (props && Array.isArray(props.children)) {
-      children.push(props.children)
-    }
+  props = props || EMPTY_OBJECT
 
-    props = extend(props, { children })
+  // favour children args over props
+  if (props.children && children.length === 0) {
+    children = props.children
+  }
+
+  if (typeof element === 'function') {
+    props.children = children
 
     if (element.prototype && typeof element.prototype.render === 'function') {
       const instance = new element(props)
@@ -53,11 +56,11 @@ function hyperons(element, props, ...children) {
   const voidElement = VOID_ELEMENTS.has(element)
 
   if (element) {
-    out += `<${element}${props ? stringifyAttributes(props) : ''}${voidElement ? '/' : ''}>`
+    out += `<${element}${stringifyAttributes(props)}${voidElement ? '/' : ''}>`
   }
 
   if (!voidElement) {
-    if (props && props[INNER_HTML]) {
+    if (props[INNER_HTML]) {
       out += props[INNER_HTML].__html
     } else {
       out += childElements(children)
