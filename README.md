@@ -27,28 +27,28 @@ $ npm install -S hyperons
 
 * Share code between your React single-page apps and plain HTML pages
 * Render your components on the server and in the browser
-* Blazing fast and tiny code size (1.25kb gzipped)
+* Blazing fast and tiny code size (1.2kb gzipped)
 * Support for CSS stringification, boolean attributes, void elements, fragments, and more
 * Render class components or stateless functional components
 
 ## Usage
 
-This module provides two functions; `h()` and `render()`. If you've worked with [React][react] before then `h()` can be considered equivalent to `React.createElement()` and `render()` equivalent to `ReactDOM.render()` in the browser or `ReactDOM.renderToString()` on the server.
+This module provides two functions to create elements and render them. If you've worked with [React][react] before then they're the equivalent to `React.createElement()` and `ReactDOM.renderToString()`.
 
-The example below shows how to render a simple component using Hyperons with vanilla JS syntax:
+The example below shows how to render a simple component using Hyperons using vanilla JS syntax:
 
 [react]: https://reactjs.org/
 
 ```js
 import { h, render } from 'hyperons'
 
-const welcome = () => (
+const Welcome = () => (
   h('div', { class: 'welcome-banner' },
     h('h1', null, 'Hello World!'),
     h('p', null, 'This component was rendered with Hyperons'))
 )
 
-render(welcome())
+render(Welcome())
 ```
 
 Although you can use Hyperons without any complex build pipelines or compilation steps, I'd recommend using [JSX](#jsx) to more succinctly describe your markup. Here is the same component as before but rewritten to use JSX syntax:
@@ -66,7 +66,7 @@ const Welcome = () => (
 render(<Welcome />)
 ```
 
-_Please Note_ that the JSX syntax will need transpiling to vanilla JS. If you do not wish to implement a build step for your server-side code I recommend checking out [Sucrase] which includes functionality to enable on-the-fly `require()` calls for `.jsx` files.
+_Please Note_ that the JSX syntax will need to be transpiled to vanilla JS. If you do not wish to implement a build step for your server-side code I recommend checking out [Sucrase] which includes functionality to enable on-the-fly transpilation for `.jsx` files.
 
 [Sucrase]: https://github.com/alangpierce/sucrase
 
@@ -76,27 +76,33 @@ _Please Note_ that the JSX syntax will need transpiling to vanilla JS. If you do
 
 The `h()` function accepts the following arguments:
 
-* `element` This can be the name of a HTML element, or a function or a class
+* `element` This can be the name of a HTML element, a function, or a component class
 * `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
 * `...children` An optional number of child elements. See the [children documentation](#children) for more information.
 
-This method returns the HTML output wrapped in an object marking it as as safe.
+It returns a simple representation of the element.
 
-### `render(safeString)`
+This method can also be accessed as `createElement(element[, properties][, ...children])`.
 
-The `render()` function converts the wrapped output of the `h()` method into a regular string.
+### `render(element)`
+
+The `render()` function transforms the output of the `h()` method.
+
+It returns a string of HTML.
+
+This method can also be accessed as `renderToString(element[, properties][, ...children])`.
 
 ## Syntax
 
 ### Properties
 
-Properties are declared as an object containing [HTML attributes][attrs] and values. Attribute names may be written in camelCase or in lowercase. For example, the attribute `tabindex` may be written as `tabIndex`. Any HTML attributes written in camelCase will be converted to lowercase but they will not be hyphenated. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
+Properties are declared as an object containing [HTML attributes][attrs] and values. Attribute names may be written using any case and will always be lowercased. For example, the attribute `tabindex` may be written as `tabIndex`. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
 
 Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
 
-Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a [truthy][truthy] value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value.
+Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a [truthy][truthy] value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value as a string.
 
-Any framework specific properties such as `key` and `ref` will not be rendered. Any attributes with a function value will be ignored.
+Any framework specific properties such as `key` and `ref` will not be rendered.
 
 [attrs]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 [words]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords
@@ -106,9 +112,9 @@ Any framework specific properties such as `key` and `ref` will not be rendered. 
 
 The `style` attribute accepts a JavaScript object containing CSS properties and values.
 
-Style properties may be written in camelCase in order to be consistent with accessing the properties on DOM nodes from JS (e.g. `element.style.marginBottom`). Vendor prefixes other than "ms" should begin with a capital letter. This is why `WebkitHyphens` has an uppercase "W".
+Properties may be written in camelCase for consistency with accessing the properties with JavsScript in the browser (e.g. `element.style.marginBottom`). Vendor prefixes other than `ms` should always begin with a capital letter, such as `WebkitHyphens`.
 
-Hyperons will automatically append a `px` suffix to numbers, but certain properties will remain unitless (e.g. `z-index` or `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
+Hyperons will automatically append a `px` suffix to number values, but certain properties will remain unitless (e.g. `z-index` or `order`). If you want to use units other than `px`, you should specify the value as a string including the desired unit. For example:
 
 ```jsx
 // Input:
@@ -128,7 +134,7 @@ const styles = {
 
 ### HTML entities
 
-Hyperons will escape all strings. This means that if you need to display a HTML entity, you will run into double escaping issues. There are various ways to work-around this issue; the easiest of which is to write the unicode character directly in your code (and your source file uses UTF-8 encoding). Otherwise, you can find the [unicode number][charcode] for the required character. For example:
+Hyperons will escape all strings so if you need to output a HTML entity you may run into issues with double escaping. The simplesy way to work-around this issu is to write the unicode character directly in your code (and use UTF-8 encoding for you source files). Otherwise, you can find the [unicode number][charcode] for the required character. For example:
 
 ```jsx
 // Incorrect. Outputs: <h1>Mac &amp;amp; Cheese</h1>
@@ -145,7 +151,7 @@ Hyperons will escape all strings. This means that if you need to display a HTML 
 
 Components may render any number of child elements. Children can be strings, other components, or a combination of both.
 
-Functions provided to the first argument of Hyperons will have any children appended as an extra `children` property. This functionality allows you to re-use and compose components in useful ways.
+Functions provided to the first argument of Hyperons will have any children appended as an extra `children` property. This functionality allows you to compose components in useful ways.
 
 _Please note_ that child elements will not be rendered for [void elements][void].
 
@@ -158,7 +164,7 @@ const html = <Container>{'Hello'}</Container> // Outputs: <p>Hello</p>
 
 ### Class components
 
-When using other frameworks such as React, class components may be used to create components which maintain state or add extra functionality using methods. Hyperons renders static HTML so there is no state and there are no component lifecycle methods. But if you need to author or render a class component Hyperons does provide a base `Component` which may be extended.
+Class components are usually used to create components which maintain state or add extra functionality using methods. Hyperons renders static HTML so there is no state nor component lifecycle methods. If you do need to use class components Hyperons does provide a base `Component` class to extend.
 
 ```jsx
 import { h, Component } from 'hyperons'
@@ -172,7 +178,7 @@ class MyComponent extends Component {
 
 ### Fragments
 
-In React and React-like frameworks components must always return a single enclosing element. But sometimes it is convenient or required to return a list of elements, either because you don't need the extra elements or the extra elements would create invalid HTML output. For example, when rendering a description list the title and detail (`<dt>` and `<dd>`) elements are usually grouped in pairs:
+In React and React-like frameworks components must always return a single enclosing element. But sometimes it is required to return a list of elements, either because you don't need the extra elements or the extra elements would create invalid HTML output. For example, when rendering a description list the title and detail (`<dt>` and `<dd>`) elements are usually grouped in pairs:
 
 ```jsx
 import { h } from 'hyperons'
@@ -189,9 +195,9 @@ function DescriptionList(props) {
 }
 ```
 
-However, most tools will throw an error when evaluating the above code. The description title and detail elements should be wrapped in an enclosing element, but that would result in invalid HTML.
+However, most tools will throw an error when evaluating the code above because the title and description elements are not wrapped in an enclosing element. However, wrapping them with an element would result in invalid HTML.
 
-To solve this [React 16.2][react-16] introduced the concept of [fragments][fragments]. Fragments allow you to wrap a list of elements without adding extra elements to the DOM. To use fragments in your JSX code Hyperons includes a `Fragment` component:
+To solve this [React 16.2][react-16] introduced the concept of [fragments][fragments] which enable you to wrap a list of elements without rendering any extra elements. To use fragments in your JSX code Hyperons includes a `Fragment` component:
 
 ```jsx
 import { h, Fragment } from 'hyperons'
@@ -241,7 +247,7 @@ Whichever tool you use, you will need to specify the JSX _pragma_ for the transp
 
 ### Development
 
-The source code for this module is written in ES6 code and bundled into single files for distribution using [Rollup][rollup]. Tests are written using [Mocha][mocha] as the test runner and [Chai][chai] for assertions. Tests are run in both a Node.js environment and in a browser using [Puppeteer][puppeteer].
+The source code for this module is written in ES6 code and bundled for distribution using [Rollup][rollup]. Tests are written using [Mocha][mocha] as the test runner and [Chai][chai] for assertions. Tests are run in both a Node.js environment and in a browser using [Puppeteer][puppeteer].
 
 [rollup]: https://rollupjs.org/guide/en
 [mocha]: https://mochajs.org/
@@ -253,31 +259,29 @@ The source code for this module is written in ES6 code and bundled into single f
 This repository contains benchmarking and profiling tools in the `/benchmark` directory. The current results for server-side rendering are below:
 
 ```
-Benchmark run on Mon  3 Dec 2018 12:32:05 GMT with Node v10.13.0
+Benchmark run on Wed 16 Jan 2019 17:47:28 GMT with Node v10.13.0
 
-hyperapp@1.2.9
-Requests per second:    4045.06 [#/sec] (mean)
+Using:
+ - hyperapp@1.2.9
+ - hyperons@0.5.1
+ - inferno@7.0.5
+ - nervjs@1.3.9
+ - preact@8.4.2
+ - rax@0.6.7
+ - react@16.7.0
+ - vdo@4.2.0
 
-hyperons@0.5.1
-Requests per second:    5104.05 [#/sec] (mean)
+Results:
+ - Hyperapp x 7,577 ops/sec ±1.72% (92 runs sampled)
+ - Hyperons x 11,917 ops/sec ±1.89% (92 runs sampled)
+ - Inferno x 9,375 ops/sec ±0.67% (91 runs sampled)
+ - Nerv x 4,872 ops/sec ±0.73% (93 runs sampled)
+ - Preact x 4,332 ops/sec ±1.12% (96 runs sampled)
+ - Rax x 9,519 ops/sec ±1.15% (94 runs sampled)
+ - React x 5,020 ops/sec ±1.14% (92 runs sampled)
+ - vdo x 6,135 ops/sec ±0.62% (93 runs sampled)
 
-inferno@7.0.0
-Requests per second:    5203.04 [#/sec] (mean)
-
-nervjs@1.3.9
-Requests per second:    3395.33 [#/sec] (mean)
-
-preact@8.3.1
-Requests per second:    3333.20 [#/sec] (mean)
-
-rax@0.6.7
-Requests per second:    5235.97 [#/sec] (mean)
-
-react@16.6.3
-Requests per second:    3335.24 [#/sec] (mean)
-
-vdo@4.2.0
-Requests per second:    4117.50 [#/sec] (mean)
+The fastest is: [ 'Hyperons' ]
 ```
 
 ### Name
@@ -290,14 +294,16 @@ In keeping with React and the wider ecosystem I wanted to give this project a sc
 
 ### Prior art
 
-This module was inspired by the [vhtml][vhtml] package and also borrows from a few other JSX to string implementations:
+This module was originally inspired by the [vhtml] package and also borrows from a few other JSX to string implementations:
 
 * [Hyperapp Render][hyperapp] (style stringification)
 * [React DOM][react-dom] (boolean attributes)
+* [Rax] (performance improvements)
 
 [vhtml]: https://github.com/developit/vhtml
-[hyperapp]: https://github.com/hyperapp/render
-[react-dom]: https://github.com/facebook/react/tree/master/packages/react-dom
+[Hyperapp Render]: https://github.com/hyperapp/render
+[React DOM]: https://github.com/facebook/react/tree/master/packages/react-dom
+[Rax]: https://github.com/alibaba/rax
 
 ### License
 
