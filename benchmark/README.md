@@ -25,7 +25,7 @@ $ npm install -g flamebearer
 
 ### Running the benchmark
 
-Before running the benchmark please ensure that any changes made to the Hyperons source code have been bundled. To run the benchmark, execute the benchmark commands in the scripts folder:
+Before running the benchmark please ensure that any changes made to the Hyperons source code have been bundled. To run the benchmark, execute the benchmark commands in the scripts folder. This will write the result to a text file:
 
 ```sh
 $ sh scripts/benchmark.sh
@@ -35,13 +35,19 @@ $ sh scripts/benchmark.sh
 
 With Flamebearer installed you can run a load test for a module with Node profiling enabled. This will automatically generate an interactive flame chart once complete. To profile Hyperons you can run the profile commands in the scripts folder:
 
-```js
-$ sh scripts/profile.sh hyperons
+```sh
+$ sh scripts/profile.sh
+```
+
+### Benchmarking changes in development
+
+```sh
+$ node development.js
 ```
 
 ## Modules
 
-### Currently tested modules
+### Currently tested packages
 
 - hyperapp<sup>\*</sup>
 - hyperons
@@ -52,15 +58,15 @@ $ sh scripts/profile.sh hyperons
 - react
 - vdo
 
-\* Usage of Hyperapp depends on a small modification to higher-order components to accept children as a second argument rather than receiving them appended to props.
+\* Usage of Hyperapp depends on a small modification to compositional components to accept children as a second argument rather than receiving them appended to props.
 
-### Incompatible or non-operable modules
+### Incompatible or non-operable packages
 
-The following modules have been investigated but are incomptible or are unable to render the test components correctly without requiring significant changes:
+The following packages have been investigated but are incomptible or are unable to render the test components correctly without requiring significant changes:
 
-- `anujs`, errors
-- `domvm`, does not support higher-order components
-- `hyperdom`, does not support higher-order components
-- `hyperscript`, does not support higher-order components
+- `anujs`, rewrites globals and causes other modules to error
+- `domvm`, does not support compositional components
+- `hyperdom`, does not support compositional components
+- `hyperscript`, does not support compositional components
 - `qreact`, errors
 - `vhtml`, does not support mapping of attributes or setting of inner HTML
