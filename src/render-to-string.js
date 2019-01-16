@@ -55,6 +55,8 @@ const VOID_ELEMENTS = new Set([
   'wbr'
 ])
 
+const CACHE = {}
+
 function renderToString(element) {
   const elementType = typeof element
 
@@ -104,7 +106,7 @@ function renderToString(element) {
           innerHTML = value.__html
         } else {
           const valueType = typeof value
-          const name = ATTR_ALIASES[prop] || prop
+          const name = ATTR_ALIASES[prop] || CACHE[prop] || (CACHE[prop] = prop.toLowerCase())
 
           if (BOOLEAN_ATTRS.has(name)) {
             html += value ? ` ${name}` : ''
