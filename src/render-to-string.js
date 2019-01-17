@@ -2,8 +2,6 @@ import stringifyStyles from './stringify-styles'
 import escapeString from './escape-string'
 import Fragment from './fragment'
 
-const EMPTY_OBJECT = {}
-
 const ATTR_ALIASES = {
   htmlFor: 'for',
   className: 'class',
@@ -55,16 +53,12 @@ const VOID_ELEMENTS = new Set([
   'wbr'
 ])
 
-const CACHE = {}
-
 function renderToString(element) {
-  const elementType = typeof element
-
-  if (elementType === 'string') {
+  if (typeof element === 'string') {
     return escapeString(element)
-  } else if (elementType === 'number') {
+  } else if (typeof element === 'number') {
     return String(element)
-  } else if (elementType === 'boolean' || element == null) {
+  } else if (typeof element === 'boolean' || element == null) {
     return ''
   } else if (Array.isArray(element)) {
     let html = ''
@@ -105,16 +99,15 @@ function renderToString(element) {
         } else if (prop === 'dangerouslySetInnerHTML') {
           innerHTML = value.__html
         } else {
-          const valueType = typeof value
-          const name = ATTR_ALIASES[prop] || CACHE[prop] || (CACHE[prop] = prop.toLowerCase())
+          const name = ATTR_ALIASES[prop] || prop
 
           if (BOOLEAN_ATTRS.has(name)) {
             html += value ? ` ${name}` : ''
-          } else if (valueType === 'string') {
+          } else if (typeof value === 'string') {
             html += ` ${name}="${escapeString(value)}"`
-          } else if (valueType === 'number') {
+          } else if (typeof value === 'number') {
             html += ` ${name}="${String(value)}"`
-          } else if (valueType === 'boolean') {
+          } else if (typeof value === 'boolean') {
             html += ` ${name}="${value}"`
           }
         }

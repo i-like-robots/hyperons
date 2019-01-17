@@ -61,11 +61,6 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<label class="label" for="id"></label>')
     })
 
-    it('lowercases attribute names', () => {
-      const result = h('input', { tabIndex: -1 })
-      expect(render(result)).to.equal('<input tabindex="-1"/>')
-    })
-
     it('escapes HTML attribute values', () => {
       const result = h('img', { alt: '"Mac & Cheese"' })
       expect(render(result)).to.equal('<img alt="&quot;Mac &amp; Cheese&quot;"/>')
@@ -170,7 +165,7 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<div><i>Hello</i> <i>World</i>!</div>')
     })
 
-    it('passes children to wrapper components', () => {
+    it('passes children to compositional components', () => {
       const hoc = (props) => h('ul', null, props.children)
       const result = h(hoc, null, h('li', null, 'one'), h('li', null, 'two'))
       expect(render(result)).to.equal('<ul><li>one</li><li>two</li></ul>')

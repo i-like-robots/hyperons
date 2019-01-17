@@ -96,7 +96,7 @@ This method can also be accessed as `renderToString(element[, properties][, ...c
 
 ### Properties
 
-Properties are declared as an object containing [HTML attributes][attrs] and values. Attribute names may be written using any case and will always be lowercased. For example, the attribute `tabindex` may be written as `tabIndex`. Attributes requiring hyphens, such as `aria-*` and `data-*`, should be written with hyphens.
+Properties are declared as an object containing [HTML attribute names][attrs] and values. Attribute names will not be transformed so attributes requiring hyphens, such as `aria-*` and `data-*`, should be provided with hyphens.
 
 Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
 
