@@ -112,9 +112,9 @@ Any framework specific properties such as `key` and `ref` will not be rendered.
 
 The `style` attribute accepts a JavaScript object containing CSS properties and values.
 
-Properties may be written in camelCase for consistency with accessing the properties with JavsScript in the browser (e.g. `element.style.marginBottom`). Vendor prefixes other than `ms` should always begin with a capital letter, such as `WebkitHyphens`.
+Properties may be written in camelCase for consistency with accessing the properties with JavaScript in the browser (e.g. `element.style.marginBottom`). Vendor prefixes other than `ms` should always begin with a capital letter, such as `WebkitHyphens`.
 
-Hyperons will automatically append a `px` suffix to number values, but certain properties will remain unitless (e.g. `z-index` or `order`). If you want to use units other than `px`, you should specify the value as a string including the desired unit. For example:
+Hyperons will automatically append a `px` suffix to number values but certain properties will remain unitless (e.g. `z-index` and `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
 
 ```jsx
 // Input:
@@ -134,7 +134,7 @@ const styles = {
 
 ### HTML entities
 
-Hyperons will escape all strings so if you need to output a HTML entity you may run into issues with double escaping. The simplesy way to work-around this issu is to write the unicode character directly in your code (and use UTF-8 encoding for you source files). Otherwise, you can find the [unicode number][charcode] for the required character. For example:
+Hyperons will escape all strings so if you need to output a HTML entity you can run into issues with double escaping. The simplest way to work-around this issue is to write the unicode character directly in your code (and use UTF-8 encoding for you source files). Otherwise, you can find the [unicode number][charcode] for the required character. For example:
 
 ```jsx
 // Incorrect. Outputs: <h1>Mac &amp;amp; Cheese</h1>
