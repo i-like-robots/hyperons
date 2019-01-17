@@ -27,7 +27,7 @@ $ npm install -S hyperons
 
 * Share code between your React single-page apps and plain HTML pages
 * Render your components on the server and in the browser
-* Blazing fast and tiny code size (1.2kb gzipped)
+* [Blazing fast](#benchmarks) and tiny code size (1.2kb gzipped)
 * Support for CSS stringification, boolean attributes, void elements, fragments, and more
 * Render class components or stateless functional components
 
@@ -259,7 +259,7 @@ The source code for this module is written in ES6 code and bundled for distribut
 This repository contains benchmarking and profiling tools in the `/benchmark` directory. The current results for server-side rendering are below:
 
 ```
-Benchmark run on Wed 16 Jan 2019 17:47:28 GMT with Node v10.13.0
+Benchmark run on Thu 17 Jan 2019 08:26:07 GMT with Node v10.13.0
 
 Using:
  - hyperapp@1.2.9
@@ -272,14 +272,14 @@ Using:
  - vdo@4.2.0
 
 Results:
- - Hyperapp x 7,577 ops/sec ±1.72% (92 runs sampled)
- - Hyperons x 11,917 ops/sec ±1.89% (92 runs sampled)
- - Inferno x 9,375 ops/sec ±0.67% (91 runs sampled)
- - Nerv x 4,872 ops/sec ±0.73% (93 runs sampled)
- - Preact x 4,332 ops/sec ±1.12% (96 runs sampled)
- - Rax x 9,519 ops/sec ±1.15% (94 runs sampled)
- - React x 5,020 ops/sec ±1.14% (92 runs sampled)
- - vdo x 6,135 ops/sec ±0.62% (93 runs sampled)
+ - Hyperapp x 7,764 ops/sec ±1.39% (87 runs sampled)
+ - Hyperons x 13,078 ops/sec ±1.42% (94 runs sampled)
+ - Inferno x 9,563 ops/sec ±0.62% (95 runs sampled)
+ - Nerv x 4,816 ops/sec ±0.85% (94 runs sampled)
+ - Preact x 4,312 ops/sec ±1.06% (94 runs sampled)
+ - Rax x 9,699 ops/sec ±0.44% (93 runs sampled)
+ - React x 5,025 ops/sec ±1.55% (94 runs sampled)
+ - vdo x 5,892 ops/sec ±0.36% (96 runs sampled)
 
 The fastest is: [ 'Hyperons' ]
 ```
