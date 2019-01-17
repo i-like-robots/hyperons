@@ -1,22 +1,20 @@
 // https://www.w3.org/International/questions/qa-escapes#use
-const ESCAPE_TEST_REGEXP = /["'&<>]/
-
 const ESCAPE_REGEXP = /["'&<>]/g
 
-const ESCAPE_MAP = new Map([
-  ['"', '&quot;'],
-  ["'", '&#x27;'],
-  ['&', '&amp;'],
-  ['<', '&lt;'],
-  ['>', '&gt;']
-])
+const ESCAPE_MAP = {
+  '"': '&quot;',
+  "'": '&#39;',
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;'
+}
 
 function escapeChar(char) {
-  return ESCAPE_MAP.get(char)
+  return ESCAPE_MAP[char]
 }
 
 function escapeString(value) {
-  if (!ESCAPE_TEST_REGEXP.test(value)) {
+  if (!ESCAPE_REGEXP.test(value)) {
     return value
   }
 

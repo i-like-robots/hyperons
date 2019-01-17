@@ -2,7 +2,7 @@ const UPPERCASE = /([A-Z])/g
 
 const MS = /^ms-/
 
-const UNITLESS = new Set([
+const UNITLESS_PROPS = new Set([
   'animationIterationCount',
   'columns',
   'columnCount',
@@ -26,33 +26,29 @@ const UNITLESS = new Set([
   'zoom'
 ])
 
-const cache = {}
+const CACHE = {}
 
 function hyphenateChar(char) {
   return '-' + char.toLowerCase()
 }
 
 function hyphenateString(prop) {
-  return cache[prop] || (cache[prop] = prop.replace(UPPERCASE, hyphenateChar).replace(MS, '-ms-'))
+  return prop.replace(UPPERCASE, hyphenateChar).replace(MS, '-ms-')
 }
 
 function stringifyStyles(styles) {
   let out = ''
 
-  for (const prop in styles) {
+  for (let prop in styles) {
     const value = styles[prop]
 
-    if (value == null) {
-      continue
+    if (value != null) {
+      const unit = typeof value === 'number' && value !== 0 && !UNITLESS_PROPS.has(prop) ? 'px' : ''
+
+      prop = CACHE[prop] || (CACHE[prop] = hyphenateString(prop))
+
+      out += `${prop}:${value}${unit};`
     }
-
-    out += `${hyphenateString(prop)}:${value}`
-
-    if (typeof value === 'number' && value !== 0 && !UNITLESS.has(prop)) {
-      out += 'px'
-    }
-
-    out += ';'
   }
 
   return out
