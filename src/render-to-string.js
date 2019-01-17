@@ -3,10 +3,22 @@ import escapeString from './escape-string'
 import Fragment from './fragment'
 
 const ATTR_ALIASES = {
-  htmlFor: 'for',
+  acceptCharset: 'acceptcharset',
+  accessKey: 'accesskey',
   className: 'class',
+  colSpan: 'colspan',
+  crossOrigin: 'crossorigin',
+  dateTime: 'datetime',
+  defaultChecked: 'checked',
+  defaultSelected: 'selected',
   defaultValue: 'value',
-  defaultChecked: 'checked'
+  htmlFor: 'for',
+  longDesc: 'longdesc',
+  maxLength: 'maxlength',
+  readOnly: 'readonly',
+  rowSpan: 'rowspan',
+  tabIndex: 'tabindex',
+  useMap: 'usemap'
 }
 
 // <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes>

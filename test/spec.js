@@ -61,6 +61,11 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<label class="label" for="id"></label>')
     })
 
+    it('lowercases camelCase attribute names', () => {
+      const result = h('input', { tabIndex: -1, defaultValue: 'Hello' })
+      expect(render(result)).to.equal('<input tabindex="-1" value="Hello"/>')
+    })
+
     it('escapes HTML attribute values', () => {
       const result = h('img', { alt: '"Mac & Cheese"' })
       expect(render(result)).to.equal('<img alt="&quot;Mac &amp; Cheese&quot;"/>')
