@@ -117,8 +117,8 @@ describe('Hyperons', () => {
   })
 
   describe('children', () => {
-    it('ignores falsy children', () => {
-      const result = h('div', {}, undefined, null, false)
+    it('ignores empty children', () => {
+      const result = h('div', {}, undefined, null)
       expect(render(result)).to.equal('<div></div>')
     })
 
@@ -150,11 +150,6 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<div>&quot;Mac &amp; Cheese&quot;</div>')
     })
 
-    it('does not escape previous output', () => {
-      const result = h('div', null, h('i', null, 'Hello World'))
-      expect(render(result)).to.equal('<div><i>Hello World</i></div>')
-    })
-
     it('renders multiple children', () => {
       const result = h('div', null, h('i', null, 'Hello'), ' ', h('i', null, 'World'), '!')
       expect(render(result)).to.equal('<div><i>Hello</i> <i>World</i>!</div>')
@@ -171,7 +166,7 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<ul><li>one</li><li>two</li></ul>')
     })
 
-    it('favours provided children as arguments over props', () => {
+    it('favours children provided as arguments over props', () => {
       const hoc = (props) => h('ul', null, props.children)
       const result = h(
         hoc,
@@ -179,6 +174,12 @@ describe('Hyperons', () => {
         h('li', null, 'three')
       )
       expect(render(result)).to.equal('<ul><li>three</li></ul>')
+    })
+
+    it('it allows children provided as props if no children arguments were provided', () => {
+      const hoc = (props) => h('ul', null, props.children)
+      const result = h(hoc, { children: [h('li', null, 'one'), h('li', null, 'two')] })
+      expect(render(result)).to.equal('<ul><li>one</li><li>two</li></ul>')
     })
 
     it('supports setting inner HTML', () => {
