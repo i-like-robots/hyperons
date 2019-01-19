@@ -4,7 +4,14 @@ function createElement(type, props, ...children) {
   props.children =
     Array.isArray(props.children) && children.length === 0 ? props.children : children
 
-  // TODO: support default props
+  if (type && type.defaultProps) {
+    for (const prop in type.defaultProps) {
+      if (props[prop] === undefined) {
+        props[prop] = type.defaultProps[prop]
+      }
+    }
+  }
+
   return { type, props }
 }
 
