@@ -1,8 +1,7 @@
 function createElement(type, props, ...children) {
   props = props || {}
 
-  props.children =
-    Array.isArray(props.children) && children.length === 0 ? props.children : children
+  props.children = children.length === 0 && props.children ? props.children : children
 
   if (type && type.defaultProps) {
     for (const prop in type.defaultProps) {
