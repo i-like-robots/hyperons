@@ -29,7 +29,7 @@ $ npm install -S hyperons
 * Render your components on the server and in the browser
 * [Blazing fast](#benchmarks) and tiny code size (1.2kb gzipped)
 * Support for CSS stringification, boolean attributes, void elements, fragments, and more
-* Render class components or stateless functional components
+* Render class components and stateless functional components (SFC)
 
 ## Usage
 
@@ -72,37 +72,55 @@ _Please Note_ that the JSX syntax will need to be transpiled to vanilla JS. If y
 
 ## API
 
-### `h(element[, properties][, ...children])`
+### `h(element[, props][, ...children])`
 
 The `h()` function accepts the following arguments:
 
-* `element` This can be the name of a HTML element, a function, or a component class
-* `properties` An optional object of HTML element attributes. See the [properties documentation](#properties) for more information.
+* `element` This can be the name of a HTML element, a function, a component class, or fragment.
+* `props` An optional object containing data and/or HTML element attributes. See the [props documentation](#props) for more information.
 * `...children` An optional number of child elements. See the [children documentation](#children) for more information.
 
 It returns a simple representation of the element.
 
-This method can also be accessed as `createElement(element[, properties][, ...children])`.
+This method can also be accessed as `createElement(element[, props][, ...children])`.
 
 ### `render(element)`
 
-The `render()` function transforms the output of the `h()` method.
+The `render()` function transforms the output of the `h()` method into a string of HTML.
 
-It returns a string of HTML.
-
-This method can also be accessed as `renderToString(element[, properties][, ...children])`.
+This method can also be accessed as `renderToString(element)`.
 
 ## Syntax
 
-### Properties
+### Props
 
-Properties are declared as an object containing [HTML attribute names][attrs] and values. Attribute names will not be transformed so attributes requiring hyphens, such as `aria-*` and `data-*`, should be provided with hyphens.
+Props are JavaScript objects containing [HTML attribute names][attrs] and values. Attribute names will not be transformed so attributes requiring hyphens, such as `aria-*` and `data-*`, should be provided with hyphens.
 
 Since `class` and `for` are [reserved words][words] in JavaScript you may use the aliases `className` and `htmlFor` instead.
 
 Boolean attributes, such as `hidden` or `checked`, will only be rendered if assigned a [truthy][truthy] value. Enumerated attributes which accept the values `"true"` or `"false"`, such as `contenteditable`, will be rendered with their assigned value as a string.
 
-Any framework specific properties such as `key` and `ref` will not be rendered.
+Any framework specific props such as `key` and `ref` will not be rendered.
+
+Default props can be provided by defining a `defaultProps` property on a component class or functional component.
+
+```jsx
+class SubmitButton extends Component {
+  // ...
+}
+
+SubmitButton.defaultProps = {
+  text: 'Submit'
+}
+
+const Input = (props) => {
+  // ...
+}
+
+Input.defaultProps = {
+  type: 'text'
+}
+```
 
 [attrs]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 [words]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords
@@ -112,7 +130,7 @@ Any framework specific properties such as `key` and `ref` will not be rendered.
 
 The `style` attribute accepts a JavaScript object containing CSS properties and values.
 
-Properties may be written in camelCase for consistency with accessing the properties with JavaScript in the browser (e.g. `element.style.marginBottom`). Vendor prefixes other than `ms` should always begin with a capital letter, such as `WebkitHyphens`.
+CSS Properties may be written in camelCase for consistency with accessing the properties with JavaScript in the browser (e.g. `element.style.marginBottom`). Vendor prefixes other than `ms` should always begin with a capital letter, such as `WebkitHyphens`.
 
 Hyperons will automatically append a `px` suffix to number values but certain properties will remain unitless (e.g. `z-index` and `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
 

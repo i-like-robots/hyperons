@@ -65,6 +65,8 @@ const VOID_ELEMENTS = new Set([
   'wbr'
 ])
 
+const EMPTY_OBJECT = Object.freeze({})
+
 function renderToString(element) {
   if (typeof element === 'string') {
     return escapeString(element)

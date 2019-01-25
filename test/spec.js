@@ -29,14 +29,32 @@ describe('Hyperons', () => {
     })
 
     it('creates new instances of class-based components', () => {
-      class TestComponent extends Component {
+      class ClassComponent extends Component {
         render() {
           return h('span', null, this.props.text)
         }
       }
 
-      const result = h(TestComponent, { text: 'Hello World' })
+      const result = h(ClassComponent, { text: 'Hello World' })
       expect(render(result)).to.equal('<span>Hello World</span>')
+    })
+
+    it('supports default props', () => {
+      class ClassComponent extends Component {
+        static get defaultProps() {
+          return { text: 'Hello World' }
+        }
+      }
+
+      function StatelessComponent() {}
+
+      StatelessComponent.defaultProps = { text: 'Hello World' }
+
+      const a = h(ClassComponent)
+      const b = h(StatelessComponent)
+
+      expect(a.props.text).to.equal('Hello World')
+      expect(b.props.text).to.equal('Hello World')
     })
   })
 
