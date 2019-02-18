@@ -5,6 +5,9 @@ import Fragment from './fragment'
 const ATTR_ALIASES = {
   acceptCharset: 'acceptcharset',
   accessKey: 'accesskey',
+  autoCapitalize: 'autocapitalize',
+  autoComplete: 'autocomplete',
+  autoCorrect: 'autocorrect',
   className: 'class',
   colSpan: 'colspan',
   crossOrigin: 'crossorigin',
@@ -17,6 +20,7 @@ const ATTR_ALIASES = {
   maxLength: 'maxlength',
   readOnly: 'readonly',
   rowSpan: 'rowspan',
+  spellCheck: 'spellcheck',
   tabIndex: 'tabindex',
   useMap: 'usemap'
 }
