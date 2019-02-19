@@ -37,7 +37,7 @@
     "buble": "^0.19.6",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.0",
     "mocha-headless-chrome": "^2.0.1",
     "nyc": "^13.0.0",
     "prettier": "^1.15.3",
