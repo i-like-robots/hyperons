@@ -8,8 +8,7 @@
   "license": "ISC",
   "scripts": {
     "prepare": "npm run build",
-    "build": "rollup -c rollup.config.js",
-    "start": "NODE_ENV=production node app.js"
+    "build": "rollup -c rollup.config.js"
   },
   "devDependencies": {
     "buble": "^0.19.6",
