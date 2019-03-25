@@ -65,7 +65,7 @@ describe('Hyperons', () => {
     })
 
     it('does not render null or undefined HTML attributes', () => {
-      const result = h('div', { itemtype: null, itemprop: undefined })
+      const result = h('div', { itemtype: null, itemprop: undefined, className: undefined })
       expect(render(result)).to.equal('<div></div>')
     })
 
