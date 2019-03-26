@@ -120,10 +120,12 @@ function renderToString(element) {
 
         if (prop === 'children' || prop === 'key' || prop === 'ref') {
           // Why not use a continue statement? It's slower ¯\_(ツ)_/¯
+        } else if (prop === 'class' || prop === 'className') {
+          // This condition is here because it is the most common attribute
+          // and short-circuiting results in a ~5% performance boost.
+          html += value ? ` class="${escapeString(value)}"` : ''
         } else if (prop === 'style') {
           html += ` style="${stringifyStyles(value)}"`
-        } else if (prop === 'class' || prop === 'className') {
-          html += value ? ` class="${escapeString(value)}"` : ''
         } else if (prop === 'dangerouslySetInnerHTML') {
           innerHTML = value.__html
         } else {
