@@ -123,7 +123,7 @@ function renderToString(element) {
         } else if (prop === 'style') {
           html += ` style="${stringifyStyles(value)}"`
         } else if (prop === 'class' || prop === 'className') {
-          html += ` class="${escapeString(value)}"`
+          html += value ? ` class="${escapeString(value)}"` : ''
         } else if (prop === 'dangerouslySetInnerHTML') {
           innerHTML = value.__html
         } else {
