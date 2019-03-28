@@ -1,7 +1,7 @@
 const benchmark = require('benchmark')
 const current = require('hyperons')
 const development = require('../dist/cjs')
-const factory = require('./controllers/shared/factory')
+const factory = require('./engines/shared/factory')
 
 const suite = new benchmark.Suite()
 
