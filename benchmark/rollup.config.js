@@ -8,5 +8,5 @@ export default {
     outro: 'return exports; }',
     format: 'cjs'
   },
-  plugins: [buble({ jsx: 'h', target: { node: 6 } })]
+  plugins: [buble({ jsx: 'h', target: { node: '8.10' } })]
 }
