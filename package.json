@@ -28,6 +28,9 @@
     "url": "git+https://github.com/i-like-robots/hyperons.git"
   },
   "author": "Matt Hinchliffe",
+  "contributors": [
+    "Rowan Manning"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/i-like-robots/hyperons/issues"
