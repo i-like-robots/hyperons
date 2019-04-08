@@ -28,7 +28,7 @@
     "preact": "^8.4.2",
     "preact-render-to-string": "^4.1.0",
     "rax": "^1.0.0",
-    "rax-server-renderer": "^0.6.5",
+    "rax-server-renderer": "^1.0.0",
     "react": "^16.6.5",
     "react-dom": "^16.6.5",
     "vdo": "^4.2.0"
