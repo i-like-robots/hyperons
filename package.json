@@ -46,7 +46,7 @@
     "prettier": "^1.15.3",
     "rollup": "^1.1.0",
     "rollup-plugin-buble": "^0.19.6",
-    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^4.0.0"
   },
   "engines": {
