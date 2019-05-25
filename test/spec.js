@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { h, render, Fragment, Component } = require('../')
+const { h, render, Fragment, Component, createContext, useContext } = require('../')
 
 describe('Hyperons', () => {
   describe('elements', () => {
@@ -213,6 +213,45 @@ describe('Hyperons', () => {
     it('renders the children of fragments', () => {
       const result = h('dl', {}, h(Fragment, {}, h('dt', {}, 'Title'), h('dd', {}, 'Description')))
       expect(render(result)).to.equal('<dl><dt>Title</dt><dd>Description</dd></dl>')
+    })
+  })
+
+  describe('context', () => {
+    it('does not render any output for the context provider', () => {
+      const TestContext = createContext({ title: 'Hello, World' })
+      const tree = h(TestContext.Provider, {}, 'Hello')
+
+      expect(render(tree)).to.equal('Hello')
+    })
+
+    it('enables setting of a default value', () => {
+      const TestContext = createContext({ title: 'Hello, World' })
+
+      const WithContext = () => {
+        const context = useContext(TestContext)
+        return h('h1', {}, context.title)
+      }
+
+      const tree = h(TestContext.Provider, {}, h(WithContext))
+
+      expect(render(tree)).to.equal('<h1>Hello, World</h1>')
+    })
+
+    it('enables setting of contextual values', () => {
+      const TestContext = createContext({ name: 'default' })
+
+      const WithContext = (props) => {
+        const context = useContext(TestContext)
+        return h('div', {}, context.name, props.children)
+      }
+
+      const tree = h(
+        TestContext.Provider,
+        { value: { name: 'outside' } },
+        h(WithContext, {}, h(TestContext.Provider, { value: { name: 'inside' } }, h(WithContext)))
+      )
+
+      expect(render(tree)).to.equal('<div>outside<div>inside</div></div>')
     })
   })
 })
