@@ -13,7 +13,7 @@
   "dependencies": {
     "@hyperapp/render": "^2.1.0",
     "benchmark": "^2.1.4",
-    "hyperapp": "^1.2.9",
+    "hyperapp": "^2.0.0",
     "hyperons": "^1.0.0-beta.2",
     "inferno": "^7.1.12",
     "inferno-create-element": "^7.1.12",
