@@ -41,7 +41,7 @@
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
     "mocha": "^7.0.1",
-    "mocha-headless-chrome": "^2.0.2",
+    "mocha-headless-chrome": "^3.0.0",
     "nyc": "^15.0.0",
     "prettier": "^1.15.3",
     "rollup": "^1.16.2",
