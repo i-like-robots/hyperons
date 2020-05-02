@@ -50,6 +50,6 @@
     "rollup-plugin-node-resolve": "^5.0.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   }
 }
