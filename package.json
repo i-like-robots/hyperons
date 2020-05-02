@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/i-like-robots/hyperons",
   "devDependencies": {
-    "buble": "^0.19.6",
+    "buble": "^0.20.0",
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
     "mocha": "^7.0.1",
