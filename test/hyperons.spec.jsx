@@ -70,7 +70,7 @@ describe('Hyperons', () => {
     })
 
     it('does not render null or undefined HTML attributes', () => {
-      const result = render(<div itemtype={null} itemprop={undefined} className={undefined} />)
+      const result = render(<div itemType={null} itemProp={undefined} className={undefined} />)
       expect(result).toBe('<div></div>')
     })
 
@@ -106,7 +106,7 @@ describe('Hyperons', () => {
       })
 
       it('renders boolean values for enumerable attributes', () => {
-        const result = render(<div contenteditable={true} spellcheck={false} />)
+        const result = render(<div contentEditable={true} spellCheck={false} />)
         expect(result).toBe('<div contenteditable="true" spellcheck="false"></div>')
       })
     })
@@ -179,7 +179,7 @@ describe('Hyperons', () => {
     })
 
     it('escapes text children', () => {
-      const result = render(<div>"Mac & Cheese"</div>)
+      const result = render(<div>{'"Mac & Cheese"'}</div>)
       expect(result).toBe('<div>&quot;Mac &amp; Cheese&quot;</div>')
     })
 
