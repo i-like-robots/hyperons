@@ -8,13 +8,10 @@
   "scripts": {
     "build": "vite build -c vite.config.js",
     "prepare": "npm run build",
-    "pretest": "npm run build && npm run test:bundle",
-    "test:server": "mocha test/spec.js",
-    "test:browser": "mocha-headless-chrome -f test/runner.html -r dot",
-    "test:bundle": "rollup -c test/rollup.config.js",
+    "spec": "vitest run",
     "test:prettier": "prettier --config .prettierrc.json --list-different **/*.js",
     "test:coverage": "nyc --reporter=${TEST_REPORT:-text} npm run test:server",
-    "test": "npm run test:prettier && npm run ${TEST_COMMAND:-test:server} && npm run test:browser"
+    "test": "npm run test:prettier && npm run spec"
   },
   "keywords": [
     "html",

@@ -1,5 +1,6 @@
-const { expect } = require('chai')
-const { h, render, Fragment, Component } = require('../')
+import { describe, it } from 'vitest'
+import { expect } from 'chai'
+import { h, render, Fragment, Component } from '../src'
 
 describe('Hyperons', () => {
   describe('elements', () => {
@@ -89,7 +90,7 @@ describe('Hyperons', () => {
       expect(render(result)).to.equal('<img alt="&quot;Mac &amp; Cheese&quot;"/>')
     })
 
-    context('boolean attributes', () => {
+    describe('boolean attributes', () => {
       it('does not append boolean attributes with a falsy value', () => {
         const result = h('details', { hidden: false, open: 0 })
         expect(render(result)).to.equal('<details></details>')
@@ -106,7 +107,7 @@ describe('Hyperons', () => {
       })
     })
 
-    context('styles', () => {
+    describe('styles', () => {
       it('stringifies style attributes', () => {
         const result = h('div', { style: { padding: '0.5em 1em', margin: '1em 0' } })
         expect(render(result)).to.equal('<div style="padding:0.5em 1em;margin:1em 0;"></div>')
