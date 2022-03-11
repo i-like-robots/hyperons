@@ -10,6 +10,10 @@ export default {
       fileName: (format) => `hyperons.${format}.js`
     }
   },
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment'
+  },
   test: {
     environment: 'node'
   }
