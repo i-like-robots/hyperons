@@ -5,6 +5,8 @@ coverage/
 temp/
 test/
 .editorconfig
+.eslintignore
+.eslintrc.js
 .prettierignore
 .prettierrc.json
 .travis.yml
