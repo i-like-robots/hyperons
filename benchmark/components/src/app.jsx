@@ -7,8 +7,7 @@ const Address = ({ address }) => {
     <address itemProp="address" itemScope itemType="http://schema.org/PostalAddress">
       <span itemProp="streetAddress">{parts[0]}</span>,
       <span itemProp="addressLocality">{parts[1]}</span>,
-      <span itemProp="addressRegion">{parts[2]}</span>,
-      <span itemProp="postalCode">{parts[3]}</span>
+      <span itemProp="addressRegion">{parts[2]}</span>,<span itemProp="postalCode">{parts[3]}</span>
     </address>
   )
 }
@@ -42,7 +41,9 @@ const Company = (props) => (
       <li key="tag-label" style={{ marginRight: 10, fontWeight: 'bold' }}>
         Tags:
       </li>
-      {props.tags.map((tag, i) => <li key={`tag-${i}`}>{tag}</li>)}
+      {props.tags.map((tag, i) => (
+        <li key={`tag-${i}`}>{tag}</li>
+      ))}
     </ul>
   </div>
 )

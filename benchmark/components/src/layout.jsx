@@ -25,7 +25,8 @@ export default (props, children) => {
             <a
               href={item.url}
               key={`nav-${i}`}
-              className={`Nav-link Nav-link--${item.selected ? 'active' : ''}`}>
+              className={`Nav-link Nav-link--${item.selected ? 'active' : ''}`}
+            >
               {item.label}
             </a>
           ))}
