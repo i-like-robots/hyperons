@@ -3,6 +3,8 @@ import Fragment from './fragment'
 import createElement from './create-element'
 import renderToString from './render-to-string'
 
+export * from './hooks'
+
 export {
   Fragment,
   Component,

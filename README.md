@@ -132,21 +132,21 @@ A `Fragment` is a special component which enables multiple elements to be render
 
 Components are reusable pieces of UI which can be composed in useful ways. There are two types of components supported by Hyperons:
 
-- Class components, which are ES6 classes extending `Hyperons.Component` and have a `render()` method which returns elements.
 - Functional components which are functions that accept `props` and return elements.
+- Class components, which are ES6 classes extending `Hyperons.Component` and have a `render()` method which returns elements.
 
-Here is an example showing the same component written using a class and as a function:
+Here is an example showing the same component written using a function and as a class:
 
 ```jsx
+// Functional component
+const SubmitButton = (props) => <button type="submit">{props.text}</button>
+
 // Class component
 class SubmitButton extends Hyperons.Component {
   render() {
     return <button type="submit">{this.props.text}</button>
   }
 }
-
-// Functional component
-const SubmitButton = (props) => <button type="submit">{props.text}</button>
 ```
 
 When using React or React-like libraries class components are usually used to add extra functionality such as hooking into lifecycle methods and maintain state. Hyperons renders static HTML so there is no state nor lifecycle methods.
@@ -163,9 +163,18 @@ h(SubmitButton, { text: 'Submit' })
 h('button', { type: 'submit' })
 ```
 
-Default prop values can be defined on component or functional components by adding a `defaultProps` property. These will be combined with any props received by the component:
+Default prop values can be defined on components by adding a `defaultProps` property. These will be combined with any props received by the component:
 
 ```jsx
+// Functional component
+const SubmitButton = (props) => {
+  // ...
+}
+
+SubmitButton.defaultProps = {
+  text: 'Submit'
+}
+
 // Class component
 class SubmitButton extends Component {
   // ...
@@ -176,16 +185,19 @@ class SubmitButton extends Component {
     }
   }
 }
-
-// Functional component
-const SubmitButton = (props) => {
-  // ...
-}
-
-SubmitButton.defaultProps = {
-  text: 'Submit'
-}
 ```
+
+### Hooks
+
+React v16.8 introduced hooks which enable developers to add state, persistent data, and hook into lifecycle events from functional components. Hyperons renders static HTML so there is no state nor lifecycle methods but shims for the following hooks are currently supported:
+
+- useCallback
+- useEffect
+- useLayoutEffect
+- useMemo
+- useReducer
+- useRef
+- useState
 
 ### HTML Attributes
 
