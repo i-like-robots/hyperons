@@ -347,27 +347,27 @@ The source code for this module is written in ES6 code and bundled for distribut
 This repository contains benchmarking and profiling tools in the `/benchmark` directory. The current results for server-side rendering are below:
 
 ```
-Benchmark run on Sat  2 May 2020 10:57:27 BST with Node v12.16.0
+Benchmark run on Sat 12 Mar 2022 09:27:14 GMT with Node v16.13.2
 
 Using:
- - hyperapp@2.0.4
- - hyperons@1.0.0-beta.2
- - inferno@7.4.2
- - nervjs@1.5.6
- - preact@10.4.1
- - rax@1.1.1
- - react@16.13.1
+ - hyperapp@2.0.21
+ - hyperons@1.0.0
+ - inferno@7.4.11
+ - nervjs@1.5.7
+ - preact@10.6.6
+ - rax@1.2.2
+ - react@17.0.2
  - vdo@4.2.0
 
 Results:
- - Hyperapp x 6,845 ops/sec ±1.99% (88 runs sampled)
- - Hyperons x 11,377 ops/sec ±0.65% (94 runs sampled)
- - Inferno x 9,020 ops/sec ±0.76% (93 runs sampled)
- - Nerv x 5,343 ops/sec ±0.70% (94 runs sampled)
- - Preact x 3,560 ops/sec ±1.57% (95 runs sampled)
- - Rax x 5,805 ops/sec ±1.15% (92 runs sampled)
- - React x 4,609 ops/sec ±0.74% (94 runs sampled)
- - vdo x 6,608 ops/sec ±0.73% (93 runs sampled)
+ - Hyperapp x 13,469 ops/sec ±0.43% (99 runs sampled)
+ - Hyperons x 21,772 ops/sec ±0.06% (98 runs sampled)
+ - Inferno x 17,739 ops/sec ±0.14% (97 runs sampled)
+ - Nerv x 10,829 ops/sec ±0.56% (99 runs sampled)
+ - Preact x 10,945 ops/sec ±0.15% (100 runs sampled)
+ - Rax x 12,219 ops/sec ±0.31% (98 runs sampled)
+ - React x 10,000 ops/sec ±0.31% (96 runs sampled)
+ - vdo x 13,085 ops/sec ±0.16% (98 runs sampled)
 
 The fastest is: [ 'Hyperons' ]
 ```
