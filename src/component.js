@@ -2,11 +2,13 @@
  * Base Component class
  * @param {object} props The initial component props
  */
-function Component(props) {
-  this.props = props
-  this.state = this.state || {}
+export default class Component {
+  constructor(props) {
+    this.props = props
+    this.state = this.state || {}
+  }
+
+  render() {
+    return null
+  }
 }
-
-Component.prototype.render = function () {}
-
-export default Component
