@@ -2,6 +2,10 @@ export function useCallback(fn) {
   return fn
 }
 
+export function useContext(instance) {
+  return instance.state[instance.state.length - 1]
+}
+
 export function useEffect() {}
 
 export function useLayoutEffect() {}
@@ -10,9 +14,9 @@ export function useMemo(fn) {
   return fn()
 }
 
-export function useReducer(_, value, initialFn) {
-  if (typeof initialFn === 'function') {
-    return initialFn(value)
+export function useReducer(_, value, init) {
+  if (typeof init === 'function') {
+    return init(value)
   }
 
   return value

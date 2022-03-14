@@ -4,6 +4,7 @@ import createElement from './create-element'
 import renderToString from './render-to-string'
 
 export * from './hooks'
+export { createContext } from './context'
 
 export {
   Fragment,
