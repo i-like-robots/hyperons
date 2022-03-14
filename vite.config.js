@@ -7,6 +7,7 @@ export default {
       entry: 'src/index.js',
       name: 'hyperons',
       formats: ['es', 'cjs', 'umd'],
+      target: 'node14',
       fileName: (format) => `hyperons.${format}.js`
     }
   },
