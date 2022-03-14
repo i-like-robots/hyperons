@@ -22,7 +22,7 @@ describe('context', () => {
     expect(result).toBe('<p>Hello, World!</p>')
   })
 
-  it('enables access to context via a hook', () => {
+  it('enables access to context value via a hook', () => {
     const Instance = createContext({ text: 'Hello, World!' })
 
     const Component = () => {
@@ -35,7 +35,7 @@ describe('context', () => {
     expect(result).toBe('<p>Hello, World!</p>')
   })
 
-  it('enables nesting context providers and consumers', () => {
+  it('enables nesting context values with providers and consumers', () => {
     const Instance = createContext({ number: 1 })
 
     const List = () => {
@@ -59,7 +59,7 @@ describe('context', () => {
     expect(result).toBe('<ul><li>1</li><li>2</li><li>3</li><li>2</li><li>1</li></ul>')
   })
 
-  it('enables nesting context providers and hooks', () => {
+  it('enables nesting context values with providers and hooks', () => {
     const Instance = createContext({ number: 1 })
 
     const ListItem = () => {
@@ -86,5 +86,22 @@ describe('context', () => {
     const result = render(<List />)
 
     expect(result).toBe('<ul><li>1</li><li>2</li><li>3</li><li>2</li><li>1</li></ul>')
+  })
+
+  it('throws if a consumer is not given a single render function', () => {
+    const Instance = createContext()
+
+    expect(() => render(<Instance.Consumer></Instance.Consumer>)).toThrowError()
+
+    expect(() => render(<Instance.Consumer>{123}</Instance.Consumer>)).toThrowError()
+
+    expect(() =>
+      render(
+        <Instance.Consumer>
+          {() => {}}
+          {() => {}}
+        </Instance.Consumer>
+      )
+    ).toThrowError()
   })
 })

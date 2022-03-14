@@ -1,30 +1,35 @@
 import createElement from './create-element'
 
-export function Context(value) {
-  this.state = [value]
+class Context {
+  constructor(defaultValue) {
+    this.state = [defaultValue]
 
-  this.Provider = this.Provider.bind(this)
-  this.Consumer = this.Consumer.bind(this)
-}
-
-Context.prototype.Provider = function ({ value, children }) {
-  const set = () => {
-    value !== undefined && this.state.push(value)
+    this.Provider = this.Provider.bind(this)
+    this.Consumer = this.Consumer.bind(this)
   }
 
-  const unset = () => {
-    value !== undefined && this.state.pop(value)
+  Provider(props) {
+    const set = () => {
+      props.value !== undefined && this.state.push(props.value)
+    }
+
+    const unset = () => {
+      props.value !== undefined && this.state.pop(props.value)
+    }
+
+    return [createElement(set), props.children, createElement(unset)]
   }
 
-  return [createElement(set), children, createElement(unset)]
-}
-
-Context.prototype.Consumer = function ({ children }) {
-  if (typeof children[0] === 'function') {
-    return children[0](this.state[this.state.length - 1])
+  Consumer(props) {
+    if (props.children.length === 1 && typeof props.children[0] === 'function') {
+      const value = this.state[this.state.length - 1]
+      return props.children[0](value)
+    } else {
+      throw new Error('render is not a function')
+    }
   }
 }
 
-export function createContext(value) {
+export default function createContext(value) {
   return new Context(value)
 }
