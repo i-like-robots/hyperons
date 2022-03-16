@@ -1,5 +1,7 @@
 import dispatcher from './dispatcher'
 
+const NO_OP = function () {}
+
 export function useCallback(fn) {
   return fn
 }
@@ -21,7 +23,7 @@ export function useReducer(_, value, init) {
     return init(value)
   }
 
-  return value
+  return [value, NO_OP]
 }
 
 export function useRef(value) {
@@ -29,5 +31,5 @@ export function useRef(value) {
 }
 
 export function useState(value) {
-  return value
+  return [value, NO_OP]
 }
