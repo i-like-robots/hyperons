@@ -1,9 +1,11 @@
+import dispatcher from './dispatcher'
+
 export function useCallback(fn) {
   return fn
 }
 
 export function useContext(instance) {
-  return instance.state[instance.state.length - 1]
+  return instance.getChildContext(dispatcher.context)
 }
 
 export function useEffect() {}

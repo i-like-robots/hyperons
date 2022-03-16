@@ -1,6 +1,7 @@
 import stringifyStyles from './stringify-styles'
 import escapeString from './escape-string'
 import Fragment from './fragment'
+import dispatcher from './dispatcher'
 
 const ATTR_ALIASES = {
   acceptCharset: 'acceptcharset',
@@ -81,7 +82,10 @@ const VOID_ELEMENTS = new Set([
 
 const EMPTY_OBJECT = Object.freeze({})
 
-function renderToString(element) {
+function renderToString(element, context = {}) {
+  // TODO nullify and only allow in functional components
+  dispatcher.context = context
+
   if (typeof element === 'string') {
     return escapeString(element)
   } else if (typeof element === 'number') {
@@ -92,7 +96,7 @@ function renderToString(element) {
     let html = ''
 
     for (let i = 0, len = element.length; i < len; i++) {
-      html += renderToString(element[i])
+      html += renderToString(element[i], context)
     }
 
     return html
@@ -103,14 +107,29 @@ function renderToString(element) {
   if (type) {
     const props = element.props || EMPTY_OBJECT
 
+    if (type.contextRef) {
+      context = Object.assign({}, context, { [type.contextRef.id]: props.value })
+      return renderToString(type(props), context)
+    }
+
+    if (type.contextType) {
+      return renderToString(type(props, context), context)
+    }
+
     if (type.prototype && type.prototype.render) {
       const instance = new type(props)
-      return renderToString(instance.render())
-    } else if (typeof type === 'function') {
-      return renderToString(type(props))
-    } else if (type === Fragment) {
-      return renderToString(props.children)
-    } else if (typeof type === 'string') {
+      return renderToString(instance.render(), context)
+    }
+
+    if (typeof type === 'function') {
+      return renderToString(type(props), context)
+    }
+
+    if (type === Fragment) {
+      return renderToString(props.children, context)
+    }
+
+    if (typeof type === 'string') {
       let html = `<${type}`
 
       let innerHTML
@@ -151,7 +170,7 @@ function renderToString(element) {
         if (innerHTML) {
           html += innerHTML
         } else {
-          html += renderToString(props.children)
+          html += renderToString(props.children, context)
         }
 
         html += `</${type}>`

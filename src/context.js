@@ -1,28 +1,27 @@
-import createElement from './create-element'
-
+let id = 0
 class Context {
   constructor(defaultValue) {
-    this.state = [defaultValue]
+    this.id = id++
+    this.defaultValue = defaultValue
 
     this.Provider = this.Provider.bind(this)
     this.Consumer = this.Consumer.bind(this)
+
+    this.Provider.contextRef = this
+    this.Consumer.contextType = this
+  }
+
+  getChildContext(context) {
+    return Object.hasOwnProperty.call(context, this.id) ? context[this.id] : this.defaultValue
   }
 
   Provider(props) {
-    const set = () => {
-      props.value !== undefined && this.state.push(props.value)
-    }
-
-    const unset = () => {
-      props.value !== undefined && this.state.pop(props.value)
-    }
-
-    return [createElement(set), props.children, createElement(unset)]
+    return props.children
   }
 
-  Consumer(props) {
+  Consumer(props, context) {
     if (props.children.length === 1 && typeof props.children[0] === 'function') {
-      const value = this.state[this.state.length - 1]
+      const value = this.getChildContext(context)
       return props.children[0](value)
     } else {
       throw new Error('render is not a function')
@@ -30,6 +29,6 @@ class Context {
   }
 }
 
-export default function createContext(value) {
-  return new Context(value)
+export default function createContext(defaultValue) {
+  return new Context(defaultValue)
 }
