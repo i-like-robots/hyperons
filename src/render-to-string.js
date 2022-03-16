@@ -112,12 +112,13 @@ function renderToString(element, context = {}) {
       return renderToString(type(props), context)
     }
 
-    if (type.contextType) {
-      return renderToString(type(props, context), context)
-    }
-
     if (type.prototype && type.prototype.render) {
       const instance = new type(props)
+
+      if (type.contextType) {
+        instance.context = type.contextType.getChildContext(context)
+      }
+
       return renderToString(instance.render(), context)
     }
 

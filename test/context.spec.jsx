@@ -1,55 +1,71 @@
 import { describe, expect, it } from 'vitest'
-import { h, render, createContext, useContext } from '../src'
+import { h, render, createContext, useContext, Component } from '../src'
 
 describe('context', () => {
   it('accepts a default value', () => {
-    const Instance = createContext({ text: 'Hello, World!' })
+    const Ctx = createContext({ text: 'Hello, World!' })
 
-    const result = render(<Instance.Consumer>{(ctx) => <p>{ctx.text}</p>}</Instance.Consumer>)
+    const result = render(<Ctx.Consumer>{(ctx) => <p>{ctx.text}</p>}</Ctx.Consumer>)
 
     expect(result).toBe('<p>Hello, World!</p>')
   })
 
   it('accepts a value passed to a provider', () => {
-    const Instance = createContext()
+    const Ctx = createContext()
 
     const result = render(
-      <Instance.Provider value={{ text: 'Hello, World!' }}>
-        <Instance.Consumer>{(ctx) => <p>{ctx.text}</p>}</Instance.Consumer>
-      </Instance.Provider>
+      <Ctx.Provider value={{ text: 'Hello, World!' }}>
+        <Ctx.Consumer>{(ctx) => <p>{ctx.text}</p>}</Ctx.Consumer>
+      </Ctx.Provider>
     )
 
     expect(result).toBe('<p>Hello, World!</p>')
   })
 
   it('enables access to context value via a hook', () => {
-    const Instance = createContext({ text: 'Hello, World!' })
+    const Ctx = createContext({ text: 'Hello, World!' })
 
-    const Component = () => {
-      const ctx = useContext(Instance)
+    const Subject = () => {
+      const ctx = useContext(Ctx)
       return <p>{ctx.text}</p>
     }
 
-    const result = render(<Component />)
+    const result = render(<Subject />)
+
+    expect(result).toBe('<p>Hello, World!</p>')
+  })
+
+  it('enables access to context value via class contextType', () => {
+    const Ctx = createContext({ text: 'Hello, World!' })
+
+    class Subject extends Component {
+      render() {
+        return <p>{this.context.text}</p>
+      }
+    }
+
+    Subject.contextType = Ctx
+
+    const result = render(<Subject />)
 
     expect(result).toBe('<p>Hello, World!</p>')
   })
 
   it('enables nesting context values with providers and consumers', () => {
-    const Instance = createContext({ number: 1 })
+    const Ctx = createContext({ number: 1 })
 
     const List = () => {
       return (
         <ul>
-          <Instance.Consumer>{(ctx) => <li>{ctx.number}</li>}</Instance.Consumer>
-          <Instance.Provider value={{ number: 2 }}>
-            <Instance.Consumer>{(ctx) => <li>{ctx.number}</li>}</Instance.Consumer>
-            <Instance.Provider value={{ number: 3 }}>
-              <Instance.Consumer>{(ctx) => <li>{ctx.number}</li>}</Instance.Consumer>
-            </Instance.Provider>
-            <Instance.Consumer>{(ctx) => <li>{ctx.number}</li>}</Instance.Consumer>
-          </Instance.Provider>
-          <Instance.Consumer>{(ctx) => <li>{ctx.number}</li>}</Instance.Consumer>
+          <Ctx.Consumer>{(ctx) => <li>{ctx.number}</li>}</Ctx.Consumer>
+          <Ctx.Provider value={{ number: 2 }}>
+            <Ctx.Consumer>{(ctx) => <li>{ctx.number}</li>}</Ctx.Consumer>
+            <Ctx.Provider value={{ number: 3 }}>
+              <Ctx.Consumer>{(ctx) => <li>{ctx.number}</li>}</Ctx.Consumer>
+            </Ctx.Provider>
+            <Ctx.Consumer>{(ctx) => <li>{ctx.number}</li>}</Ctx.Consumer>
+          </Ctx.Provider>
+          <Ctx.Consumer>{(ctx) => <li>{ctx.number}</li>}</Ctx.Consumer>
         </ul>
       )
     }
@@ -60,10 +76,10 @@ describe('context', () => {
   })
 
   it('enables nesting context values with providers and hooks', () => {
-    const Instance = createContext({ number: 1 })
+    const Ctx = createContext({ number: 1 })
 
     const ListItem = () => {
-      const ctx = useContext(Instance)
+      const ctx = useContext(Ctx)
       return <li>{ctx.number}</li>
     }
 
@@ -71,13 +87,13 @@ describe('context', () => {
       return (
         <ul>
           <ListItem />
-          <Instance.Provider value={{ number: 2 }}>
+          <Ctx.Provider value={{ number: 2 }}>
             <ListItem />
-            <Instance.Provider value={{ number: 3 }}>
+            <Ctx.Provider value={{ number: 3 }}>
               <ListItem />
-            </Instance.Provider>
+            </Ctx.Provider>
             <ListItem />
-          </Instance.Provider>
+          </Ctx.Provider>
           <ListItem />
         </ul>
       )
@@ -89,18 +105,18 @@ describe('context', () => {
   })
 
   it('throws if a consumer is not given a single render function', () => {
-    const Instance = createContext()
+    const Ctx = createContext()
 
-    expect(() => render(<Instance.Consumer></Instance.Consumer>)).toThrowError()
+    expect(() => render(<Ctx.Consumer></Ctx.Consumer>)).toThrowError()
 
-    expect(() => render(<Instance.Consumer>{123}</Instance.Consumer>)).toThrowError()
+    expect(() => render(<Ctx.Consumer>{123}</Ctx.Consumer>)).toThrowError()
 
     expect(() =>
       render(
-        <Instance.Consumer>
+        <Ctx.Consumer>
           {() => {}}
           {() => {}}
-        </Instance.Consumer>
+        </Ctx.Consumer>
       )
     ).toThrowError()
   })

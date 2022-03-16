@@ -1,3 +1,5 @@
+import { useContext } from './hooks'
+
 let id = 0
 class Context {
   constructor(defaultValue) {
@@ -8,7 +10,6 @@ class Context {
     this.Consumer = this.Consumer.bind(this)
 
     this.Provider.contextRef = this
-    this.Consumer.contextType = this
   }
 
   getChildContext(context) {
@@ -19,9 +20,9 @@ class Context {
     return props.children
   }
 
-  Consumer(props, context) {
+  Consumer(props) {
     if (props.children.length === 1 && typeof props.children[0] === 'function') {
-      const value = this.getChildContext(context)
+      const value = useContext(this)
       return props.children[0](value)
     } else {
       throw new Error('render is not a function')
