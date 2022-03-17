@@ -8,7 +8,7 @@
 
 </div>
 
-Renders JSX components to static HTML on the server and in the browser.
+The fastest and smallest JSX to string renderer on the server and in the browser.
 
 ## Installation
 
@@ -26,11 +26,10 @@ $ npm install -S hyperons
 
 ## Features
 
-- Share code between React single-page apps and plain HTML pages
+- [The fastest](#benchmarks) JSX to string renderer and tiny code size (1.2kb gzipped)
 - Render components on the server and in the browser
-- [Superfast](#benchmarks) and tiny code size (1.2kb gzipped)
-- Support for CSS stringification, boolean attributes, void elements, fragments, and more
-- Render class components and functional components
+- Works with class components and functional components, even ones that use [hooks](#hooks)
+- Support for context, CSS stringification, boolean attributes, void elements, fragments, and more
 
 ## Usage
 
@@ -126,6 +125,20 @@ A `Fragment` is a special component which enables multiple elements to be render
 </dl>
 ```
 
+### `Hyperons.createContext`
+
+Creates a new [context](#context) object. Components which subscribe to this context will read the current context value from the closest matching context provider above it in the tree. Hyperons largely supports the same [context API](https://reactjs.org/docs/context.html) as React including accessing context via the `Class.contextType` property and `useContext()` [hook](#hooks).
+
+```jsx
+const Context = Hyperons.createContext()
+
+const Component = () => (
+  <Context.Provider value={{ text: 'Hello, World!' }}>
+    <Context.Consumer>{(ctx) => <p>{ctx.text}</p>}</Context.Consumer>
+  </Context.Provider>
+)
+```
+
 ## Syntax
 
 ### Components
@@ -157,10 +170,10 @@ Props are objects either containing data to share with components or [HTML attri
 
 ```js
 // Pass data to a component as props
-h(SubmitButton, { text: 'Submit' })
+Hyperons.createElement(SubmitButton, { text: 'Submit' })
 
 // Render props as HTML attributes
-h('button', { type: 'submit' })
+Hyperons.createElement('button', { type: 'submit' })
 ```
 
 Default prop values can be defined on components by adding a `defaultProps` property. These will be combined with any props received by the component:
@@ -176,7 +189,7 @@ SubmitButton.defaultProps = {
 }
 
 // Class component
-class SubmitButton extends Component {
+class SubmitButton extends Hyperons.Component {
   // ...
 
   static get defaultProps() {
@@ -186,18 +199,6 @@ class SubmitButton extends Component {
   }
 }
 ```
-
-### Hooks
-
-React v16.8 introduced hooks which enable developers to add state, persistent data, and hook into lifecycle events from functional components. Hyperons renders static HTML so there is no state nor lifecycle methods but shims for the following hooks are currently supported:
-
-- useCallback
-- useEffect
-- useLayoutEffect
-- useMemo
-- useReducer
-- useRef
-- useState
 
 ### HTML Attributes
 
@@ -316,6 +317,56 @@ function DescriptionList(props) {
 
 [react-16]: https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html
 [fragments]: https://reactjs.org/docs/fragments.html
+
+### Context
+
+In React and React-like frameworks context provides a way to share values between components without using props to pass it down through every level of the component tree. Hyperons largely supports the same [context API](https://reactjs.org/docs/context.html) as React - contexts can be created with a default value, values updated with a `Context.Provider`, and context consumed via `Class.contextType`, `Context.Consumer`, or `useContext` [hook](#hooks).
+
+```jsx
+const Context = Hyperons.createContext({ text: 'Default value' })
+
+// Functional component using a consumer
+const WithConsumer = () => {
+  return <Context.Consumer>{(ctx) => <p>{ctx.text}</p>}</Context.Consumer>
+}
+
+// Functional component using a hook
+const WithHook = () => {
+  const ctx = Hyperons.useContext(Context)
+  return <p>{ctx.text}</p>
+}
+
+// Class component subscribing by contextType
+class WithContextType extends Hyperons.Component {
+  render() {
+    return <p>{this.context.text}</p>
+  }
+}
+
+ComponentClass.contextType = Context
+
+// Replacing the default value with a provider
+const WithProvider = () => (
+  <Context.Provider value={{ text: 'Updated value' }}>
+    <Context.Consumer>{(ctx) => <p>{ctx.text}</p>}</Context.Consumer>
+  </Context.Provider>
+)
+```
+
+### Hooks
+
+React v16.8 introduced hooks which enable developers to add state, persistent data, and hook into lifecycle events from functional components. Hyperons renders static HTML so there is no state nor lifecycle methods but shims for the following hooks are currently supported:
+
+| Hook            | Behavior                                                             |
+| --------------- | -------------------------------------------------------------------- |
+| useCallback     | Returns the given function                                           |
+| useContext      | Fully functional, see [context](#context)                            |
+| useEffect       | No op                                                                |
+| useLayoutEffect | No op                                                                |
+| useMemo         | Returns the given value                                              |
+| useReducer      | Returns the given value and a no op function, calls init if provided |
+| useRef          | Returns the given value wrapped in an object                         |
+| useState        | Returns the given value and a no op function                         |
 
 ### JSX
 
