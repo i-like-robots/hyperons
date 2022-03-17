@@ -372,26 +372,25 @@ React v16.8 introduced hooks which enable developers to add state, persistent da
 
 _Not familiar with JSX? Check out [WTF is JSX][wtf] and [JSX in Depth][in-depth] first._
 
-If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you're using there will be different plugins available. Some popular tools to transpile JavaScript are [Babel][babel] (with [the JSX plugin][babel-jsx]), [Bublé][buble] (with [JSX enabled][buble-jsx]) and [Sucrase].
+If you're authoring your components with JSX syntax you will need to transpile your code into plain JavaScript in order to run them. Depending on the toolchain you're using there will be different plugins available. Some popular tools to transpile JavaScript are [Babel] (with [the React preset][babel-react]), [ESBuild] and [Sucrase].
 
 [wtf]: https://jasonformat.com/wtf-is-jsx/
 [in-depth]: https://reactjs.org/docs/jsx-in-depth.html
 [babel]: https://babeljs.io/
-[babel-jsx]: https://babeljs.io/docs/plugins/transform-react-jsx/
-[buble]: https://github.com/Rich-Harris/buble
-[buble-jsx]: https://buble.surge.sh/guide/#jsx
+[babel-react]: https://babeljs.io/docs/en/babel-preset-react
+[esbuild]: https://esbuild.github.io/
 [sucrase]: https://github.com/alangpierce/sucrase
 
 ## Project information
 
 ### Development
 
-The source code for this module is written in ES6 code and bundled for distribution using [Rollup][rollup]. Tests are written using [Mocha][mocha] as the test runner and [Chai][chai] for assertions. Tests are run in both a Node.js environment and in a browser using [Puppeteer][puppeteer].
+This project is written using ES2020 syntax, [Prettier] for code formatting, [ESLint] for static analysis, is tested with [Vitest], and bundled using [Vite].
 
-[rollup]: https://rollupjs.org/guide/en
-[mocha]: https://mochajs.org/
-[chai]: http://www.chaijs.com/
-[puppeteer]: https://github.com/GoogleChrome/puppeteer
+[prettier]: https://prettier.io/
+[eslint]: https://eslint.org/
+[vitest]: https://vitest.dev/
+[vite]: https://vite.dev
 
 ### Benchmarks
 
