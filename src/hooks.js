@@ -20,7 +20,7 @@ export function useMemo(fn) {
 
 export function useReducer(_, value, init) {
   if (typeof init === 'function') {
-    return init(value)
+    value = init(value)
   }
 
   return [value, NO_OP]
