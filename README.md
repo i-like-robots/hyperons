@@ -45,7 +45,7 @@ import { h, render } from 'hyperons'
 const Welcome = () =>
   h(
     'div',
-    { class: 'welcome-banner' },
+    { className: 'welcome-banner' },
     h('h1', null, 'Hello World!'),
     h('p', null, 'This component was rendered with Hyperons')
   )
@@ -59,7 +59,7 @@ Although you can use Hyperons without a compilation step, I'd recommend using [J
 import { h, render } from 'hyperons'
 
 const Welcome = () => (
-  <div class="welcome-banner">
+  <div className="welcome-banner">
     <h1>Hyperons</h1>
     <p>This component was rendered with Hyperons</p>
   </div>
@@ -67,10 +67,6 @@ const Welcome = () => (
 
 render(<Welcome />)
 ```
-
-_Please Note_ that the JSX syntax will need to be transformed to regular JavaScript. If you do not wish to implement a build step for your server-side code I recommend using [Sucrase] which can enable on-the-fly transformations for `.jsx` files.
-
-[sucrase]: https://github.com/alangpierce/sucrase
 
 ## API
 
@@ -101,7 +97,9 @@ Returns the rendered `element` as a string. It accepts the following arguments:
 Components can be defined as classes or functions. Components written as classes should extend `Hyperons.Component`:
 
 ```jsx
-class Welcome extends Hyperons.Component {
+import { h, Component } from 'hyperons'
+
+class Welcome extends Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>
   }
@@ -115,14 +113,20 @@ The only method you must define for a class component is `render()`. See the [co
 A `Fragment` is a special component which enables multiple elements to be rendered without a wrapper. See the [using fragments](#fragments) documentation for more information.
 
 ```jsx
-<dl>
-  {props.definitions.map((item) => (
-    <Hyperons.Fragment>
-      <dt>{item.title}</dt>
-      <dd>{item.description}</dd>
-    </Hyperons.Fragment>
-  ))}
-</dl>
+import { h, Fragment } from 'hyperons'
+
+const DescriptionList = () => {
+  return (
+    <dl>
+      {props.definitions.map((item) => (
+        <Fragment>
+          <dt>{item.title}</dt>
+          <dd>{item.description}</dd>
+        </Fragment>
+      ))}
+    </dl>
+  )
+}
 ```
 
 ### `Hyperons.createContext`
@@ -130,13 +134,54 @@ A `Fragment` is a special component which enables multiple elements to be render
 Creates a new [context](#context) object. Components which subscribe to this context will read the current context value from the closest matching context provider above it in the tree. Hyperons largely supports the same [context API](https://reactjs.org/docs/context.html) as React including accessing context via the `Class.contextType` property and `useContext()` [hook](#hooks).
 
 ```jsx
-const Context = Hyperons.createContext()
+import { h, createContext } from 'hyperons'
 
-const Component = () => (
-  <Context.Provider value={{ text: 'Hello, World!' }}>
-    <Context.Consumer>{(ctx) => <p>{ctx.text}</p>}</Context.Consumer>
-  </Context.Provider>
-)
+const MyContext = createContext()
+
+const ChildComponent = () => {
+  return <MyContext.Consumer>{(ctx) => <p>{ctx.text}</p>}</MyContext.Consumer>
+}
+
+const ParentComponent = () => {
+  return (
+    <MyContext.Provider value={{ text: 'Hello, World!' }}>
+      <ChildComponent />
+    </MyContext.Provider>
+  )
+}
+```
+
+### Hooks
+
+React v16.8 introduced hooks which enable developers to add state, persistent data, and hook into lifecycle events from functional components. Hyperons renders static HTML so there is no state nor lifecycle methods but shims for the following hooks are currently supported:
+
+| Hook            | Behavior                                                             |
+| --------------- | -------------------------------------------------------------------- |
+| useCallback     | Returns the given function                                           |
+| useContext      | Fully functional, see [context](#context)                            |
+| useEffect       | No op                                                                |
+| useLayoutEffect | No op                                                                |
+| useMemo         | Invokes the given function and returns the value                     |
+| useReducer      | Returns the given value and a no op function, calls init if provided |
+| useRef          | Returns the given value wrapped in an object                         |
+| useState        | Returns the given value and a no op function                         |
+
+```jsx
+import { h, useCallback, useState } from 'hyperons'
+
+function Counter() {
+  const [count, setCount] = useState(0)
+  const onIncrement = useCallback(() => setCount(count + 1), [count])
+  const onDecrement = useCallback(() => setCount(count - 1), [count])
+
+  return (
+    <div>
+      <button onClick={onDecrement}>-</button>
+      <div>{count}</div>
+      <button onClick={onIncrement}>+</button>
+    </div>
+  )
+}
 ```
 
 ## Syntax
@@ -145,17 +190,21 @@ const Component = () => (
 
 Components are reusable pieces of UI which can be composed in useful ways. There are two types of components supported by Hyperons:
 
-- Functional components which are functions that accept `props` and return elements.
+- Functional components which are regular JavaScript functions which accept `props` and return elements.
 - Class components, which are ES6 classes extending `Hyperons.Component` and have a `render()` method which returns elements.
 
 Here is an example showing the same component written using a function and as a class:
 
 ```jsx
+import { h, Component } from 'hyperons'
+
 // Functional component
-const SubmitButton = (props) => <button type="submit">{props.text}</button>
+function SubmitButtonFn(props) {
+  return <button type="submit">{props.text}</button>
+}
 
 // Class component
-class SubmitButton extends Hyperons.Component {
+class SubmitButtonClass extends Component {
   render() {
     return <button type="submit">{this.props.text}</button>
   }
@@ -180,16 +229,16 @@ Default prop values can be defined on components by adding a `defaultProps` prop
 
 ```jsx
 // Functional component
-const SubmitButton = (props) => {
+function SubmitButtonFn(props) {
   // ...
 }
 
-SubmitButton.defaultProps = {
+SubmitButtonFn.defaultProps = {
   text: 'Submit'
 }
 
 // Class component
-class SubmitButton extends Hyperons.Component {
+class SubmitButtonClass extends Hyperons.Component {
   // ...
 
   static get defaultProps() {
@@ -214,6 +263,8 @@ When props are used to render [attributes] some property names and values will b
 
 - Framework specific props such as `key` and `ref` will not be rendered.
 
+- Attributes with a function value, such as event handlers, will not be rendered.
+
 [attributes]: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 [words]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords
 [truthy]: https://developer.mozilla.org/en-US/docs/Glossary/Truthy
@@ -224,7 +275,7 @@ The `style` attribute accepts a JavaScript object containing CSS properties and 
 
 CSS Properties may be written in camelCase for consistency with accessing the properties with JavaScript in the browser (e.g. `element.style.marginBottom`). Vendor prefixes other than `ms` should always begin with a capital letter (e.g. `WebkitHyphens`).
 
-Hyperons will automatically append a `px` suffix to number values but certain properties will remain unitless (e.g. `z-index` and `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
+Hyperons will automatically append a `px` suffix to number values but certain properties will remain unit-less (e.g. `z-index` and `order`). If you want to use units other than `px`, you should specify the value as a string with the desired unit. For example:
 
 ```jsx
 // Input:
@@ -236,7 +287,7 @@ const styles = {
   WebkitHyphens: 'auto',
 }
 
-<div style={styles}></div>
+Hyperons.render(<div style={styles}></div>)
 
 // Output:
 <div style="display:flex;order:2;width:50%;margin-bottom:20px;-webkit-hyphens:auto;></div>
@@ -263,7 +314,10 @@ Hyperons supports the `dangerouslySetInnerHTML` property to inject unescaped HTM
 
 ```jsx
 const html = { __html: '<i>Mac &amp; Cheese</i>' }
-;<div dangerouslySetInnerHTML={html}></div> // Outputs: <div><i>Mac &amp; Cheese</i></div>
+Hyperons.render(<div dangerouslySetInnerHTML={html}></div>)
+
+// Output:
+<div><i>Mac &amp; Cheese</i></div>
 ```
 
 ### Children
@@ -296,9 +350,9 @@ function DescriptionList(props) {
 }
 ```
 
-However, several tools will throw an error when evaluating the code above because the title and description elements are not wrapped in an enclosing element but wrapping them with an element would result in invalid HTML.
+However, most tools will throw an error when evaluating the code above because the title and description elements are not wrapped in an single parent element but wrapping them would result in invalid HTML.
 
-To solve this [React 16.2][react-16] introduced the concept of [fragments] which enable a list of elements to be wrapped with an enclosing element without rendering anything extra. To use fragments in your JSX code Hyperons provides a special `Fragment` component:
+To solve this [React 16.2][react-16] introduced the concept of [fragments] which enable a list of elements to be wrapped inside an enclosing element without rendering anything extra. To use fragments in your JSX code Hyperons provides a special `Fragment` component:
 
 ```jsx
 function DescriptionList(props) {
@@ -320,24 +374,26 @@ function DescriptionList(props) {
 
 ### Context
 
-In React and React-like frameworks context provides a way to share values between components without using props to pass it down through every level of the component tree. Hyperons largely supports the same [context API](https://reactjs.org/docs/context.html) as React - contexts can be created with a default value, values updated with a `Context.Provider`, and context consumed via `Class.contextType`, `Context.Consumer`, or `useContext` [hook](#hooks).
+In React and React-like frameworks context provides a way to share values between components without using props to pass it down through every level of the component tree. Hyperons largely supports the same [context API](https://reactjs.org/docs/context.html) as React - contexts can be created with a default value, values updated with a `<Provider>`, and context consumed via `Class.contextType`, `<Consumer>`, or `useContext` [hook](#hooks).
 
 ```jsx
-const Context = Hyperons.createContext({ text: 'Default value' })
+import { h, createContext, useContext } from 'hyperons'
 
-// Functional component using a consumer
-const WithConsumer = () => {
+const Context = createContext({ text: 'Default value' })
+
+// Functional component using a context consumer
+function ComponentWithConsumer() {
   return <Context.Consumer>{(ctx) => <p>{ctx.text}</p>}</Context.Consumer>
 }
 
-// Functional component using a hook
-const WithHook = () => {
-  const ctx = Hyperons.useContext(Context)
+// Functional component using the context hook
+function ComponentWithHook() {
+  const ctx = useContext(Context)
   return <p>{ctx.text}</p>
 }
 
 // Class component subscribing by contextType
-class WithContextType extends Hyperons.Component {
+class ComponentClass extends Component {
   render() {
     return <p>{this.context.text}</p>
   }
@@ -346,27 +402,15 @@ class WithContextType extends Hyperons.Component {
 ComponentClass.contextType = Context
 
 // Replacing the default value with a provider
-const WithProvider = () => (
-  <Context.Provider value={{ text: 'Updated value' }}>
-    <Context.Consumer>{(ctx) => <p>{ctx.text}</p>}</Context.Consumer>
-  </Context.Provider>
-)
+function ComponentWithProvide() {
+  return (
+    <Context.Provider value={{ text: 'Updated value' }}>
+      <ComponentWithConsumer />
+      <ComponentWithHook />
+    </Context.Provider>
+  )
+}
 ```
-
-### Hooks
-
-React v16.8 introduced hooks which enable developers to add state, persistent data, and hook into lifecycle events from functional components. Hyperons renders static HTML so there is no state nor lifecycle methods but shims for the following hooks are currently supported:
-
-| Hook            | Behavior                                                             |
-| --------------- | -------------------------------------------------------------------- |
-| useCallback     | Returns the given function                                           |
-| useContext      | Fully functional, see [context](#context)                            |
-| useEffect       | No op                                                                |
-| useLayoutEffect | No op                                                                |
-| useMemo         | Returns the given value                                              |
-| useReducer      | Returns the given value and a no op function, calls init if provided |
-| useRef          | Returns the given value wrapped in an object                         |
-| useState        | Returns the given value and a no op function                         |
 
 ### JSX
 
