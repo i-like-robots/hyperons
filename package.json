@@ -9,6 +9,7 @@
     "build": "vite build -c vite.config.js",
     "prepare": "npm run build",
     "spec": "vitest run",
+    "coverage": "vitest run --coverage",
     "lint": "eslint . --ext js,jsx",
     "format": "prettier --write '**/*.{js,jsx}'",
     "verify": "npm run lint && npm run format",
@@ -35,6 +36,7 @@
   },
   "homepage": "https://github.com/i-like-robots/hyperons",
   "devDependencies": {
+    "c8": "^7.11.3",
     "eslint": "^8.11.0",
     "eslint-plugin-react": "^7.29.3",
     "prettier": "^2.4.0",
