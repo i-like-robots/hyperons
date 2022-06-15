@@ -16,6 +16,9 @@ export default {
     jsxFragment: 'Fragment'
   },
   test: {
-    environment: 'node'
+    environment: 'node',
+    coverage: {
+      reporter: ['text', 'lcov'],
+    },
   }
 }
