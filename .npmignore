@@ -1,14 +1,11 @@
+.github/
 .nyc_output/
 assets/
 benchmark/
 coverage/
-temp/
 test/
 .editorconfig
 .eslintignore
 .eslintrc.js
 .prettierignore
 .prettierrc.json
-.travis.yml
-greenkeeper.json
-rollup.config.js
