@@ -1,4 +1,4 @@
-import { describe, expect, it, fn } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { useCallback, useMemo, useReducer, useRef, useState } from '../src'
 
 describe('hooks', () => {
@@ -27,7 +27,7 @@ describe('hooks', () => {
     it('calls init function if provided with given state', () => {
       const callback = () => 123
       const state = { number: 123 }
-      const init = fn((s) => s)
+      const init = vi.fn((s) => s)
 
       expect(useReducer(callback, state, init)).toEqual([state, expect.any(Function)])
       expect(init).toHaveBeenCalledWith(state)
