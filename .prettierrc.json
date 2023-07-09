@@ -4,6 +4,5 @@
   "singleQuote": true,
   "bracketSpacing": true,
   "arrowParens": "always",
-  "jsxBracketSameLine": true,
   "trailingComma": "none"
 }
