@@ -1,6 +1,7 @@
 import stringifyStyles from './stringify-styles'
 import escapeString from './escape-string'
 import Fragment from './fragment'
+import Suspense from './suspense'
 import dispatcher from './dispatcher'
 
 const ATTR_ALIASES = {
@@ -128,6 +129,10 @@ function renderToString(element, context = {}) {
 
     if (type === Fragment) {
       return renderToString(props.children, context)
+    }
+
+    if (type === Suspense) {
+      return renderToString(props.fallback, context)
     }
 
     if (typeof type === 'string') {
