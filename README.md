@@ -35,7 +35,7 @@ $ npm install -S hyperons
 
 This module provides two functions; one to create elements and one to render them. If you've worked with [React][react] or React-like libraries before then they're the equivalent to `React.createElement()` and `ReactDOM.renderToString()`.
 
-The example below shows how to render a simple component using Hyperons:
+The example below shows how to render a simple component using Hyperons with vanilla JavaScript:
 
 [react]: https://reactjs.org/
 
@@ -125,6 +125,22 @@ const DescriptionList = () => {
         </Fragment>
       ))}
     </dl>
+  )
+}
+```
+
+### `Hyperons.Suspense`
+
+`Suspense` is a special component which renders a fallback for lazy-loaded or async children. Hyperons only renders static HTML so this component exists only for compatibility purposes and will not render its children.
+
+```jsx
+import { h, Suspense } from 'hyperons'
+
+const AsyncComponent = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SomeComponent />
+    </Suspense>
   )
 }
 ```
