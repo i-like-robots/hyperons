@@ -10,7 +10,7 @@
     "prepare": "npm run build",
     "spec": "vitest run",
     "coverage": "vitest run --coverage",
-    "lint": "eslint . --ext js,jsx",
+    "lint": "eslint",
     "format": "prettier --write '**/*.{js,jsx}'",
     "verify": "npm run lint && npm run format",
     "test": "npm run verify && npm run spec"
@@ -37,9 +37,10 @@
   "homepage": "https://github.com/i-like-robots/hyperons",
   "devDependencies": {
     "@vitest/coverage-v8": "^1.4.0",
-    "eslint": "^8.31.0",
-    "eslint-plugin-react": "^7.31.0",
-    "prettier": "^3.0.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.0",
     "vite": "^5.1.6",
     "vitest": "^1.4.0"
   },
