@@ -16,8 +16,7 @@
     "address": "308 Fane Court, Walton, Arizona, 9319",
     "latitude": "-49.623419",
     "longitude": "-25.717461",
-    "description":
-      "Ad exercitation culpa sint id cupidatat adipisicing exercitation veniam officia ut anim.",
+    "description": "Ad exercitation culpa sint id cupidatat adipisicing exercitation veniam officia ut anim.",
     "tags": ["ullamco"]
   },
   {
@@ -27,8 +26,7 @@
     "address": "659 Bushwick Court, Martinez, Palau, 9995",
     "latitude": "-43.601087",
     "longitude": "169.805408",
-    "description":
-      "Proident adipisicing sint nisi deserunt dolore veniam adipisicing aliqua ullamco voluptate.",
+    "description": "Proident adipisicing sint nisi deserunt dolore veniam adipisicing aliqua ullamco voluptate.",
     "tags": ["enim"]
   },
   {
@@ -58,8 +56,7 @@
     "address": "182 Harman Street, Marshall, Oklahoma, 4495",
     "latitude": "-45.22889",
     "longitude": "-76.066739",
-    "description":
-      "Est cupidatat aute nostrud exercitation adipisicing aliquip ullamco minim laboris cupidatat anim.",
+    "description": "Est cupidatat aute nostrud exercitation adipisicing aliquip ullamco minim laboris cupidatat anim.",
     "tags": ["do", "sunt", "labore"]
   },
   {
@@ -69,8 +66,7 @@
     "address": "140 Roebling Street, Shaft, Virginia, 3427",
     "latitude": "-39.560481",
     "longitude": "-109.087169",
-    "description":
-      "Velit dolore non occaecat dolore sit ipsum reprehenderit nulla esse non est incididunt elit.",
+    "description": "Velit dolore non occaecat dolore sit ipsum reprehenderit nulla esse non est incididunt elit.",
     "tags": ["officia", "irure"]
   },
   {
@@ -100,8 +96,7 @@
     "address": "838 Village Road, Montura, Louisiana, 3624",
     "latitude": "75.648538",
     "longitude": "-49.393962",
-    "description":
-      "Esse ad duis ad incididunt elit mollit cillum reprehenderit ea fugiat eiusmod ad.",
+    "description": "Esse ad duis ad incididunt elit mollit cillum reprehenderit ea fugiat eiusmod ad.",
     "tags": ["et", "occaecat"]
   }
 ]

@@ -11,7 +11,7 @@
     "spec": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "eslint",
-    "format": "prettier --write '**/*.{js,jsx}'",
+    "format": "prettier $([ $CI ] && echo '--check' || echo '--write') '**/*.{js,jsx,json,yml}'",
     "verify": "npm run lint && npm run format",
     "test": "npm run verify && npm run spec"
   },
