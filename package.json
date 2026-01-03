@@ -36,13 +36,13 @@
   },
   "homepage": "https://github.com/i-like-robots/hyperons",
   "devDependencies": {
-    "@vitest/coverage-v8": "^1.4.0",
-    "eslint": "^9.16.0",
-    "eslint-plugin-react": "^7.35.0",
-    "globals": "^15.13.0",
-    "prettier": "^3.4.2",
-    "vite": "^5.1.6",
-    "vitest": "^1.4.0"
+    "@vitest/coverage-v8": "^4.0.16",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^17.0.0",
+    "prettier": "^3.7.4",
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
   },
   "engines": {
     "node": ">=14.0.0"
